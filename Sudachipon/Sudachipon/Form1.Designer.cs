@@ -28,20 +28,125 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.lbxUsers = new System.Windows.Forms.ListBox();
+            this.dgvPcDateManager = new System.Windows.Forms.DataGridView();
+            this.msMasters = new System.Windows.Forms.MenuStrip();
+            this.mstPc = new System.Windows.Forms.ToolStripMenuItem();
+            this.mstSoftware = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblUsersCaption = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).BeginInit();
+            this.msMasters.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // lbxUsers
+            // 
+            this.lbxUsers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbxUsers.FormattingEnabled = true;
+            this.lbxUsers.ItemHeight = 18;
+            this.lbxUsers.Location = new System.Drawing.Point(622, 72);
+            this.lbxUsers.Name = "lbxUsers";
+            this.lbxUsers.Size = new System.Drawing.Size(182, 256);
+            this.lbxUsers.TabIndex = 0;
+            this.lbxUsers.DragLeave += new System.EventHandler(this.lbxUsers_DragLeave);
+            this.lbxUsers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseDown);
+            this.lbxUsers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseUp);
+            // 
+            // dgvPcDateManager
+            // 
+            this.dgvPcDateManager.AllowUserToAddRows = false;
+            this.dgvPcDateManager.AllowUserToDeleteRows = false;
+            this.dgvPcDateManager.AllowUserToResizeRows = false;
+            this.dgvPcDateManager.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPcDateManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPcDateManager.Location = new System.Drawing.Point(0, 36);
+            this.dgvPcDateManager.Name = "dgvPcDateManager";
+            this.dgvPcDateManager.RowHeadersVisible = false;
+            this.dgvPcDateManager.RowTemplate.Height = 27;
+            this.dgvPcDateManager.Size = new System.Drawing.Size(616, 297);
+            this.dgvPcDateManager.TabIndex = 2;
+            this.dgvPcDateManager.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPcDateManager_CellContentClick);
+            this.dgvPcDateManager.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPcDateManager_CellMouseDown);
+            this.dgvPcDateManager.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPcDateManager_CellMouseUp);
+            this.dgvPcDateManager.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragEnter);
+            this.dgvPcDateManager.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvPcDateManager_KeyDown);
+            // 
+            // msMasters
+            // 
+            this.msMasters.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.msMasters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mstPc,
+            this.mstSoftware,
+            this.msiUser});
+            this.msMasters.Location = new System.Drawing.Point(0, 0);
+            this.msMasters.Name = "msMasters";
+            this.msMasters.Size = new System.Drawing.Size(804, 33);
+            this.msMasters.TabIndex = 3;
+            this.msMasters.Text = "menuStrip1";
+            // 
+            // mstPc
+            // 
+            this.mstPc.Name = "mstPc";
+            this.mstPc.Size = new System.Drawing.Size(45, 29);
+            this.mstPc.Text = "PC";
+            this.mstPc.Click += new System.EventHandler(this.mstPc_Click);
+            // 
+            // mstSoftware
+            // 
+            this.mstSoftware.Name = "mstSoftware";
+            this.mstSoftware.Size = new System.Drawing.Size(94, 29);
+            this.mstSoftware.Text = "Software";
+            this.mstSoftware.Click += new System.EventHandler(this.mstSoftware_Click);
+            // 
+            // msiUser
+            // 
+            this.msiUser.Name = "msiUser";
+            this.msiUser.Size = new System.Drawing.Size(59, 29);
+            this.msiUser.Text = "User";
+            this.msiUser.Click += new System.EventHandler(this.msiUser_Click);
+            // 
+            // lblUsersCaption
+            // 
+            this.lblUsersCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUsersCaption.AutoSize = true;
+            this.lblUsersCaption.Location = new System.Drawing.Point(622, 45);
+            this.lblUsersCaption.Name = "lblUsersCaption";
+            this.lblUsersCaption.Size = new System.Drawing.Size(51, 18);
+            this.lblUsersCaption.TabIndex = 4;
+            this.lblUsersCaption.Text = "Users";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 244);
+            this.ClientSize = new System.Drawing.Size(804, 334);
+            this.Controls.Add(this.lblUsersCaption);
+            this.Controls.Add(this.dgvPcDateManager);
+            this.Controls.Add(this.lbxUsers);
+            this.Controls.Add(this.msMasters);
+            this.MainMenuStrip = this.msMasters;
             this.Name = "Form1";
             this.Text = "Sudachipon";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).EndInit();
+            this.msMasters.ResumeLayout(false);
+            this.msMasters.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox lbxUsers;
+        private System.Windows.Forms.DataGridView dgvPcDateManager;
+        private System.Windows.Forms.MenuStrip msMasters;
+        private System.Windows.Forms.ToolStripMenuItem mstPc;
+        private System.Windows.Forms.ToolStripMenuItem mstSoftware;
+        private System.Windows.Forms.ToolStripMenuItem msiUser;
+        private System.Windows.Forms.Label lblUsersCaption;
     }
 }
 
