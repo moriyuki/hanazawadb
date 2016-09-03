@@ -45,9 +45,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxUsers.FormattingEnabled = true;
             this.lbxUsers.ItemHeight = 18;
-            this.lbxUsers.Location = new System.Drawing.Point(622, 72);
+            this.lbxUsers.Location = new System.Drawing.Point(622, 84);
             this.lbxUsers.Name = "lbxUsers";
-            this.lbxUsers.Size = new System.Drawing.Size(182, 256);
+            this.lbxUsers.Size = new System.Drawing.Size(170, 238);
             this.lbxUsers.TabIndex = 0;
             this.lbxUsers.DragLeave += new System.EventHandler(this.lbxUsers_DragLeave);
             this.lbxUsers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseDown);
@@ -62,11 +62,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPcDateManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPcDateManager.Location = new System.Drawing.Point(0, 36);
+            this.dgvPcDateManager.Location = new System.Drawing.Point(33, 36);
             this.dgvPcDateManager.Name = "dgvPcDateManager";
             this.dgvPcDateManager.RowHeadersVisible = false;
             this.dgvPcDateManager.RowTemplate.Height = 27;
-            this.dgvPcDateManager.Size = new System.Drawing.Size(616, 297);
+            this.dgvPcDateManager.Size = new System.Drawing.Size(560, 286);
             this.dgvPcDateManager.TabIndex = 2;
             this.dgvPcDateManager.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPcDateManager_CellContentClick);
             this.dgvPcDateManager.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPcDateManager_CellMouseDown);

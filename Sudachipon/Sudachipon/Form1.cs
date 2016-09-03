@@ -20,9 +20,7 @@ namespace Sudachipon
         public Form1()
         {
             InitializeComponent();
-            Form2 fm2 = new Form2();
-            // fm2.ShowDialog();
-
+            
             // dgv値表示
             this.SetDgvPcDateManagerContents();
         }
@@ -81,7 +79,9 @@ namespace Sudachipon
         // PCマスタ編集画面を表示する
         private void mstPc_Click(object sender, EventArgs e)
         {
-
+            // PCマスタ表示
+            FrmPcMasterMaintenance fpmm = new FrmPcMasterMaintenance();
+            fpmm.ShowDialog();
         }
 
         // Softwareマスタ編集画面を表示する
