@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using Npgsql;
 
 namespace Sudachipon
@@ -28,6 +29,8 @@ namespace Sudachipon
         // SELECT Execute
         NpgsqlDataReader exeuteSql(String sql)
         {
+            // NpgsqlDataReader ret = new NpgsqlDataReader();
+
             if (string.IsNullOrEmpty(sql))
             {
                 return null;
@@ -38,10 +41,11 @@ namespace Sudachipon
                 conn.Open();
 
                 var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
                 var dataReader = command.ExecuteReader();
+
                 return dataReader;
             }
-
         }
 
         // INSERT UPDATE Execute
@@ -54,7 +58,38 @@ namespace Sudachipon
             }
         }
         // ========================= DB access =========================
+        public
+        void SelectPcMaster()
+        {
+            String sql = "select * from mt_pc";
 
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    PcMaster pm = new PcMaster();
+                    pm.createInitialData();
+                    
+                    pm.Id = int.Parse(String.Format("{0}",dataReader["pc_id"]));
+                    pm.Name = String.Format("{0}", dataReader["pc_name"]);
+                    pm.Os = String.Format("{0}", dataReader["pc_os"]);
+                    pm.Memory = String.Format("{0}", dataReader["pc_memory"]);
+                    pm.Cpu = String.Format("{0}", dataReader["pc_cpu"]);
+                    pm.Active = bool.Parse(String.Format("{0}", dataReader["pc_active"]));
+                    pm.IsByod = bool.Parse(String.Format("{0}", dataReader["pc_is_byod"]));
+                    pm.Comment = String.Format("{0}", dataReader["pc_comment"]);
+
+                    this.PcMasters.Add(pm);
+                   // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
 
         // ========================= data model =========================
         public
@@ -73,7 +108,7 @@ namespace Sudachipon
             String _comment;
 
             public
-            PcMaster createData()
+            PcMaster createInitialData()
             {
                 PcMaster pm = new PcMaster();
                 pm._id = 0;
@@ -88,11 +123,15 @@ namespace Sudachipon
                 return pm;
             }
 
+            public override string ToString()
+            {
+                return _name;
+            }
             // pc_id の最大値+1を返す
-            int GetNextId()
+            public int GetNextId()
             {
                 int ret = 0;
-                foreach (var pc in PcMasters)
+                foreach (PcMaster pc in _DbAccessor.PcMasters)
                 {
                     if (ret < pc.Id) ret = pc.Id;
                 }
@@ -100,7 +139,7 @@ namespace Sudachipon
             }
 
             // idプロパティ
-            int Id
+            public int Id
             {
                 get
                 {
@@ -116,7 +155,7 @@ namespace Sudachipon
             }
 
             // nameプロパティ
-            String Name
+            public String Name
             {
                 get
                 {
@@ -129,7 +168,7 @@ namespace Sudachipon
             }
 
             // osプロパティ
-            String Os
+            public String Os
             {
                 get
                 {
@@ -142,7 +181,7 @@ namespace Sudachipon
             }
 
             // memoryプロパティ
-            String Memory
+            public String Memory
             {
                 get
                 {
@@ -155,7 +194,7 @@ namespace Sudachipon
             }
 
             // cpuプロパティ
-            String Cpu
+            public String Cpu
             {
                 get
                 {
@@ -166,9 +205,49 @@ namespace Sudachipon
                     _cpu = value;
                 }
             }
+
+            // active 
+            public bool Active
+            {
+                get
+                {
+                    return _active;
+                }
+                set
+                {
+                    _active = value;
+                }
+            }
+
+            // byod
+            public bool IsByod
+            {
+                get
+                {
+                    return _isByod;
+                }
+                set
+                {
+                    _isByod = value;
+                }
+            }
+
+            // comment
+            public String Comment
+            {
+                get
+                {
+                    return _comment;
+                }
+                set
+                {
+                    _comment = value;
+                }
+            }
+
         }
 
-        static PcMaster[] PcMasters;
+        public List<PcMaster> PcMasters = new List<PcMaster>();
 
         // Soft master
         struct SoftwareMaster
