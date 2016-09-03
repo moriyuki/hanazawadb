@@ -1,0 +1,166 @@
+﻿# A5:ER FORMAT:10
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSTypeName=Oracle Database
+GenerateDropTableStatement=1
+DropTableIfExists=0
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=NEW_ENTITY1
+LName=dt_pc_user_date
+Comment=
+TableOption=
+Page=Main
+Left=100
+Top=50
+Field="pud_date","pud_date","date",,0,"","",$FFFFFFFF,""
+Field="pud_pc_id","pud_pc_id","integer","NOT NULL",1,"","",$FFFFFFFF,""
+Field="pud_user_id","pud_user_id","integer","NOT NULL",2,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160815214737
+Position="Main",100,50
+
+[Entity]
+PName=dt_pc_soft
+LName=dt_pc_soft	 pcとsoftの関係を管理
+Comment=
+TableOption=
+Page=Main
+Left=350
+Top=50
+Field="ps_pc_id	 pc内部ID","ps_pc_id","integer","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ps_soft_id	 soft内部ID","ps_soft_id","integer","NOT NULL",1,"","",$FFFFFFFF,""
+Field="ps_comment	 備考","ps_comment","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",350,50
+
+[Entity]
+PName=dt_user_date
+LName=dt_user_date	 利用者と出勤日の関係を管理
+Comment=
+TableOption=
+Page=Main
+Left=750
+Top=50
+Field="ud_user_id	 ユーザ内部ID","ud_user_id","integer","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ud_date	 出勤日","ud_date","date","NOT NULL",1,"(\qnow\q::text)","",$FFFFFFFF,""
+Field="ud_comment	 コメント","ud_comment","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",750,50
+
+[Entity]
+PName=dt_user_soft
+LName=dt_user_soft	 ユーザとソフトの関係を管理
+Comment=
+TableOption=
+Page=Main
+Left=1200
+Top=50
+Field="usf_user_id	 ユーザ内部ID","usf_user_id","integer","NOT NULL",0,"","",$FFFFFFFF,""
+Field="usf_soft_id	 ソフトウェア内部ID","usf_soft_id","integer","NOT NULL",1,"","",$FFFFFFFF,""
+Field="usf_comment	 備考","usf_comment","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1200,50
+
+[Entity]
+PName=mt_pc
+LName=mt_pc	 pc管理マスタテーブル
+Comment=
+TableOption=
+Page=Main
+Left=50
+Top=200
+Field="pc_id	 内部ID","pc_id","integer","NOT NULL",0,"","",$FFFFFFFF,""
+Field="pc_name	 PCに張られている名前","pc_name","character varying",,,"","",$FFFFFFFF,""
+Field="pc_os	 PCのOS","pc_os","character varying",,,"","",$FFFFFFFF,""
+Field="pc_memory	 PCのメモリ","pc_memory","character varying",,,"","",$FFFFFFFF,""
+Field="pc_cpu	 PCのCPU","pc_cpu","character varying",,,"","",$FFFFFFFF,""
+Field="pc_active","pc_active","boolean","NOT NULL",,"\qt\q","",$FFFFFFFF,""
+Field="pc_is_byod","pc_is_byod","boolean","NOT NULL",,"\qf\q","",$FFFFFFFF,""
+Field="pc_comment	 備考","pc_comment","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160815202045
+Position="Main",50,200
+
+[Entity]
+PName=mt_soft
+LName=mt_soft	 ソフトウェア管理マスタテーブル
+Comment=
+TableOption=
+Page=Main
+Left=500
+Top=200
+Field="sf_id	 内部ID","sf_id","integer","NOT NULL",0,"","",$FFFFFFFF,""
+Field="sf_name	 ソフトウェア名称","sf_name","character varying",,,"","",$FFFFFFFF,""
+Field="sf_version	 ソフトウェアバージョン","sf_version","character varying",,,"","",$FFFFFFFF,""
+Field="sf_os	 !:win, 2:mac, 3:win&mac","sf_os","integer",,,"1","",$FFFFFFFF,""
+Field="sf_avilable_number	 利用可能台数","sf_avilable_number","integer",,,"1","",$FFFFFFFF,""
+Field="sf_active","af_active","boolean","NOT NULL",,"\qt\q","",$FFFFFFFF,""
+Field="sf_comment	 備考","sf_comment","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160815214122
+Position="Main",500,200
+
+[Entity]
+PName=mt_user
+LName=mt_user	 利用者、管理者情報管理テーブル
+Comment=
+TableOption=
+Page=Main
+Left=1000
+Top=200
+Field="us_id	 内部ID","us_id","integer","NOT NULL",0,"","",$FFFFFFFF,""
+Field="us_name	 氏名","us_name","character varying",,,"","",$FFFFFFFF,""
+Field="us_type	 1:利用者, ２：管理者","us_type","integer",,,"1","",$FFFFFFFF,""
+Field="us_active","us_active","boolean","NOT NULL",,"\qt\q","",$FFFFFFFF,""
+Field="us_comment	 備考","us_comment","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160815214114
+Position="Main",1000,200
