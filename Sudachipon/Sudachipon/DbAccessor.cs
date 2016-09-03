@@ -37,7 +37,7 @@ namespace Sudachipon
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand(@"select * from mt_pc", conn);
+                var command = new NpgsqlCommand(sql, conn);
                 var dataReader = command.ExecuteReader();
                 return dataReader;
             }
@@ -53,10 +53,12 @@ namespace Sudachipon
                 return command.ExecuteNonQuery();
             }
         }
+        // ========================= DB access =========================
+
 
         // ========================= data model =========================
         public
-            // PC_master
+        // PC_master
         struct PcMaster
         {
             // PC data model
