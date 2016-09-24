@@ -18,7 +18,7 @@ namespace Sudachipon
         public FrmPcMasterMaintenance()
         {
             InitializeComponent();
-            dba.SelectUserMaster();
+            dba.SelectPcMaster();
 
             this.lbxPcs.Items.Clear();
             
@@ -40,9 +40,9 @@ namespace Sudachipon
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
-            //if (sender == null){ 
-            //    return;
-            //}
+            if (sender == null){ 
+                return;
+            }
 
             selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
 
