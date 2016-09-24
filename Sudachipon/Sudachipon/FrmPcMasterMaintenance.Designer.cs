@@ -46,8 +46,8 @@
             this.lblPcCommentCaption = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.chbPcIsByod = new System.Windows.Forms.CheckBox();
             this.chbpPcIsActive = new System.Windows.Forms.CheckBox();
             this.txbComment = new System.Windows.Forms.TextBox();
@@ -63,7 +63,6 @@
             this.lbxPcs.Name = "lbxPcs";
             this.lbxPcs.Size = new System.Drawing.Size(229, 526);
             this.lbxPcs.TabIndex = 0;
-            this.lbxPcs.SelectedIndexChanged += new System.EventHandler(this.lbxPcs_SelectedIndexChanged);
             this.lbxPcs.SelectedValueChanged += new System.EventHandler(this.lbxPcs_SelectedValueChanged);
             // 
             // lblPcMasterCaption
@@ -94,6 +93,7 @@
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDel
             // 
@@ -104,6 +104,7 @@
             this.btnDel.TabIndex = 5;
             this.btnDel.Text = "Delete";
             this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // lblNameCaption
             // 
@@ -212,25 +213,27 @@
             this.listBox2.Size = new System.Drawing.Size(229, 238);
             this.listBox2.TabIndex = 21;
             // 
-            // button1
+            // btnClose
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(716, 595);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 56);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Close";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClose.Location = new System.Drawing.Point(716, 595);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(100, 56);
+            this.btnClose.TabIndex = 22;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // button2
+            // btnUpdate
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(587, 596);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 56);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdate.Location = new System.Drawing.Point(587, 596);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(100, 56);
+            this.btnUpdate.TabIndex = 23;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // chbPcIsByod
             // 
@@ -268,8 +271,8 @@
             this.Controls.Add(this.txbComment);
             this.Controls.Add(this.chbpPcIsActive);
             this.Controls.Add(this.chbPcIsByod);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.lblPcCommentCaption);
@@ -315,8 +318,8 @@
         private System.Windows.Forms.Label lblPcCommentCaption;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.CheckBox chbPcIsByod;
         private System.Windows.Forms.CheckBox chbpPcIsActive;
         private System.Windows.Forms.TextBox txbComment;
