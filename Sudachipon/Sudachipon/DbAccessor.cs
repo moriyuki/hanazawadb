@@ -12,7 +12,7 @@ namespace Sudachipon
     class DbAccessor
     {
         // 別途設定ファイル外出で設定できるようにする
-        const String CONN_STRING = @"Server=192.168.0.5;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
+        const String CONN_STRING = @"Server=192.168.11.3;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
 
         // singleton
         private static DbAccessor _DbAccessor = new DbAccessor();
@@ -153,17 +153,48 @@ namespace Sudachipon
         public
         void UpdatePcMaster(PcMaster pcm)
         {
-            StringBuilder sbsql = new StringBuilder();
-            sbsql.Append("update mt_pc set ");
-            sbsql.Append("pc_name = '" + pcm.Name + "', ");
-            sbsql.Append("pc_os = '" + pcm.Os + "' ");
-            sbsql.Append("where pc_id = " + pcm.Id + ";");
+            StringBuilder sbupdatesql = new StringBuilder();
+            sbupdatesql.Append("update mt_pc set ");
+            sbupdatesql.Append("pc_name = '" + pcm.Name + "', ");
+            sbupdatesql.Append("pc_os = '" + pcm.Os + "' ");
+            sbupdatesql.Append("where pc_id = " + pcm.Id + ";");
 
-            String sql = sbsql.ToString();
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into mt_pc valuse(");
+            sbinsertsql.Append(pcm.Id + ",");
+            sbinsertsql.Append("'" + pcm.Name + "',");
+            sbinsertsql.Append("'" + pcm.Os + "',");
+            sbinsertsql.Append("'" + pcm.Memory + "',");
+            sbinsertsql.Append("'" + pcm.Cpu + "',");
+            sbinsertsql.Append(pcm.Active.ToString() + ",");
+            sbinsertsql.Append(pcm.IsByod.ToString() + "',");
+            sbinsertsql.Append("'" + pcm.Comment + "');");
+
+            
+            //= sbsql.ToString();
+
+            String IdExistSql = "select count(*) as count from mt_pc where pc_id = " + pcm.Id + ";";
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
+                String sql = String.Empty;
                 conn.Open();
+
+                var existCheckCommand = new NpgsqlCommand(IdExistSql, conn);
+                var existCheckResultReader = existCheckCommand.ExecuteReader();
+
+                while (existCheckResultReader.Read())
+                {
+                    
+                    if (int.Parse(String.Format("{0}", existCheckResultReader["count"])) == 0){
+                        // insert
+                        sql = sbinsertsql.ToString();
+                    }
+                    else
+                    {
+                        sql = sbupdatesql.ToString();
+                    }
+                }
 
                 var command = new NpgsqlCommand(sql, conn);
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));

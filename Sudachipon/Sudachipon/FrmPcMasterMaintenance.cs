@@ -40,12 +40,16 @@ namespace Sudachipon
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (sender == null){ 
-                return;
-            }
+            //if (sender == null){ 
+            //    return;
+            //}
 
             selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
 
+            if (selectedPc == null)
+            {
+                return;
+            }
             // 詳細項目クリア
 
 
