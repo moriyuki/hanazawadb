@@ -18,7 +18,7 @@ namespace Sudachipon
         public FrmPcMasterMaintenance()
         {
             InitializeComponent();
-            dba.SelectPcMaster();
+            dba.SelectUserMaster();
 
             
             foreach (DbAccessor.PcMaster pc in dba.PcMasters)
