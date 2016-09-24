@@ -20,7 +20,8 @@ namespace Sudachipon
             InitializeComponent();
             dba.SelectUserMaster();
 
-
+            this.lbxPcs.Items.Clear();
+            
             // ListBoxPCs更新
             updatePcList();
         }
