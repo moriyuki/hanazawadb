@@ -30,16 +30,23 @@ namespace Sudachipon
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
-            //if (selectedPc) {
+            //if (sender == null){ 
             //    return;
             //}
 
-            // selectedPc = (DbAccessor.PcMaster)sender;
+            selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
 
             // 詳細項目クリア
-            // this.txbPcName.Text = selectedPc.Name;
+
 
             // 詳細項目値代入
+            this.txbPcName.Text = selectedPc.Name;
+            this.txbPcCpu.Text = selectedPc.Cpu;
+            this.txbPcMemory.Text = selectedPc.Memory;
+            this.txbPcOs.Text = selectedPc.Os;
+            this.chbPcIsByod.Checked = selectedPc.IsByod;
+            this.chbpPcIsActive.Checked = selectedPc.Active;
+            this.txbComment.Text = selectedPc.Comment;
         }
 
         private void lbxPcs_SelectedIndexChanged(object sender, EventArgs e)
