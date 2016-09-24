@@ -61,7 +61,7 @@ namespace Sudachipon
         public
         void SelectPcMaster()
         {
-            String sql = "select * from mt_pc";
+            String sql = "select * from mt_pc;";
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
@@ -74,7 +74,6 @@ namespace Sudachipon
                 while (dataReader.Read())
                 {
                     PcMaster pm = new PcMaster();
-                    pm.createInitialData();
                     
                     pm.Id = int.Parse(String.Format("{0}",dataReader["pc_id"]));
                     pm.Name = String.Format("{0}", dataReader["pc_name"]);
@@ -93,7 +92,7 @@ namespace Sudachipon
 
         void SelectSoftwareMaster()
         {
-            String sql = "select * from mt_software";
+            String sql = "select * from mt_soft;";
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
@@ -124,7 +123,7 @@ namespace Sudachipon
 
         void SelectUserMaster()
         {
-            String sql = "select * from mt_user";
+            String sql = "select * from mt_user;";
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
@@ -150,6 +149,31 @@ namespace Sudachipon
                 }
             }
         }
+
+        public
+        void UpdatePcMaster(PcMaster pcm)
+        {
+            StringBuilder sbsql = new StringBuilder();
+            sbsql.Append("update mt_pc set ");
+            sbsql.Append("pc_name = '" + pcm.Name + "', ");
+            sbsql.Append("pc_os = '" + pcm.Os + "' ");
+            sbsql.Append("where pc_id = " + pcm.Id + ";");
+
+            String sql = sbsql.ToString();
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0) {
+                    System.Windows.Forms.MessageBox.Show("PcMasterは更新されませんでした");
+                }
+            }
+        }
         // ========================= data model =========================
         public
         // PC_master
@@ -167,24 +191,30 @@ namespace Sudachipon
             String _comment;
 
             public
-            PcMaster createInitialData()
-            {
-                PcMaster pm = new PcMaster();
-                pm._id = 0;
-                pm._name = String.Empty;
-                pm._os = String.Empty;
-                pm._memory = String.Empty;
-                pm._cpu = String.Empty;
-                pm._active = true;
-                pm._isByod = false;
-                pm._comment = String.Empty;
 
-                return pm;
+            PcMaster()
+            {
+//                PcMaster pm = new PcMaster();
+                this._id = 0;
+                this._name = "New Pc";
+                this._os = String.Empty;
+                this._memory = String.Empty;
+                this._cpu = String.Empty;
+                this._active = true;
+                this._isByod = false;
+                this._comment = String.Empty;
             }
 
             public override string ToString()
             {
-                return _name;
+                if (_name == null)
+                {
+                    return base.ToString();
+                }
+                else
+                {
+                    return _name;
+                }
             }
 
             // pc_id の最大値+1を返す
