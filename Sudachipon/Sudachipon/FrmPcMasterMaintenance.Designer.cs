@@ -31,7 +31,6 @@
             this.lbxPcs = new System.Windows.Forms.ListBox();
             this.lblPcMasterCaption = new System.Windows.Forms.Label();
             this.chbShowInactive = new System.Windows.Forms.CheckBox();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.lblNameCaption = new System.Windows.Forms.Label();
@@ -51,7 +50,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.chbPcIsByod = new System.Windows.Forms.CheckBox();
             this.chbpPcIsActive = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txbComment = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbxPcs
@@ -59,11 +58,10 @@
             this.lbxPcs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lbxPcs.FormattingEnabled = true;
-            this.lbxPcs.ItemHeight = 12;
-            this.lbxPcs.Location = new System.Drawing.Point(7, 42);
-            this.lbxPcs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lbxPcs.ItemHeight = 18;
+            this.lbxPcs.Location = new System.Drawing.Point(12, 63);
             this.lbxPcs.Name = "lbxPcs";
-            this.lbxPcs.Size = new System.Drawing.Size(139, 352);
+            this.lbxPcs.Size = new System.Drawing.Size(229, 526);
             this.lbxPcs.TabIndex = 0;
             this.lbxPcs.SelectedIndexChanged += new System.EventHandler(this.lbxPcs_SelectedIndexChanged);
             this.lbxPcs.SelectedValueChanged += new System.EventHandler(this.lbxPcs_SelectedValueChanged);
@@ -71,42 +69,28 @@
             // lblPcMasterCaption
             // 
             this.lblPcMasterCaption.AutoSize = true;
-            this.lblPcMasterCaption.Location = new System.Drawing.Point(8, 9);
-            this.lblPcMasterCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcMasterCaption.Location = new System.Drawing.Point(13, 14);
             this.lblPcMasterCaption.Name = "lblPcMasterCaption";
-            this.lblPcMasterCaption.Size = new System.Drawing.Size(59, 12);
+            this.lblPcMasterCaption.Size = new System.Drawing.Size(87, 18);
             this.lblPcMasterCaption.TabIndex = 1;
             this.lblPcMasterCaption.Text = "PC Master";
             // 
             // chbShowInactive
             // 
             this.chbShowInactive.AutoSize = true;
-            this.chbShowInactive.Location = new System.Drawing.Point(10, 23);
-            this.chbShowInactive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbShowInactive.Location = new System.Drawing.Point(17, 34);
             this.chbShowInactive.Name = "chbShowInactive";
-            this.chbShowInactive.Size = new System.Drawing.Size(90, 16);
+            this.chbShowInactive.Size = new System.Drawing.Size(131, 22);
             this.chbShowInactive.TabIndex = 2;
             this.chbShowInactive.Text = "showInactive";
             this.chbShowInactive.UseVisualStyleBackColor = true;
             // 
-            // btnEdit
-            // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEdit.Location = new System.Drawing.Point(10, 397);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(43, 37);
-            this.btnEdit.TabIndex = 3;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(56, 397);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAdd.Location = new System.Drawing.Point(12, 596);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(43, 37);
+            this.btnAdd.Size = new System.Drawing.Size(100, 56);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -114,10 +98,9 @@
             // btnDel
             // 
             this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDel.Location = new System.Drawing.Point(102, 397);
-            this.btnDel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDel.Location = new System.Drawing.Point(141, 596);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(43, 37);
+            this.btnDel.Size = new System.Drawing.Size(100, 56);
             this.btnDel.TabIndex = 5;
             this.btnDel.Text = "Delete";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -125,152 +108,136 @@
             // lblNameCaption
             // 
             this.lblNameCaption.AutoSize = true;
-            this.lblNameCaption.Location = new System.Drawing.Point(165, 42);
-            this.lblNameCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNameCaption.Location = new System.Drawing.Point(275, 63);
             this.lblNameCaption.Name = "lblNameCaption";
-            this.lblNameCaption.Size = new System.Drawing.Size(48, 12);
+            this.lblNameCaption.Size = new System.Drawing.Size(71, 18);
             this.lblNameCaption.TabIndex = 6;
             this.lblNameCaption.Text = "pc_name";
             // 
             // txbPcName
             // 
-            this.txbPcName.Location = new System.Drawing.Point(181, 56);
-            this.txbPcName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbPcName.Location = new System.Drawing.Point(302, 84);
             this.txbPcName.Name = "txbPcName";
-            this.txbPcName.Size = new System.Drawing.Size(139, 19);
+            this.txbPcName.Size = new System.Drawing.Size(229, 25);
             this.txbPcName.TabIndex = 7;
             // 
             // txbPcOs
             // 
-            this.txbPcOs.Location = new System.Drawing.Point(181, 97);
-            this.txbPcOs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbPcOs.Location = new System.Drawing.Point(302, 146);
             this.txbPcOs.Name = "txbPcOs";
-            this.txbPcOs.Size = new System.Drawing.Size(139, 19);
+            this.txbPcOs.Size = new System.Drawing.Size(229, 25);
             this.txbPcOs.TabIndex = 9;
             // 
             // lblPcOsCaption
             // 
             this.lblPcOsCaption.AutoSize = true;
-            this.lblPcOsCaption.Location = new System.Drawing.Point(165, 83);
-            this.lblPcOsCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcOsCaption.Location = new System.Drawing.Point(275, 124);
             this.lblPcOsCaption.Name = "lblPcOsCaption";
-            this.lblPcOsCaption.Size = new System.Drawing.Size(33, 12);
+            this.lblPcOsCaption.Size = new System.Drawing.Size(48, 18);
             this.lblPcOsCaption.TabIndex = 8;
             this.lblPcOsCaption.Text = "pc_os";
             // 
             // txbPcMemory
             // 
-            this.txbPcMemory.Location = new System.Drawing.Point(181, 139);
-            this.txbPcMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbPcMemory.Location = new System.Drawing.Point(302, 208);
             this.txbPcMemory.Name = "txbPcMemory";
-            this.txbPcMemory.Size = new System.Drawing.Size(139, 19);
+            this.txbPcMemory.Size = new System.Drawing.Size(229, 25);
             this.txbPcMemory.TabIndex = 11;
             // 
             // lblPcMemoryCaption
             // 
             this.lblPcMemoryCaption.AutoSize = true;
-            this.lblPcMemoryCaption.Location = new System.Drawing.Point(165, 125);
-            this.lblPcMemoryCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcMemoryCaption.Location = new System.Drawing.Point(275, 188);
             this.lblPcMemoryCaption.Name = "lblPcMemoryCaption";
-            this.lblPcMemoryCaption.Size = new System.Drawing.Size(61, 12);
+            this.lblPcMemoryCaption.Size = new System.Drawing.Size(90, 18);
             this.lblPcMemoryCaption.TabIndex = 10;
             this.lblPcMemoryCaption.Text = "pc_memory";
             // 
             // txbPcCpu
             // 
-            this.txbPcCpu.Location = new System.Drawing.Point(181, 179);
-            this.txbPcCpu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbPcCpu.Location = new System.Drawing.Point(302, 268);
             this.txbPcCpu.Name = "txbPcCpu";
-            this.txbPcCpu.Size = new System.Drawing.Size(139, 19);
+            this.txbPcCpu.Size = new System.Drawing.Size(229, 25);
             this.txbPcCpu.TabIndex = 13;
             // 
             // lblPcCpuCaption
             // 
             this.lblPcCpuCaption.AutoSize = true;
-            this.lblPcCpuCaption.Location = new System.Drawing.Point(165, 165);
-            this.lblPcCpuCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcCpuCaption.Location = new System.Drawing.Point(275, 248);
             this.lblPcCpuCaption.Name = "lblPcCpuCaption";
-            this.lblPcCpuCaption.Size = new System.Drawing.Size(39, 12);
+            this.lblPcCpuCaption.Size = new System.Drawing.Size(58, 18);
             this.lblPcCpuCaption.TabIndex = 12;
             this.lblPcCpuCaption.Text = "pc_cpu";
             // 
             // lblPcByod
             // 
             this.lblPcByod.AutoSize = true;
-            this.lblPcByod.Location = new System.Drawing.Point(165, 205);
-            this.lblPcByod.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcByod.Location = new System.Drawing.Point(275, 308);
             this.lblPcByod.Name = "lblPcByod";
-            this.lblPcByod.Size = new System.Drawing.Size(0, 12);
+            this.lblPcByod.Size = new System.Drawing.Size(0, 18);
             this.lblPcByod.TabIndex = 14;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(165, 246);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(275, 369);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 12);
+            this.label6.Size = new System.Drawing.Size(0, 18);
             this.label6.TabIndex = 16;
             // 
             // lblPcCommentCaption
             // 
             this.lblPcCommentCaption.AutoSize = true;
-            this.lblPcCommentCaption.Location = new System.Drawing.Point(165, 289);
-            this.lblPcCommentCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcCommentCaption.Location = new System.Drawing.Point(275, 434);
             this.lblPcCommentCaption.Name = "lblPcCommentCaption";
-            this.lblPcCommentCaption.Size = new System.Drawing.Size(51, 12);
+            this.lblPcCommentCaption.Size = new System.Drawing.Size(76, 18);
             this.lblPcCommentCaption.TabIndex = 18;
             this.lblPcCommentCaption.Text = "comment";
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(352, 56);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.ItemHeight = 18;
+            this.listBox1.Location = new System.Drawing.Point(587, 84);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(139, 148);
+            this.listBox1.Size = new System.Drawing.Size(229, 220);
             this.listBox1.TabIndex = 20;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(352, 234);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox2.ItemHeight = 18;
+            this.listBox2.Location = new System.Drawing.Point(587, 351);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(139, 160);
+            this.listBox2.Size = new System.Drawing.Size(229, 238);
             this.listBox2.TabIndex = 21;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(447, 397);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(716, 595);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(43, 37);
+            this.button1.Size = new System.Drawing.Size(100, 56);
             this.button1.TabIndex = 22;
-            this.button1.Text = "Cancel";
+            this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(401, 397);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Location = new System.Drawing.Point(587, 596);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 37);
+            this.button2.Size = new System.Drawing.Size(100, 56);
             this.button2.TabIndex = 23;
-            this.button2.Text = "OK";
+            this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // chbPcIsByod
             // 
             this.chbPcIsByod.AutoSize = true;
-            this.chbPcIsByod.Location = new System.Drawing.Point(181, 219);
-            this.chbPcIsByod.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbPcIsByod.Location = new System.Drawing.Point(302, 328);
             this.chbPcIsByod.Name = "chbPcIsByod";
-            this.chbPcIsByod.Size = new System.Drawing.Size(55, 16);
+            this.chbPcIsByod.Size = new System.Drawing.Size(81, 22);
             this.chbPcIsByod.TabIndex = 24;
             this.chbPcIsByod.Text = "BYOD";
             this.chbPcIsByod.UseVisualStyleBackColor = true;
@@ -278,29 +245,27 @@
             // chbpPcIsActive
             // 
             this.chbpPcIsActive.AutoSize = true;
-            this.chbpPcIsActive.Location = new System.Drawing.Point(181, 261);
-            this.chbpPcIsActive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbpPcIsActive.Location = new System.Drawing.Point(302, 392);
             this.chbpPcIsActive.Name = "chbpPcIsActive";
-            this.chbpPcIsActive.Size = new System.Drawing.Size(57, 16);
+            this.chbpPcIsActive.Size = new System.Drawing.Size(82, 22);
             this.chbpPcIsActive.TabIndex = 25;
             this.chbpPcIsActive.Text = "Active";
             this.chbpPcIsActive.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txbComment
             // 
-            this.textBox1.Location = new System.Drawing.Point(181, 303);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(139, 91);
-            this.textBox1.TabIndex = 26;
+            this.txbComment.Location = new System.Drawing.Point(302, 454);
+            this.txbComment.Multiline = true;
+            this.txbComment.Name = "txbComment";
+            this.txbComment.Size = new System.Drawing.Size(229, 134);
+            this.txbComment.TabIndex = 26;
             // 
             // FrmPcMasterMaintenance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 449);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(830, 674);
+            this.Controls.Add(this.txbComment);
             this.Controls.Add(this.chbpPcIsActive);
             this.Controls.Add(this.chbPcIsByod);
             this.Controls.Add(this.button2);
@@ -320,11 +285,9 @@
             this.Controls.Add(this.lblNameCaption);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.chbShowInactive);
             this.Controls.Add(this.lblPcMasterCaption);
             this.Controls.Add(this.lbxPcs);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmPcMasterMaintenance";
             this.Text = "FrmPcMasterMaintenance";
             this.ResumeLayout(false);
@@ -337,7 +300,6 @@
         private System.Windows.Forms.ListBox lbxPcs;
         private System.Windows.Forms.Label lblPcMasterCaption;
         private System.Windows.Forms.CheckBox chbShowInactive;
-        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Label lblNameCaption;
@@ -357,6 +319,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox chbPcIsByod;
         private System.Windows.Forms.CheckBox chbpPcIsActive;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txbComment;
     }
 }

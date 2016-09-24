@@ -153,7 +153,7 @@ namespace Sudachipon
         // ========================= data model =========================
         public
         // PC_master
-        struct PcMaster
+        class PcMaster
         {
             // PC data model
             private
@@ -186,6 +186,7 @@ namespace Sudachipon
             {
                 return _name;
             }
+
             // pc_id の最大値+1を返す
             public int GetNextId()
             {
@@ -231,7 +232,7 @@ namespace Sudachipon
             {
                 get
                 {
-                    return _name;
+                    return _os;
                 }
                 set
                 {
