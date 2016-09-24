@@ -20,7 +20,8 @@ namespace Sudachipon
             InitializeComponent();
             dba.SelectPcMaster();
 
-            
+            this.lbxPcs.Items.Clear();
+
             foreach (DbAccessor.PcMaster pc in dba.PcMasters)
             {
                 this.lbxPcs.Items.Add(pc);
@@ -30,16 +31,17 @@ namespace Sudachipon
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
-            //if (selectedPc) {
-            //    return;
-            //}
+         
+            if (sender == null) {
+                return;
+            }
 
-            // selectedPc = (DbAccessor.PcMaster)sender;
+            selectedPc = (DbAccessor.PcMaster)sender;
 
             // 詳細項目クリア
-            // this.txbPcName.Text = selectedPc.Name;
 
             // 詳細項目値代入
+            this.txbPcName.Text = selectedPc.Name;
         }
 
         private void lbxPcs_SelectedIndexChanged(object sender, EventArgs e)
