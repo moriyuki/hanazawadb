@@ -160,14 +160,14 @@ namespace Sudachipon
             sbupdatesql.Append("where pc_id = " + pcm.Id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();
-            sbinsertsql.Append("insert into mt_pc valuse(");
+            sbinsertsql.Append("insert into mt_pc (pc_id, pc_name, pc_os, pc_memory, pc_cpu, pc_active, pc_is_byod, pc_comment) values(");
             sbinsertsql.Append(pcm.Id + ",");
             sbinsertsql.Append("'" + pcm.Name + "',");
             sbinsertsql.Append("'" + pcm.Os + "',");
             sbinsertsql.Append("'" + pcm.Memory + "',");
             sbinsertsql.Append("'" + pcm.Cpu + "',");
             sbinsertsql.Append(pcm.Active.ToString() + ",");
-            sbinsertsql.Append(pcm.IsByod.ToString() + "',");
+            sbinsertsql.Append(pcm.IsByod.ToString() + ",");
             sbinsertsql.Append("'" + pcm.Comment + "');");
 
             
@@ -195,6 +195,8 @@ namespace Sudachipon
                         sql = sbupdatesql.ToString();
                     }
                 }
+                conn.Close();
+                conn.Open();
 
                 var command = new NpgsqlCommand(sql, conn);
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));

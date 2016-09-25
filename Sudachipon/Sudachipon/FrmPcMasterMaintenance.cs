@@ -102,6 +102,11 @@ namespace Sudachipon
             //DbAccessor.PcMaster pcm = new DbAccessor.PcMaster();
             pcm.Name = this.txbPcName.Text;
             pcm.Os = this.txbPcOs.Text;
+            pcm.Cpu = this.txbPcCpu.Text;
+            pcm.Memory = this.txbPcMemory.Text;
+            pcm.IsByod = this.chbPcIsByod.Checked;
+            pcm.Active = this.chbpPcIsActive.Checked;
+            pcm.Comment = this.txbComment.Text;
 
             this.dba.UpdatePcMaster(pcm);
         }
