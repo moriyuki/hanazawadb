@@ -95,9 +95,6 @@ namespace Sudachipon
             // ListBox更新
             this.updateUserList();
           }
-
-    }
-
           
     }
       
