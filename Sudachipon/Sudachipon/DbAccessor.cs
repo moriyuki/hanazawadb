@@ -459,7 +459,7 @@ namespace Sudachipon
         public List<UserMaster> UserMasters = new List<UserMaster>();
 
         // Pc Soft Relation Data
-        struct PcSoftData
+        public class PcSoftData
         {
             int pcId;
             int softId;
@@ -475,9 +475,10 @@ namespace Sudachipon
                 return pd;
             }
         }
+        public List<PcSoftData> PcSoftDatas = new List<PcSoftData>();
 
         // Pc User Date Relation Data
-        struct PcUserDateData
+        public class PcUserDateData
         {
             DateTime date;
             int pcId;
@@ -493,10 +494,10 @@ namespace Sudachipon
             }
         }
 
-        PcUserDateData[] PcUserDateDatas;
+        public List<PcUserDateData> PcUserDateDatas = new List<PcUserDateData>();
 
         // User Soft RelationData
-        struct UserSoftData
+        public class UserSoftData
         {
             int userId;
             int softId;
@@ -512,7 +513,7 @@ namespace Sudachipon
             }
         }
 
-        UserSoftData[] UserSoftDatas;
+        public List<UserSoftData> UserSoftDatas = new List<UserSoftData>();
 
     }
 }
