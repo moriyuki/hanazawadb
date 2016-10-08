@@ -115,8 +115,8 @@ namespace Sudachipon
                     sm.name = String.Format("{0}", dataReader["sf_name"]);
                     sm.version = String.Format("{0}", dataReader["sf_version"]);
                     sm.osType = int.Parse(String.Format("{0}", dataReader["sf_os"]));
-                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_available"]));
-                    sm.active = bool.Parse(String.Format("{0}", dataReader["sf_active"]));
+                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_avilable_number"]));
+                    sm.active = bool.Parse(String.Format("{0}", dataReader["af_active"]));
                     sm.comment = String.Format("{0}", dataReader["sf_comment"]);
 
                     this.SoftwareMasters.Add(sm);
@@ -149,6 +149,35 @@ namespace Sudachipon
                     um.comment = String.Format("{0}", dataReader["us_comment"]);
 
                     this.UserMasters.Add(um);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
+
+        public void SelectPcSoftData()
+        {
+            String sql = "select * from dt_pc_soft;";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                this.PcSoftDatas.Clear();
+
+                while (dataReader.Read())
+                {
+                    PcSoftData psd = new PcSoftData();
+                    psd.createData();
+
+                    psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
+                    psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
+                    psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+
+                    this.PcSoftDatas.Add(psd);
                     // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
                 }
             }
@@ -260,6 +289,63 @@ namespace Sudachipon
                     else
                     {
                         sql = sbupdatesql.ToString();
+            }
+        }
+                conn.Close();
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("SoftwareMasterは更新されませんでした");
+                }
+            }
+        }
+
+        public void UpdateUserMaster(UserMaster um)
+        {
+            StringBuilder sbupdatesql = new StringBuilder();
+            sbupdatesql.Append("update mt_user set ");
+            sbupdatesql.Append("user_name = '" + um.name + "', ");
+            sbupdatesql.Append("user_type = '" + um.type + "', ");
+            sbupdatesql.Append("user_active = '" + um.active + "' ");
+            sbupdatesql.Append("where user_id = " + um.id + ";");
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into mt_user (user_id, user_name, user_type, user_active, user_comment) values(");
+            sbinsertsql.Append(um.id + ",");
+            sbinsertsql.Append("'" + um.name + "',");
+            sbinsertsql.Append("'" + um.type + "',");
+            sbinsertsql.Append(um.active.ToString() + ",");
+            sbinsertsql.Append("'" + um.comment + "');");
+
+
+            //= sbsql.ToString();
+
+            String IdExistSql = "select count(*) as count from mt_user where user_id = " + um.id + ";";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var existCheckCommand = new NpgsqlCommand(IdExistSql, conn);
+                var existCheckResultReader = existCheckCommand.ExecuteReader();
+
+                while (existCheckResultReader.Read())
+                {
+
+                    if (int.Parse(String.Format("{0}", existCheckResultReader["count"])) == 0)
+                    {
+                        // insert
+                        sql = sbinsertsql.ToString();
+                    }
+                    else
+                    {
+                        sql = sbupdatesql.ToString();
                     }
                 }
                 conn.Close();
@@ -271,7 +357,7 @@ namespace Sudachipon
 
                 if (result == 0)
                 {
-                    System.Windows.Forms.MessageBox.Show("SoftwareMasterは更新されませんでした");
+                    System.Windows.Forms.MessageBox.Show("UserMasterは更新されませんでした");
                 }
             }
         }
@@ -483,13 +569,20 @@ namespace Sudachipon
                 }
                 return ret + 1;
             }
+
+            public override string ToString()
+            {
+                return name;
+            }
         }
+
+ 
 
         public List<SoftwareMaster> SoftwareMasters = new List<SoftwareMaster>();
 
         // User master
         public
-        struct UserMaster
+        class UserMaster
         {
             public
             int id;
@@ -513,18 +606,40 @@ namespace Sudachipon
 
                 return um;
             }
+
+            public override string ToString()
+            {
+                if (name == null)
+                {
+                    return base.ToString();
+                }
+                else
+                {
+                    return name;
+        }
+            }
+            // user_id の最大値+1を返す
+            public int GetNextId()
+            {
+                int ret = 0;
+                foreach (UserMaster user in _DbAccessor.UserMasters)
+                {
+                    if (ret < user.id) ret = user.id;
+                }
+                return ret + 1;
+            }
         }
 
         public List<UserMaster> UserMasters = new List<UserMaster>();
 
         // Pc Soft Relation Data
-        struct PcSoftData
+        public class PcSoftData
         {
-            int pcId;
-            int softId;
-            String comment;
+            public int pcId;
+            public int softId;
+            public String comment;
 
-            PcSoftData createData()
+            public PcSoftData createData()
             {
                 PcSoftData pd = new PcSoftData();
                 pd.pcId = 0;
@@ -534,9 +649,10 @@ namespace Sudachipon
                 return pd;
             }
         }
+        public List<PcSoftData> PcSoftDatas = new List<PcSoftData>();
 
         // Pc User Date Relation Data
-        struct PcUserDateData
+        public class PcUserDateData
         {
             DateTime date;
             int pcId;
@@ -552,10 +668,10 @@ namespace Sudachipon
             }
         }
 
-        PcUserDateData[] PcUserDateDatas;
+        public List<PcUserDateData> PcUserDateDatas = new List<PcUserDateData>();
 
         // User Soft RelationData
-        struct UserSoftData
+        public class UserSoftData
         {
             int userId;
             int softId;
@@ -571,7 +687,7 @@ namespace Sudachipon
             }
         }
 
-        UserSoftData[] UserSoftDatas;
+        public List<UserSoftData> UserSoftDatas = new List<UserSoftData>();
 
     }
 }

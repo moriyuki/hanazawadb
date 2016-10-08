@@ -18,15 +18,18 @@ namespace Sudachipon
         public FrmPcMasterMaintenance()
         {
             InitializeComponent();
-            
+
+            dba.SelectPcMaster();
+
             // ListBoxPCs更新
-            updatePcList();
+            UpdatePcList();
+            // ListBoxSoftMaster更新
+            UpdateSoftwareMaster();
         }
 
         // ListBoxPCs更新
-        private void updatePcList()
+        private void UpdatePcList()
         {
-            dba.SelectPcMaster();
 
             this.lbxPcs.Items.Clear();
 
@@ -38,31 +41,59 @@ namespace Sudachipon
                 }
             }
 
+            if (this.lbxPcs.SelectedIndex < 0)
+            {
+                // 詳細項目クリア
+                this.txbPcName.Text = String.Empty;
+                this.txbPcCpu.Text = String.Empty;
+                this.txbPcMemory.Text = String.Empty;
+                this.txbPcOs.Text = String.Empty;
+                this.chbPcIsByod.Checked = false;
+                this.chbpPcIsActive.Checked = false;
+                this.txbComment.Text = String.Empty;
+            }
+        }
+
+        // ListBoxPCs更新
+        private void UpdateSoftwareMaster()
+        {
+            dba.SelectSoftwareMaster();
+            this.lbxSoftMaster.Items.Clear();
+            foreach (DbAccessor.SoftwareMaster soft in dba.SoftwareMasters)
+            {
+                if (soft.active)
+                {
+                    this.lbxSoftMaster.Items.Add(soft);
+                }
+            }
         }
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
-            //if (sender == null){ 
-            //    return;
-            //}
-
             selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
 
-            if (selectedPc == null)
+            if (selectedPc == null || this.lbxPcs.SelectedIndex < 0)
             {
-                return;
+                // 詳細項目クリア
+                this.txbPcName.Text = String.Empty;
+                this.txbPcCpu.Text = String.Empty;
+                this.txbPcMemory.Text = String.Empty;
+                this.txbPcOs.Text = String.Empty;
+                this.chbPcIsByod.Checked = false;
+                this.chbpPcIsActive.Checked = false;
+                this.txbComment.Text = String.Empty;
             }
-            // 詳細項目クリア
-
-
-            // 詳細項目値代入
-            this.txbPcName.Text = selectedPc.Name;
-            this.txbPcCpu.Text = selectedPc.Cpu;
-            this.txbPcMemory.Text = selectedPc.Memory;
-            this.txbPcOs.Text = selectedPc.Os;
-            this.chbPcIsByod.Checked = selectedPc.IsByod;
-            this.chbpPcIsActive.Checked = selectedPc.Active;
-            this.txbComment.Text = selectedPc.Comment;
+            else
+            {
+                // 詳細項目値代入
+                this.txbPcName.Text = selectedPc.Name;
+                this.txbPcCpu.Text = selectedPc.Cpu;
+                this.txbPcMemory.Text = selectedPc.Memory;
+                this.txbPcOs.Text = selectedPc.Os;
+                this.chbPcIsByod.Checked = selectedPc.IsByod;
+                this.chbpPcIsActive.Checked = selectedPc.Active;
+                this.txbComment.Text = selectedPc.Comment;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -76,7 +107,7 @@ namespace Sudachipon
             dba.PcMasters.Add(pcm);
 
             // ListBoxの更新
-            this.updatePcList();
+            this.UpdatePcList();
 
             // ListBox選択の変更
             //foreach ( object lbxPc in this.lbxPcs.Items)
@@ -91,15 +122,27 @@ namespace Sudachipon
 
         }
 
+        // deleteボタンクリック時
         private void btnDel_Click(object sender, EventArgs e)
         {
             DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
             pcm.Active = false;
             this.dba.UpdatePcMaster(pcm);
             // ListBox更新
-            this.updatePcList();
+            dba.SelectPcMaster();
+            this.UpdatePcList();
+
+            // 詳細項目値代入
+            this.txbPcName.Text = String.Empty;
+            this.txbPcCpu.Text = String.Empty;
+            this.txbPcMemory.Text = String.Empty;
+            this.txbPcOs.Text = String.Empty;
+            this.chbPcIsByod.Checked = false;
+            this.chbpPcIsActive.Checked = false;
+            this.txbComment.Text = String.Empty;
         }
 
+        // updateボタンクリック時
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             // 元データと比較、変更がなければreturn
@@ -117,15 +160,50 @@ namespace Sudachipon
             this.dba.UpdatePcMaster(pcm);
         }
 
+        // Closeボタンクリック時
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // ShowInactiveチェック変更時
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
+            dba.SelectPcMaster();
             // ListBox更新
-            this.updatePcList();
+            this.UpdatePcList();
+        }
+        // Drag Drop
+        private void lbxSoftMaster_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                ListBox lbx = (ListBox)sender;
+                DbAccessor.SoftwareMaster sfm = lbx.SelectedItem as DbAccessor.SoftwareMaster;
+                DragDropEffects dde = lbx.DoDragDrop(sfm, DragDropEffects.All);
+            }
+        }
+
+        private void lbxSoft_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void lbxSoft_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
+            {
+                ListBox target = (ListBox)sender;
+                DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
+                target.Items.Add(itemSoftware);
+            }
         }
     }
 }

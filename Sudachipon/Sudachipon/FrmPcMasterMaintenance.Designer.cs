@@ -44,8 +44,8 @@
             this.lblPcByod = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblPcCommentCaption = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lbxSoft = new System.Windows.Forms.ListBox();
+            this.lbxSoftMaster = new System.Windows.Forms.ListBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.chbPcIsByod = new System.Windows.Forms.CheckBox();
@@ -196,23 +196,27 @@
             this.lblPcCommentCaption.TabIndex = 18;
             this.lblPcCommentCaption.Text = "comment";
             // 
-            // listBox1
+            // lbxSoft
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 18;
-            this.listBox1.Location = new System.Drawing.Point(587, 84);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(229, 220);
-            this.listBox1.TabIndex = 20;
+            this.lbxSoft.AllowDrop = true;
+            this.lbxSoft.FormattingEnabled = true;
+            this.lbxSoft.ItemHeight = 18;
+            this.lbxSoft.Location = new System.Drawing.Point(587, 84);
+            this.lbxSoft.Name = "lbxSoft";
+            this.lbxSoft.Size = new System.Drawing.Size(229, 220);
+            this.lbxSoft.TabIndex = 20;
+            this.lbxSoft.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragDrop);
+            this.lbxSoft.DragEnter += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragEnter);
             // 
-            // listBox2
+            // lbxSoftMaster
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 18;
-            this.listBox2.Location = new System.Drawing.Point(587, 351);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(229, 238);
-            this.listBox2.TabIndex = 21;
+            this.lbxSoftMaster.FormattingEnabled = true;
+            this.lbxSoftMaster.ItemHeight = 18;
+            this.lbxSoftMaster.Location = new System.Drawing.Point(587, 351);
+            this.lbxSoftMaster.Name = "lbxSoftMaster";
+            this.lbxSoftMaster.Size = new System.Drawing.Size(229, 238);
+            this.lbxSoftMaster.TabIndex = 21;
+            this.lbxSoftMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxSoftMaster_MouseDown);
             // 
             // btnClose
             // 
@@ -276,8 +280,8 @@
             this.Controls.Add(this.chbPcIsByod);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lbxSoftMaster);
+            this.Controls.Add(this.lbxSoft);
             this.Controls.Add(this.lblPcCommentCaption);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblPcByod);
@@ -319,8 +323,8 @@
         private System.Windows.Forms.Label lblPcByod;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblPcCommentCaption;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lbxSoft;
+        private System.Windows.Forms.ListBox lbxSoftMaster;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.CheckBox chbPcIsByod;
