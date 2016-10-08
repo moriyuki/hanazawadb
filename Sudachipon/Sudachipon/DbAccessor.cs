@@ -212,30 +212,6 @@ namespace Sudachipon
             }
         }
 
-        internal void DeletePcMaster(PcMaster pcm)
-        {
-            StringBuilder sbupdatesql = new StringBuilder();
-            sbupdatesql.Append("update mt_pc set ");
-            sbupdatesql.Append("pc_active = '" + pcm.Active + "' ");
-            sbupdatesql.Append("where pc_id = " + pcm.Id + ";");
-            String sql = sbupdatesql.ToString();
-
-            //= sbsql.ToString();
-
-            using (var conn = new NpgsqlConnection(CONN_STRING))
-            {
-                conn.Open();
-
-                var command = new NpgsqlCommand(sql, conn);
-                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
-                var result = command.ExecuteNonQuery();
-
-                if (result == 0)
-                {
-                    System.Windows.Forms.MessageBox.Show("PcMasterは更新されませんでした");
-                }
-            }
-        }
         // ========================= data model =========================
         public
         // PC_master
