@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//private readonly object cmbUserType;
+
 namespace Sudachipon
 {
     public partial class FrmUserMasterMaintenance : Form
@@ -18,22 +20,39 @@ namespace Sudachipon
         public FrmUserMasterMaintenance()
         {
             InitializeComponent();
+
+            // ListBoxUsers更新
+            updateUserList();
+        }
+        
+        // ListBoxUsers更新
+        private void updateUserList()
+        {
             dba.SelectUserMaster();
+
+            this.lbxUsers.Items.Clear();
 
             foreach (DbAccessor.UserMaster user in dba.UserMasters)
             {
-                this.lbxUsers.Items.Add(user);
+                if (this.chbShowInactive.Checked || user.active)
+                {
+                    this.lbxUsers.Items.Add(user);
+                }
+                
             }
-      
-  
-    }
 
-        //選択ユーザー変更時
-        private void lbxUsers_SelectedIndexChanged(object sender, EventArgs e)
+        }
+
+        //選択変更時
+        private void lbxUsers_SelectedValueChanged(object sender, EventArgs e)
         {
-            //selectedUser = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
-    
-            // 詳細項目クリア
+
+            selectedUser = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
+
+            if (selectedUser == null)
+            {
+                return;
+            }
 
 
             // 詳細項目値代入
@@ -41,8 +60,40 @@ namespace Sudachipon
             this.cmbUserType.Text = selectedUser.type.ToString();
             this.chbpSoftwareIsActive.Checked = selectedUser.active;
             this.txbUserComment.Text = selectedUser.comment;
-            
+
         }
 
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            // 表示されているデータの更新確認
+            // 新しいUserの登録
+            // Useritem 生成
+            // UserIDを取得
+            DbAccessor.UserMaster um = new DbAccessor.UserMaster();
+            um.id = um.GetNextId();
+            dba.UserMasters.Add(um);
+
+            // ListBoxの更新
+            this.updateUserList();
+
+            // ListBox選択の変更
+            //foreach ( object lbxPc in this.lbxPcs.Items)
+            for (var i = 0; i < this.lbxUsers.Items.Count; i++)
+            {
+                DbAccessor.PcMaster pc = this.lbxUsers.Items[i] as DbAccessor.PcMaster;
+                if (pc.Id == um.id)
+                {
+                    this.lbxUsers.SelectedIndex = i;
+                }
+            }
+
+
+        }
     }
+      
+  
 }
+
+ 
+
+

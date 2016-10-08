@@ -419,7 +419,7 @@ namespace Sudachipon
 
         // User master
         public
-        struct UserMaster
+        class UserMaster
         {
             public
             int id;
@@ -442,6 +442,17 @@ namespace Sudachipon
                 um.comment = String.Empty;
 
                 return um;
+            }
+
+            // user_id の最大値+1を返す
+            public int GetNextId()
+            {
+                int ret = 0;
+                foreach (UserMaster user in _DbAccessor.UserMasters)
+                {
+                    if (ret < user.id) ret = user.id;
+                }
+                return ret + 1;
             }
         }
 

@@ -199,6 +199,7 @@
             this.btnAdd.TabIndex = 61;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // chbShowInactive
             // 
@@ -232,7 +233,7 @@
             this.lbxUsers.Name = "lbxUsers";
             this.lbxUsers.Size = new System.Drawing.Size(139, 352);
             this.lbxUsers.TabIndex = 57;
-            this.lbxUsers.SelectedIndexChanged += new System.EventHandler(this.lbxUsers_SelectedIndexChanged);
+            this.lbxUsers.SelectedValueChanged += new System.EventHandler(this.lbxUsers_SelectedValueChanged);
             // 
             // cmbUserType
             // 
