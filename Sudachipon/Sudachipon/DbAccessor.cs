@@ -140,8 +140,7 @@ namespace Sudachipon
                 while (dataReader.Read())
                 {
                     UserMaster um = new UserMaster();
-                    um.createData();
-
+                    
                     um.id = int.Parse(String.Format("{0}", dataReader["us_id"]));
                     um.name = String.Format("{0}", dataReader["us_name"]);
                     um.type = int.Parse(String.Format("{0}", dataReader["us_type"]));
@@ -595,16 +594,13 @@ namespace Sudachipon
             public
             String comment;
 
-            public UserMaster createData()
+            public UserMaster()
             {
-                UserMaster um = new UserMaster();
-                um.id = 0;
-                um.name = String.Empty;
-                um.type = 1;
-                um.active = true;
-                um.comment = String.Empty;
-
-                return um;
+                this.id = 0;
+                this.name = String.Empty;
+                this.type = 1;
+                this.active = true;
+                this.comment = String.Empty;
             }
 
             public override string ToString()

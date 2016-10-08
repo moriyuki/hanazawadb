@@ -14,6 +14,7 @@ namespace Sudachipon
     {
         DbAccessor dba = DbAccessor.GetInstance();
         DbAccessor.PcMaster selectedPc;
+        DbAccessor.PcMaster AlterCheckPcData;
 
         public FrmPcMasterMaintenance()
         {
@@ -41,6 +42,7 @@ namespace Sudachipon
                 }
             }
 
+            // 非選択時は詳細項目空欄
             if (this.lbxPcs.SelectedIndex < 0)
             {
                 // 詳細項目クリア
@@ -93,6 +95,14 @@ namespace Sudachipon
                 this.chbPcIsByod.Checked = selectedPc.IsByod;
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
+
+                //AlterCheckPcData.Name = selectedPc.Name;
+                //AlterCheckPcData.Cpu = selectedPc.Cpu;
+                //AlterCheckPcData.Memory = selectedPc.Memory;
+                //AlterCheckPcData.Os = selectedPc.Os;
+                //AlterCheckPcData.IsByod = selectedPc.IsByod;
+                //AlterCheckPcData.Active = selectedPc.Active;
+                //AlterCheckPcData.Comment = selectedPc.Comment;
             }
         }
 
@@ -173,10 +183,17 @@ namespace Sudachipon
             // ListBox更新
             this.UpdatePcList();
         }
+
         // Drag Drop
         private void lbxSoftMaster_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if (this.lbxPcs.SelectedIndex < 0)
+            {
+                // PCマスターの選択が無ければ終了
+                return;    
+            }
+
+            if (e.Button == MouseButtons.Left)
             {
                 ListBox lbx = (ListBox)sender;
                 DbAccessor.SoftwareMaster sfm = lbx.SelectedItem as DbAccessor.SoftwareMaster;
