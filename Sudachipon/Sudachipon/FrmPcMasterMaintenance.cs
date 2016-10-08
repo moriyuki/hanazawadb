@@ -41,6 +41,17 @@ namespace Sudachipon
                 }
             }
 
+            if (this.lbxPcs.SelectedIndex < 0)
+            {
+                // 詳細項目クリア
+                this.txbPcName.Text = String.Empty;
+                this.txbPcCpu.Text = String.Empty;
+                this.txbPcMemory.Text = String.Empty;
+                this.txbPcOs.Text = String.Empty;
+                this.chbPcIsByod.Checked = false;
+                this.chbpPcIsActive.Checked = false;
+                this.txbComment.Text = String.Empty;
+            }
         }
 
         // ListBoxPCs更新
@@ -59,27 +70,30 @@ namespace Sudachipon
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
-            //if (sender == null){ 
-            //    return;
-            //}
-
             selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
 
-            if (selectedPc == null)
+            if (selectedPc == null || this.lbxPcs.SelectedIndex < 0)
             {
-                return;
+                // 詳細項目クリア
+                this.txbPcName.Text = String.Empty;
+                this.txbPcCpu.Text = String.Empty;
+                this.txbPcMemory.Text = String.Empty;
+                this.txbPcOs.Text = String.Empty;
+                this.chbPcIsByod.Checked = false;
+                this.chbpPcIsActive.Checked = false;
+                this.txbComment.Text = String.Empty;
             }
-            // 詳細項目クリア
-
-
-            // 詳細項目値代入
-            this.txbPcName.Text = selectedPc.Name;
-            this.txbPcCpu.Text = selectedPc.Cpu;
-            this.txbPcMemory.Text = selectedPc.Memory;
-            this.txbPcOs.Text = selectedPc.Os;
-            this.chbPcIsByod.Checked = selectedPc.IsByod;
-            this.chbpPcIsActive.Checked = selectedPc.Active;
-            this.txbComment.Text = selectedPc.Comment;
+            else
+            {
+                // 詳細項目値代入
+                this.txbPcName.Text = selectedPc.Name;
+                this.txbPcCpu.Text = selectedPc.Cpu;
+                this.txbPcMemory.Text = selectedPc.Memory;
+                this.txbPcOs.Text = selectedPc.Os;
+                this.chbPcIsByod.Checked = selectedPc.IsByod;
+                this.chbpPcIsActive.Checked = selectedPc.Active;
+                this.txbComment.Text = selectedPc.Comment;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

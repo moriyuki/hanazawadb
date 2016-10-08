@@ -24,7 +24,7 @@ namespace Sudachipon
             // ListBoxUsers更新
             updateUserList();
         }
-        
+
         // ListBoxUsers更新
         private void updateUserList()
         {
@@ -38,7 +38,7 @@ namespace Sudachipon
                 {
                     this.lbxUsers.Items.Add(user);
                 }
-                
+
             }
 
         }
@@ -86,21 +86,15 @@ namespace Sudachipon
                 }
             }
         }
-           
-         private void btnDel_Click(object sender, EventArgs e)
-         {
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
             DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
             um.active = false;
             this.dba.UpdateUserMaster(um);
             // ListBox更新
             this.updateUserList();
-          }
-          
+        }
+
     }
-      
-  
-
-
- 
-
-
+}
