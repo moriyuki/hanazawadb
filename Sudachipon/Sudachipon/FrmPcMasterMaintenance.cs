@@ -107,6 +107,7 @@ namespace Sudachipon
 
         }
 
+        // deleteボタンクリック時
         private void btnDel_Click(object sender, EventArgs e)
         {
             DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
@@ -116,6 +117,7 @@ namespace Sudachipon
             this.UpdatePcList();
         }
 
+        // updateボタンクリック時
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             // 元データと比較、変更がなければreturn
@@ -133,11 +135,13 @@ namespace Sudachipon
             this.dba.UpdatePcMaster(pcm);
         }
 
+        // Closeボタンクリック時
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // ShowInactiveチェック変更時
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
             // ListBox更新
