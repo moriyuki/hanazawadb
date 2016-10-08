@@ -92,7 +92,7 @@ namespace Sudachipon
                 }
             }
         }
-
+        public
         void SelectSoftwareMaster()
         {
             String sql = "select * from mt_soft;";
@@ -114,8 +114,8 @@ namespace Sudachipon
                     sm.name = String.Format("{0}", dataReader["sf_name"]);
                     sm.version = String.Format("{0}", dataReader["sf_version"]);
                     sm.osType = int.Parse(String.Format("{0}", dataReader["sf_os"]));
-                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_available"]));
-                    sm.active = bool.Parse(String.Format("{0}", dataReader["sf_active"]));
+                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_avilable_number"]));
+                    sm.active = bool.Parse(String.Format("{0}", dataReader["af_active"]));
                     sm.comment = String.Format("{0}", dataReader["sf_comment"]);
 
                     this.SoftwareMasters.Add(sm);

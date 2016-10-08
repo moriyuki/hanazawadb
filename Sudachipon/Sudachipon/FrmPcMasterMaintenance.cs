@@ -20,11 +20,13 @@ namespace Sudachipon
             InitializeComponent();
             
             // ListBoxPCs更新
-            updatePcList();
+            UpdatePcList();
+            // ListBoxSoftMaster更新
+            UpdateSoftwareMaster();
         }
 
         // ListBoxPCs更新
-        private void updatePcList()
+        private void UpdatePcList()
         {
             dba.SelectPcMaster();
 
@@ -38,6 +40,20 @@ namespace Sudachipon
                 }
             }
 
+        }
+
+        // ListBoxPCs更新
+        private void UpdateSoftwareMaster()
+        {
+            dba.SelectSoftwareMaster();
+            this.lbxSoftMaster.Items.Clear();
+            foreach (DbAccessor.SoftwareMaster soft in dba.SoftwareMasters)
+            {
+                if (soft.active)
+                {
+                    this.lbxSoftMaster.Items.Add(soft);
+                }
+            }
         }
         // 選択変更時
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
@@ -76,7 +92,7 @@ namespace Sudachipon
             dba.PcMasters.Add(pcm);
 
             // ListBoxの更新
-            this.updatePcList();
+            this.UpdatePcList();
 
             // ListBox選択の変更
             //foreach ( object lbxPc in this.lbxPcs.Items)
@@ -97,7 +113,7 @@ namespace Sudachipon
             pcm.Active = false;
             this.dba.UpdatePcMaster(pcm);
             // ListBox更新
-            this.updatePcList();
+            this.UpdatePcList();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -125,7 +141,7 @@ namespace Sudachipon
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
             // ListBox更新
-            this.updatePcList();
+            this.UpdatePcList();
         }
     }
 }
