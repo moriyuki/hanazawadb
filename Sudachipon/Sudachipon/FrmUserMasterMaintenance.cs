@@ -77,18 +77,27 @@ namespace Sudachipon
             this.updateUserList();
 
             // ListBox選択の変更
-            //foreach ( object lbxPc in this.lbxPcs.Items)
             for (var i = 0; i < this.lbxUsers.Items.Count; i++)
             {
-                DbAccessor.PcMaster pc = this.lbxUsers.Items[i] as DbAccessor.PcMaster;
-                if (pc.Id == um.id)
+                DbAccessor.UserMaster user = this.lbxUsers.Items[i] as DbAccessor.UserMaster;
+                if (user.id == um.id)
                 {
                     this.lbxUsers.SelectedIndex = i;
                 }
             }
+           
+         private void btnDel_Click(object sender, EventArgs e)
+         {
+            DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
+            um.active = false;
+            this.dba.UpdateUserMaster(um);
+            // ListBox更新
+            this.updateUserList();
+          }
 
+    }
 
-        }
+          
     }
       
   

@@ -212,6 +212,63 @@ namespace Sudachipon
             }
         }
 
+       
+        void UpdateUserMaster(UserMaster um)
+        {
+            StringBuilder sbupdatesql = new StringBuilder();
+            sbupdatesql.Append("update mt_user set ");
+            sbupdatesql.Append("user_name = '" + um.name + "', ");
+            sbupdatesql.Append("user_type = '" + um.type + "', ");
+            sbupdatesql.Append("user_active = '" + um.active + "' ");
+            sbupdatesql.Append("where user_id = " + um.id + ";");
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into mt_user (user_id, user_name, user_type, user_active, user_comment) values(");
+            sbinsertsql.Append(um.id + ",");
+            sbinsertsql.Append("'" + um.name + "',");
+            sbinsertsql.Append("'" + um.type + "',");
+            sbinsertsql.Append(um.active.ToString() + ",");
+            sbinsertsql.Append("'" + um.comment + "');");
+
+
+            //= sbsql.ToString();
+
+            String IdExistSql = "select count(*) as count from mt_user where user_id = " + um.id + ";";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var existCheckCommand = new NpgsqlCommand(IdExistSql, conn);
+                var existCheckResultReader = existCheckCommand.ExecuteReader();
+
+                while (existCheckResultReader.Read())
+                {
+
+                    if (int.Parse(String.Format("{0}", existCheckResultReader["count"])) == 0)
+                    {
+                        // insert
+                        sql = sbinsertsql.ToString();
+                    }
+                    else
+                    {
+                        sql = sbupdatesql.ToString();
+                    }
+                }
+                conn.Close();
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("UserMasterは更新されませんでした");
+                }
+            }
+        }
         // ========================= data model =========================
         public
         // PC_master
