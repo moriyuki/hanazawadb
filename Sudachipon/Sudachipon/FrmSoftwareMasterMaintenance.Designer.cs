@@ -30,14 +30,13 @@
         {
             this.txbSoftwareComment = new System.Windows.Forms.TextBox();
             this.chbpSoftwareIsActive = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.lsbPcMaster = new System.Windows.Forms.ListBox();
             this.lsbPcs = new System.Windows.Forms.ListBox();
             this.lblSoftwareCommentCaption = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblPcByod = new System.Windows.Forms.Label();
-            this.txbPcCpu = new System.Windows.Forms.TextBox();
+            this.txbSoftAvailable = new System.Windows.Forms.TextBox();
             this.lblSoftwareAvailableNumberCaption = new System.Windows.Forms.Label();
             this.lblSoftOSCaption = new System.Windows.Forms.Label();
             this.txbSoftwareVersion = new System.Windows.Forms.TextBox();
@@ -79,27 +78,17 @@
             this.chbpSoftwareIsActive.Text = "Active";
             this.chbpSoftwareIsActive.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnClose
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(571, 412);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 37);
-            this.button2.TabIndex = 47;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(617, 412);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(43, 37);
-            this.button1.TabIndex = 46;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClose.Location = new System.Drawing.Point(601, 412);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(59, 37);
+            this.btnClose.TabIndex = 47;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // lsbPcMaster
             // 
@@ -149,13 +138,13 @@
             this.lblPcByod.Size = new System.Drawing.Size(0, 12);
             this.lblPcByod.TabIndex = 41;
             // 
-            // txbPcCpu
+            // txbSoftAvailable
             // 
-            this.txbPcCpu.Location = new System.Drawing.Point(185, 185);
-            this.txbPcCpu.Margin = new System.Windows.Forms.Padding(2);
-            this.txbPcCpu.Name = "txbPcCpu";
-            this.txbPcCpu.Size = new System.Drawing.Size(139, 19);
-            this.txbPcCpu.TabIndex = 40;
+            this.txbSoftAvailable.Location = new System.Drawing.Point(185, 185);
+            this.txbSoftAvailable.Margin = new System.Windows.Forms.Padding(2);
+            this.txbSoftAvailable.Name = "txbSoftAvailable";
+            this.txbSoftAvailable.Size = new System.Drawing.Size(139, 19);
+            this.txbSoftAvailable.TabIndex = 40;
             // 
             // lblSoftwareAvailableNumberCaption
             // 
@@ -219,32 +208,35 @@
             this.btnDel.Location = new System.Drawing.Point(82, 412);
             this.btnDel.Margin = new System.Windows.Forms.Padding(2);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(43, 37);
+            this.btnDel.Size = new System.Drawing.Size(68, 37);
             this.btnDel.TabIndex = 32;
             this.btnDel.Text = "Delete";
             this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(35, 412);
+            this.btnAdd.Location = new System.Drawing.Point(11, 412);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(43, 37);
+            this.btnAdd.Size = new System.Drawing.Size(67, 37);
             this.btnAdd.TabIndex = 31;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnUpdate.Location = new System.Drawing.Point(191, 412);
+            this.btnUpdate.Location = new System.Drawing.Point(521, 412);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(43, 37);
+            this.btnUpdate.Size = new System.Drawing.Size(57, 37);
             this.btnUpdate.TabIndex = 30;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // chbShowInactive
             // 
@@ -256,6 +248,7 @@
             this.chbShowInactive.TabIndex = 29;
             this.chbShowInactive.Text = "showInactive";
             this.chbShowInactive.UseVisualStyleBackColor = true;
+            this.chbShowInactive.CheckedChanged += new System.EventHandler(this.chbShowInactive_CheckedChanged);
             // 
             // lblSoftwareMasterCaption
             // 
@@ -278,7 +271,7 @@
             this.lbxSoftwares.Name = "lbxSoftwares";
             this.lbxSoftwares.Size = new System.Drawing.Size(139, 352);
             this.lbxSoftwares.TabIndex = 27;
-            this.lbxSoftwares.SelectedIndexChanged += new System.EventHandler(this.lbxSoftwares_SelectedIndexChanged);
+            this.lbxSoftwares.SelectedValueChanged += new System.EventHandler(this.lbxSoftwares_SelectedValueChanged);
             // 
             // lsbUserMaster
             // 
@@ -362,14 +355,13 @@
             this.Controls.Add(this.lsbUsers);
             this.Controls.Add(this.txbSoftwareComment);
             this.Controls.Add(this.chbpSoftwareIsActive);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lsbPcMaster);
             this.Controls.Add(this.lsbPcs);
             this.Controls.Add(this.lblSoftwareCommentCaption);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblPcByod);
-            this.Controls.Add(this.txbPcCpu);
+            this.Controls.Add(this.txbSoftAvailable);
             this.Controls.Add(this.lblSoftwareAvailableNumberCaption);
             this.Controls.Add(this.lblSoftOSCaption);
             this.Controls.Add(this.txbSoftwareVersion);
@@ -414,11 +406,10 @@
         private System.Windows.Forms.CheckBox chbShowInactive;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDel;
-        private System.Windows.Forms.TextBox txbPcCpu;
+        private System.Windows.Forms.TextBox txbSoftAvailable;
         private System.Windows.Forms.Label lblPcByod;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ComboBox cmbSoftwareOs;
     }
 }

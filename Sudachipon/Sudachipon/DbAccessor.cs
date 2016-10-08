@@ -93,6 +93,7 @@ namespace Sudachipon
             }
         }
 
+        public
         void SelectSoftwareMaster()
         {
             String sql = "select * from mt_soft;";
@@ -212,6 +213,68 @@ namespace Sudachipon
             }
         }
 
+        public
+        void UpdateSoftwareMaster(SoftwareMaster sfm)
+        {
+            StringBuilder sbupdatesql = new StringBuilder();
+            sbupdatesql.Append("update mt_soft set ");
+            sbupdatesql.Append("sf_name = '" + sfm.name + "', ");
+            sbupdatesql.Append("sf_version = '" + sfm.version + "', ");
+            sbupdatesql.Append("sf_os = '" + sfm.osType + "', ");
+            sbupdatesql.Append("sf_available = '" + sfm.available + "', ");
+            sbupdatesql.Append("sf_comment = '" + sfm.comment + "', ");
+            sbupdatesql.Append("sf_active = '" + sfm.active + "' ");
+            sbupdatesql.Append("where sf_id = " + sfm.id + ";");
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available, sf_active, sf_comment) values(");
+            sbinsertsql.Append(sfm.id + ",");
+            sbinsertsql.Append("'" + sfm.name + "',");
+            sbinsertsql.Append("'" + sfm.version + "',");
+            sbinsertsql.Append("'" + sfm.osType + "',");
+            sbinsertsql.Append("'" + sfm.available.ToString()+ "',");
+            sbinsertsql.Append(sfm.active.ToString() + ",");
+            sbinsertsql.Append("'" + sfm.comment + "');");
+
+
+            //= sbsql.ToString();
+
+            String IdExistSql = "select count(*) as count from mt_soft where sf_id = " + sfm.id + ";";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var existCheckCommand = new NpgsqlCommand(IdExistSql, conn);
+                var existCheckResultReader = existCheckCommand.ExecuteReader();
+
+                while (existCheckResultReader.Read())
+                {
+
+                    if (int.Parse(String.Format("{0}", existCheckResultReader["count"])) == 0)
+                    {
+                        // insert
+                        sql = sbinsertsql.ToString();
+                    }
+                    else
+                    {
+                        sql = sbupdatesql.ToString();
+                    }
+                }
+                conn.Close();
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("SoftwareMasterは更新されませんでした");
+                }
+            }
+        }
         // ========================= data model =========================
         public
         // PC_master
@@ -379,7 +442,7 @@ namespace Sudachipon
 
         // Soft master
         public
-        struct SoftwareMaster
+        class SoftwareMaster
         {
             // SoftwareataModel;
             public
@@ -401,13 +464,24 @@ namespace Sudachipon
             {
                 SoftwareMaster sm = new SoftwareMaster();
                 sm.id = 0;
-                sm.name = String.Empty;
+                sm.name = "A Software";
                 sm.version = String.Empty;
                 sm.osType = 1;
                 sm.available = 1;
                 sm.active = true;
                 sm.comment = String.Empty;
                 return sm;
+            }
+
+            // sf_id の最大値+1を返す
+            public int GetNextId()
+            {
+                int ret = 0;
+                foreach (SoftwareMaster sf in _DbAccessor.SoftwareMasters)
+                {
+                    if (ret < sf.id) ret = sf.id;
+                }
+                return ret + 1;
             }
         }
 
