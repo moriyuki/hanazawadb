@@ -153,6 +153,35 @@ namespace Sudachipon
             }
         }
 
+        public void SelectPcSoftData()
+        {
+            String sql = "select * from dt_pc_soft;";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                this.PcSoftDatas.Clear();
+
+                while (dataReader.Read())
+                {
+                    PcSoftData psd = new PcSoftData();
+                    psd.createData();
+
+                    psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
+                    psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
+                    psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+
+                    this.PcSoftDatas.Add(psd);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
+
         public
         void UpdatePcMaster(PcMaster pcm)
         {
@@ -461,11 +490,11 @@ namespace Sudachipon
         // Pc Soft Relation Data
         public class PcSoftData
         {
-            int pcId;
-            int softId;
-            String comment;
+            public int pcId;
+            public int softId;
+            public String comment;
 
-            PcSoftData createData()
+            public PcSoftData createData()
             {
                 PcSoftData pd = new PcSoftData();
                 pd.pcId = 0;
