@@ -198,12 +198,15 @@
             // 
             // lbxSoft
             // 
+            this.lbxSoft.AllowDrop = true;
             this.lbxSoft.FormattingEnabled = true;
             this.lbxSoft.ItemHeight = 18;
             this.lbxSoft.Location = new System.Drawing.Point(587, 84);
             this.lbxSoft.Name = "lbxSoft";
             this.lbxSoft.Size = new System.Drawing.Size(229, 220);
             this.lbxSoft.TabIndex = 20;
+            this.lbxSoft.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragDrop);
+            this.lbxSoft.DragEnter += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragEnter);
             // 
             // lbxSoftMaster
             // 
@@ -213,6 +216,7 @@
             this.lbxSoftMaster.Name = "lbxSoftMaster";
             this.lbxSoftMaster.Size = new System.Drawing.Size(229, 238);
             this.lbxSoftMaster.TabIndex = 21;
+            this.lbxSoftMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxSoftMaster_MouseDown);
             // 
             // btnClose
             // 
