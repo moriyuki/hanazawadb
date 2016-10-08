@@ -241,8 +241,8 @@ namespace Sudachipon
             }
         }
 
-       
-        void UpdateUserMaster(UserMaster um)
+        
+        public void UpdateUserMaster(UserMaster um)
         {
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_user set ");
@@ -530,6 +530,17 @@ namespace Sudachipon
                 return um;
             }
 
+            public override string ToString()
+            {
+                if (name == null)
+                {
+                    return base.ToString();
+                }
+                else
+                {
+                    return name;
+                }
+            }
             // user_id の最大値+1を返す
             public int GetNextId()
             {

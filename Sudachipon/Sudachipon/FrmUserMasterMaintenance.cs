@@ -85,6 +85,7 @@ namespace Sudachipon
                     this.lbxUsers.SelectedIndex = i;
                 }
             }
+        }
            
          private void btnDel_Click(object sender, EventArgs e)
          {
@@ -101,7 +102,7 @@ namespace Sudachipon
     }
       
   
-}
+
 
  
 
