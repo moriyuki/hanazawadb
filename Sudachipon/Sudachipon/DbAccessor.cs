@@ -242,7 +242,7 @@ namespace Sudachipon
         }
 
        
-        void UpdateUserMaster(UserMaster um)
+        public void UpdateUserMaster(UserMaster um)
         {
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_user set ");

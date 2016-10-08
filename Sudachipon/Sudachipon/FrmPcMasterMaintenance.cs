@@ -117,6 +117,15 @@ namespace Sudachipon
             // ListBox更新
             dba.SelectPcMaster();
             this.UpdatePcList();
+
+            // 詳細項目値代入
+            this.txbPcName.Text = String.Empty;
+            this.txbPcCpu.Text = String.Empty;
+            this.txbPcMemory.Text = String.Empty;
+            this.txbPcOs.Text = String.Empty;
+            this.chbPcIsByod.Checked = false;
+            this.chbpPcIsActive.Checked = false;
+            this.txbComment.Text = String.Empty;
         }
 
         // updateボタンクリック時
