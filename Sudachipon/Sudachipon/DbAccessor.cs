@@ -153,6 +153,35 @@ namespace Sudachipon
             }
         }
 
+        public void SelectPcSoftData()
+        {
+            String sql = "select * from dt_pc_soft;";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                this.PcSoftDatas.Clear();
+
+                while (dataReader.Read())
+                {
+                    PcSoftData psd = new PcSoftData();
+                    psd.createData();
+
+                    psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
+                    psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
+                    psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+
+                    this.PcSoftDatas.Add(psd);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
+
         public
         void UpdatePcMaster(PcMaster pcm)
         {
@@ -516,13 +545,13 @@ namespace Sudachipon
         public List<UserMaster> UserMasters = new List<UserMaster>();
 
         // Pc Soft Relation Data
-        struct PcSoftData
+        public class PcSoftData
         {
-            int pcId;
-            int softId;
-            String comment;
+            public int pcId;
+            public int softId;
+            public String comment;
 
-            PcSoftData createData()
+            public PcSoftData createData()
             {
                 PcSoftData pd = new PcSoftData();
                 pd.pcId = 0;
@@ -532,9 +561,10 @@ namespace Sudachipon
                 return pd;
             }
         }
+        public List<PcSoftData> PcSoftDatas = new List<PcSoftData>();
 
         // Pc User Date Relation Data
-        struct PcUserDateData
+        public class PcUserDateData
         {
             DateTime date;
             int pcId;
@@ -550,10 +580,10 @@ namespace Sudachipon
             }
         }
 
-        PcUserDateData[] PcUserDateDatas;
+        public List<PcUserDateData> PcUserDateDatas = new List<PcUserDateData>();
 
         // User Soft RelationData
-        struct UserSoftData
+        public class UserSoftData
         {
             int userId;
             int softId;
@@ -569,7 +599,7 @@ namespace Sudachipon
             }
         }
 
-        UserSoftData[] UserSoftDatas;
+        public List<UserSoftData> UserSoftDatas = new List<UserSoftData>();
 
     }
 }

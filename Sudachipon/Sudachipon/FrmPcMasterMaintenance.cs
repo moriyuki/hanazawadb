@@ -18,7 +18,9 @@ namespace Sudachipon
         public FrmPcMasterMaintenance()
         {
             InitializeComponent();
-            
+
+            dba.SelectPcMaster();
+
             // ListBoxPCs更新
             UpdatePcList();
             // ListBoxSoftMaster更新
@@ -28,7 +30,6 @@ namespace Sudachipon
         // ListBoxPCs更新
         private void UpdatePcList()
         {
-            dba.SelectPcMaster();
 
             this.lbxPcs.Items.Clear();
 
@@ -114,6 +115,7 @@ namespace Sudachipon
             pcm.Active = false;
             this.dba.UpdatePcMaster(pcm);
             // ListBox更新
+            dba.SelectPcMaster();
             this.UpdatePcList();
         }
 
@@ -144,6 +146,7 @@ namespace Sudachipon
         // ShowInactiveチェック変更時
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
+            dba.SelectPcMaster();
             // ListBox更新
             this.UpdatePcList();
         }
