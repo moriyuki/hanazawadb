@@ -379,7 +379,7 @@ namespace Sudachipon
 
         // Soft master
         public
-        struct SoftwareMaster
+        class SoftwareMaster
         {
             // SoftwareataModel;
             public
@@ -408,6 +408,10 @@ namespace Sudachipon
                 sm.active = true;
                 sm.comment = String.Empty;
                 return sm;
+            }
+            public override string ToString()
+            {
+                return name;
             }
         }
 
