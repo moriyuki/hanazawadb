@@ -18,9 +18,6 @@ namespace Sudachipon
         public FrmPcMasterMaintenance()
         {
             InitializeComponent();
-            dba.SelectPcMaster();
-
-            this.lbxPcs.Items.Clear();
             
             // ListBoxPCs更新
             updatePcList();
@@ -29,11 +26,16 @@ namespace Sudachipon
         // ListBoxPCs更新
         private void updatePcList()
         {
+            dba.SelectPcMaster();
+
             this.lbxPcs.Items.Clear();
 
             foreach (DbAccessor.PcMaster pc in dba.PcMasters)
             {
-                this.lbxPcs.Items.Add(pc);
+                if (this.chbShowInactive.Checked || pc.Active)
+                {
+                    this.lbxPcs.Items.Add(pc);
+                }
             }
 
         }
@@ -91,7 +93,11 @@ namespace Sudachipon
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-
+            DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
+            pcm.Active = false;
+            this.dba.UpdatePcMaster(pcm);
+            // ListBox更新
+            this.updatePcList();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -114,6 +120,12 @@ namespace Sudachipon
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
+        {
+            // ListBox更新
+            this.updatePcList();
         }
     }
 }

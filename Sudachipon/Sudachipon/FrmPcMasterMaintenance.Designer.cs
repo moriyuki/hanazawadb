@@ -83,6 +83,7 @@
             this.chbShowInactive.TabIndex = 2;
             this.chbShowInactive.Text = "showInactive";
             this.chbShowInactive.UseVisualStyleBackColor = true;
+            this.chbShowInactive.CheckedChanged += new System.EventHandler(this.chbShowInactive_CheckedChanged);
             // 
             // btnAdd
             // 
