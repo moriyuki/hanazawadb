@@ -147,5 +147,37 @@ namespace Sudachipon
             // ListBox更新
             this.UpdatePcList();
         }
+        // Drag Drop
+        private void lbxSoftMaster_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                ListBox lbx = (ListBox)sender;
+                DbAccessor.SoftwareMaster sfm = lbx.SelectedItem as DbAccessor.SoftwareMaster;
+                DragDropEffects dde = lbx.DoDragDrop(sfm, DragDropEffects.All);
+            }
+        }
+
+        private void lbxSoft_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void lbxSoft_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
+            {
+                ListBox target = (ListBox)sender;
+                DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
+                target.Items.Add(itemSoftware);
+            }
+        }
     }
 }
