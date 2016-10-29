@@ -12,7 +12,7 @@ namespace Sudachipon
     class DbAccessor
     {
         // 別途設定ファイル外出で設定できるようにする
-        const String CONN_STRING = @"Server=192.168.0.4;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
+        const String CONN_STRING = @"Server=192.168.0.13;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
 
         // singleton
         private static DbAccessor _DbAccessor = new DbAccessor();
