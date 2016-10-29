@@ -106,6 +106,9 @@ namespace Sudachipon
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
                 var dataReader = command.ExecuteReader();
 
+                // SoftwareMasters クリア
+                this.SoftwareMasters.Clear();
+
                 while (dataReader.Read())
                 {
                     SoftwareMaster sm = new SoftwareMaster();

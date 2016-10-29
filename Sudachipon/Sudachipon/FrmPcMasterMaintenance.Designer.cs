@@ -51,6 +51,8 @@
             this.chbPcIsByod = new System.Windows.Forms.CheckBox();
             this.chbpPcIsActive = new System.Windows.Forms.CheckBox();
             this.txbComment = new System.Windows.Forms.TextBox();
+            this.lblSoftwareMasterCaption = new System.Windows.Forms.Label();
+            this.lblSftwaresCaption = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbxPcs
@@ -270,11 +272,31 @@
             this.txbComment.Size = new System.Drawing.Size(229, 134);
             this.txbComment.TabIndex = 26;
             // 
+            // lblSoftwareMasterCaption
+            // 
+            this.lblSoftwareMasterCaption.AutoSize = true;
+            this.lblSoftwareMasterCaption.Location = new System.Drawing.Point(637, 328);
+            this.lblSoftwareMasterCaption.Name = "lblSoftwareMasterCaption";
+            this.lblSoftwareMasterCaption.Size = new System.Drawing.Size(131, 18);
+            this.lblSoftwareMasterCaption.TabIndex = 27;
+            this.lblSoftwareMasterCaption.Text = "Software Master";
+            // 
+            // lblSftwaresCaption
+            // 
+            this.lblSftwaresCaption.AutoSize = true;
+            this.lblSftwaresCaption.Location = new System.Drawing.Point(656, 63);
+            this.lblSftwaresCaption.Name = "lblSftwaresCaption";
+            this.lblSftwaresCaption.Size = new System.Drawing.Size(83, 18);
+            this.lblSftwaresCaption.TabIndex = 28;
+            this.lblSftwaresCaption.Text = "Softwares";
+            // 
             // FrmPcMasterMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 674);
+            this.Controls.Add(this.lblSftwaresCaption);
+            this.Controls.Add(this.lblSoftwareMasterCaption);
             this.Controls.Add(this.txbComment);
             this.Controls.Add(this.chbpPcIsActive);
             this.Controls.Add(this.chbPcIsByod);
@@ -330,5 +352,7 @@
         private System.Windows.Forms.CheckBox chbPcIsByod;
         private System.Windows.Forms.CheckBox chbpPcIsActive;
         private System.Windows.Forms.TextBox txbComment;
+        private System.Windows.Forms.Label lblSoftwareMasterCaption;
+        private System.Windows.Forms.Label lblSftwaresCaption;
     }
 }
