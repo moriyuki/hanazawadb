@@ -215,5 +215,23 @@ namespace Sudachipon
                 target.Items.Add(itemSoftware);
             }
         }
+
+        // 
+        private void lbxSoft_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 削除用　keydown
+            if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
+            {
+                DbAccessor.SoftwareMaster soft = (DbAccessor.SoftwareMaster)this.lbxSoft.SelectedItem;
+
+                if (DialogResult.OK != MessageBox.Show("選択したソフトウェアを削除します","caution",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning))
+                {
+                    return;
+                }
+
+                // 削除
+
+            }
+        }
     }
 }

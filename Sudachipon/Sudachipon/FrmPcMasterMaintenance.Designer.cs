@@ -209,6 +209,7 @@
             this.lbxSoft.TabIndex = 20;
             this.lbxSoft.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragDrop);
             this.lbxSoft.DragEnter += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragEnter);
+            this.lbxSoft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbxSoft_KeyDown);
             // 
             // lbxSoftMaster
             // 
