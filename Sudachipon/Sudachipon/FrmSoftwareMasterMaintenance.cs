@@ -21,6 +21,12 @@ namespace Sudachipon
 
             updateSoftList();
 
+            // ListBoxPcMaster更新
+            UpdatePcMaster();
+            // ListBoxUserMaster更新
+            UpdateUserMaster();
+
+
             this.cmbSoftwareOs.Items.Add("Windows");
             this.cmbSoftwareOs.Items.Add("MacOS");
             this.cmbSoftwareOs.Items.Add("Windows/MacOS");
@@ -41,6 +47,34 @@ namespace Sudachipon
                 }
             }
 
+        }
+
+        // ListBoxPCs更新
+        private void UpdatePcMaster()
+        {
+            dba.SelectPcMaster();
+            this.lsbPcMaster.Items.Clear();
+            foreach (DbAccessor.PcMaster pc in dba.PcMasters)
+            {
+                if (pc.Active)
+                {
+                    this.lsbPcMaster.Items.Add(pc);
+                }
+            }
+        }
+
+        // ListBoxUsers更新
+        private void UpdateUserMaster()
+        {
+            dba.SelectUserMaster();
+            this.lsbUserMaster.Items.Clear();
+            foreach (DbAccessor.UserMaster user in dba.UserMasters)
+            {
+                if (user.active)
+                {
+                    this.lsbUserMaster.Items.Add(user);
+                }
+            }
         }
 
         // 選択変更時
@@ -101,6 +135,14 @@ namespace Sudachipon
             this.dba.UpdateSoftwareMaster(sfm);
             // ListBox更新
             this.updateSoftList();
+
+            // 詳細項目値代入
+            this.txbSoftwareName.Text = String.Empty;
+            this.txbSoftwareVersion.Text = String.Empty;
+            this.cmbSoftwareOs.SelectedIndex = -1;
+            this.txbSoftAvailable.Text = "";
+            this.chbpSoftwareIsActive.Checked = false;
+            this.txbSoftwareComment.Text = String.Empty;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -122,5 +164,71 @@ namespace Sudachipon
         {
             Close();
         }
+
+        private void lsbPcMaster_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ListBox lbx = (ListBox)sender;
+                DbAccessor.PcMaster pcm = lbx.SelectedItem as DbAccessor.PcMaster;
+                DragDropEffects dde = lbx.DoDragDrop(pcm, DragDropEffects.All);
+            }
+        }
+
+        private void lsbUserMaster_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ListBox lbx = (ListBox)sender;
+                DbAccessor.UserMaster usm = lbx.SelectedItem as DbAccessor.UserMaster;
+                DragDropEffects dde = lbx.DoDragDrop(usm, DragDropEffects.All);
+            }
+        }
+
+        private void lsbPcs_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.PcMaster)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void lsbPcs_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.PcMaster)))
+            {
+                ListBox target = (ListBox)sender;
+                DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)e.Data.GetData(typeof(DbAccessor.PcMaster));
+                target.Items.Add(itemPc);
+            }
+        }
+
+        private void lsbUsers_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.UserMaster)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void lsbUsers_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.UserMaster)))
+            {
+                ListBox target = (ListBox)sender;
+                DbAccessor.UserMaster itemUser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
+                target.Items.Add(itemUser);
+            }
+        }
+
+
     }
 }

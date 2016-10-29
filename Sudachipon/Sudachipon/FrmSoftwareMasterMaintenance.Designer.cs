@@ -99,6 +99,7 @@
             this.lsbPcMaster.Name = "lsbPcMaster";
             this.lsbPcMaster.Size = new System.Drawing.Size(139, 160);
             this.lsbPcMaster.TabIndex = 45;
+            this.lsbPcMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lsbPcMaster_MouseDown);
             // 
             // lsbPcs
             // 
@@ -109,6 +110,8 @@
             this.lsbPcs.Name = "lsbPcs";
             this.lsbPcs.Size = new System.Drawing.Size(139, 148);
             this.lsbPcs.TabIndex = 44;
+            this.lsbPcs.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbPcs_DragDrop);
+            this.lsbPcs.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbPcs_DragEnter);
             // 
             // lblSoftwareCommentCaption
             // 
@@ -282,6 +285,7 @@
             this.lsbUserMaster.Name = "lsbUserMaster";
             this.lsbUserMaster.Size = new System.Drawing.Size(139, 160);
             this.lsbUserMaster.TabIndex = 52;
+            this.lsbUserMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lsbUserMaster_MouseDown);
             // 
             // lsbUsers
             // 
@@ -292,6 +296,8 @@
             this.lsbUsers.Name = "lsbUsers";
             this.lsbUsers.Size = new System.Drawing.Size(139, 148);
             this.lsbUsers.TabIndex = 51;
+            this.lsbUsers.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbUsers_DragDrop);
+            this.lsbUsers.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbUsers_DragEnter);
             // 
             // label1
             // 
