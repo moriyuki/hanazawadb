@@ -224,12 +224,20 @@ namespace Sudachipon
             {
                 DbAccessor.SoftwareMaster soft = (DbAccessor.SoftwareMaster)this.lbxSoft.SelectedItem;
 
-                if (DialogResult.OK != MessageBox.Show("選択したソフトウェアを削除します","caution",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning))
+                if (soft == null)
                 {
                     return;
                 }
 
-                // 削除
+                if (DialogResult.OK != MessageBox.Show("選択したソフトウェアを削除します","caution",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning))
+                {
+                    return;
+                }
+                else
+                {
+                    // 削除
+
+                }
 
             }
         }
