@@ -21,8 +21,13 @@ namespace Sudachipon
         {
             InitializeComponent();
 
+            //コンボボックスに値を追加
+            this.cmbUserType.Items.Add("利用者");
+            this.cmbUserType.Items.Add("管理者");
+
             // ListBoxUsers更新
             updateUserList();
+
         }
 
         // ListBoxUsers更新
@@ -40,6 +45,7 @@ namespace Sudachipon
                 }
 
             }
+
 
             // 非選択時は詳細項目空欄
             if (this.lbxUsers.SelectedIndex < 0)
@@ -83,7 +89,19 @@ namespace Sudachipon
             {
                 // 詳細項目値代入
                 this.txbUserName.Text = selectedUser.name;
-                this.cmbUserType.Text = selectedUser.type.ToString();
+                string typeNum = selectedUser.type.ToString();
+                
+                //コンボボックス数字から置換
+                if (typeNum == "1")
+                {
+                    this.cmbUserType.Text = "利用者";  
+                }
+                else
+                {
+                    this.cmbUserType.Text = "管理者";
+                }
+
+                //this.cmbUserType.Text = selectedUser.type.ToString();
                 this.chbpUsersActive.Checked = selectedUser.active;
                 this.txbUserComment.Text = selectedUser.comment;
             }
@@ -140,7 +158,17 @@ namespace Sudachipon
             // 更新処理を呼び出し
             DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
             um.name = this.txbUserName.ToString();
-            //um.type = this.cmbUserType;
+
+            if (this.cmbUserType.Text == "1") 
+            {
+                um.type = 1;
+            }
+            else
+            {
+                um.type = 2;
+            }
+
+            //um.type = this.cmbUserType.Text.ToString();
             um.active = this.chbpUsersActive.Checked;
             um.comment = this.txbUserComment.Text;
 
