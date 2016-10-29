@@ -31,8 +31,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txbUserComment = new System.Windows.Forms.TextBox();
-            this.chbpSoftwareIsActive = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.chbpUsersActive = new System.Windows.Forms.CheckBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lsbSoftwareMaster = new System.Windows.Forms.ListBox();
             this.lsbSoftwares = new System.Windows.Forms.ListBox();
@@ -78,27 +78,29 @@
             this.txbUserComment.Size = new System.Drawing.Size(139, 91);
             this.txbUserComment.TabIndex = 79;
             // 
-            // chbpSoftwareIsActive
+            // chbpUsersActive
             // 
-            this.chbpSoftwareIsActive.AutoSize = true;
-            this.chbpSoftwareIsActive.Location = new System.Drawing.Point(185, 146);
-            this.chbpSoftwareIsActive.Margin = new System.Windows.Forms.Padding(2);
-            this.chbpSoftwareIsActive.Name = "chbpSoftwareIsActive";
-            this.chbpSoftwareIsActive.Size = new System.Drawing.Size(57, 16);
-            this.chbpSoftwareIsActive.TabIndex = 78;
-            this.chbpSoftwareIsActive.Text = "Active";
-            this.chbpSoftwareIsActive.UseVisualStyleBackColor = true;
+            this.chbpUsersActive.AutoSize = true;
+            this.chbpUsersActive.Location = new System.Drawing.Point(185, 146);
+            this.chbpUsersActive.Margin = new System.Windows.Forms.Padding(2);
+            this.chbpUsersActive.Name = "chbpUsersActive";
+            this.chbpUsersActive.Size = new System.Drawing.Size(57, 16);
+            this.chbpUsersActive.TabIndex = 78;
+            this.chbpUsersActive.Text = "Active";
+            this.chbpUsersActive.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnUpdate
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(352, 397);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(60, 37);
-            this.button2.TabIndex = 77;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnUpdate.Location = new System.Drawing.Point(352, 397);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(60, 37);
+            this.btnUpdate.TabIndex = 77;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // button1
             // 
@@ -110,6 +112,7 @@
             this.button1.TabIndex = 76;
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lsbSoftwareMaster
             // 
@@ -212,6 +215,7 @@
             this.chbShowInactive.TabIndex = 59;
             this.chbShowInactive.Text = "showInactive";
             this.chbShowInactive.UseVisualStyleBackColor = true;
+            this.chbShowInactive.CheckedChanged += new System.EventHandler(this.chbShowInactive_CheckedChanged);
             // 
             // lblUserMasterCaption
             // 
@@ -253,8 +257,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txbUserComment);
-            this.Controls.Add(this.chbpSoftwareIsActive);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.chbpUsersActive);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lsbSoftwareMaster);
             this.Controls.Add(this.lsbSoftwares);
@@ -280,8 +284,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txbUserComment;
-        private System.Windows.Forms.CheckBox chbpSoftwareIsActive;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox chbpUsersActive;
+        private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox lsbSoftwareMaster;
         private System.Windows.Forms.ListBox lsbSoftwares;

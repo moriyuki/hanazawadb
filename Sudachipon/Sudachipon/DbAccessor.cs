@@ -106,6 +106,9 @@ namespace Sudachipon
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
                 var dataReader = command.ExecuteReader();
 
+                // SoftwareMasters クリア
+                this.SoftwareMasters.Clear();
+
                 while (dataReader.Read())
                 {
                     SoftwareMaster sm = new SoftwareMaster();
@@ -137,11 +140,13 @@ namespace Sudachipon
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
                 var dataReader = command.ExecuteReader();
 
+                // UserMasters クリア
+                this.UserMasters.Clear();
+
                 while (dataReader.Read())
                 {
                     UserMaster um = new UserMaster();
-                    um.createData();
-
+                    
                     um.id = int.Parse(String.Format("{0}", dataReader["us_id"]));
                     um.name = String.Format("{0}", dataReader["us_name"]);
                     um.type = int.Parse(String.Format("{0}", dataReader["us_type"]));
@@ -309,13 +314,13 @@ namespace Sudachipon
         {
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_user set ");
-            sbupdatesql.Append("user_name = '" + um.name + "', ");
-            sbupdatesql.Append("user_type = '" + um.type + "', ");
-            sbupdatesql.Append("user_active = '" + um.active + "' ");
-            sbupdatesql.Append("where user_id = " + um.id + ";");
+            sbupdatesql.Append("us_name = '" + um.name + "', ");
+            sbupdatesql.Append("us_type = '" + um.type + "', ");
+            sbupdatesql.Append("us_active = '" + um.active + "' ");
+            sbupdatesql.Append("where us_id = " + um.id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();
-            sbinsertsql.Append("insert into mt_user (user_id, user_name, user_type, user_active, user_comment) values(");
+            sbinsertsql.Append("insert into mt_user (us_id, us_name, us_type, us_active, us_comment) values(");
             sbinsertsql.Append(um.id + ",");
             sbinsertsql.Append("'" + um.name + "',");
             sbinsertsql.Append("'" + um.type + "',");
@@ -325,7 +330,7 @@ namespace Sudachipon
 
             //= sbsql.ToString();
 
-            String IdExistSql = "select count(*) as count from mt_user where user_id = " + um.id + ";";
+            String IdExistSql = "select count(*) as count from mt_user where us_id = " + um.id + ";";
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
@@ -596,16 +601,13 @@ namespace Sudachipon
             public
             String comment;
 
-            public UserMaster createData()
+            public UserMaster()
             {
-                UserMaster um = new UserMaster();
-                um.id = 0;
-                um.name = String.Empty;
-                um.type = 1;
-                um.active = true;
-                um.comment = String.Empty;
-
-                return um;
+                this.id = 0;
+                this.name = String.Empty;
+                this.type = 1;
+                this.active = true;
+                this.comment = String.Empty;
             }
 
             public override string ToString()

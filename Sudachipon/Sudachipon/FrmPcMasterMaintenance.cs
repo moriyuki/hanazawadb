@@ -14,6 +14,7 @@ namespace Sudachipon
     {
         DbAccessor dba = DbAccessor.GetInstance();
         DbAccessor.PcMaster selectedPc;
+        DbAccessor.PcMaster AlterCheckPcData;
 
         public FrmPcMasterMaintenance()
         {
@@ -41,6 +42,7 @@ namespace Sudachipon
                 }
             }
 
+            // 非選択時は詳細項目空欄
             if (this.lbxPcs.SelectedIndex < 0)
             {
                 // 詳細項目クリア
@@ -93,6 +95,7 @@ namespace Sudachipon
                 this.chbPcIsByod.Checked = selectedPc.IsByod;
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
+
             }
         }
 
@@ -173,10 +176,17 @@ namespace Sudachipon
             // ListBox更新
             this.UpdatePcList();
         }
+
         // Drag Drop
         private void lbxSoftMaster_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if (this.lbxPcs.SelectedIndex < 0)
+            {
+                // PCマスターの選択が無ければ終了
+                return;    
+            }
+
+            if (e.Button == MouseButtons.Left)
             {
                 ListBox lbx = (ListBox)sender;
                 DbAccessor.SoftwareMaster sfm = lbx.SelectedItem as DbAccessor.SoftwareMaster;
@@ -203,6 +213,32 @@ namespace Sudachipon
                 ListBox target = (ListBox)sender;
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
                 target.Items.Add(itemSoftware);
+            }
+        }
+
+        // 
+        private void lbxSoft_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 削除用　keydown
+            if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
+            {
+                DbAccessor.SoftwareMaster soft = (DbAccessor.SoftwareMaster)this.lbxSoft.SelectedItem;
+
+                if (soft == null)
+                {
+                    return;
+                }
+
+                if (DialogResult.OK != MessageBox.Show("選択したソフトウェアを削除します","caution",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning))
+                {
+                    return;
+                }
+                else
+                {
+                    // 削除
+
+                }
+
             }
         }
     }
