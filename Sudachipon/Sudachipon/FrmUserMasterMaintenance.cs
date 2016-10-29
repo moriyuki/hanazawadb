@@ -41,28 +41,55 @@ namespace Sudachipon
 
             }
 
+            // 非選択時は詳細項目空欄
+            if (this.lbxUsers.SelectedIndex < 0)
+            {
+                // 詳細項目クリア
+                this.txbUserName.Text = String.Empty;
+                this.cmbUserType.Text = String.Empty;
+                this.chbpUsersActive.Checked = false;
+                this.txbUserComment.Text = String.Empty;
+            }
+
+        }
+
+        // ListBoxUsers更新
+        private void UpdateUserMaster()
+        {
+            dba.SelectUserMaster();
+            this.lbxUsers.Items.Clear();
+            foreach (DbAccessor.UserMaster user in dba.UserMasters)
+            {
+                if (user.active)
+                {
+                    this.lbxUsers.Items.Add(user);
+                }
+            }
         }
 
         //選択変更時
         private void lbxUsers_SelectedValueChanged(object sender, EventArgs e)
         {
-
             selectedUser = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
-
-            if (selectedUser == null)
+            if (selectedUser == null || this.lbxUsers.SelectedIndex < 0)
             {
-                return;
+                // 詳細項目クリア
+                this.txbUserName.Text = String.Empty;
+                this.cmbUserType.Text = String.Empty;
+                this.chbpUsersActive.Checked = false;
+                this.txbUserComment.Text = String.Empty;
             }
-
-
-            // 詳細項目値代入
-            this.txbUserName.Text = selectedUser.name;
-            this.cmbUserType.Text = selectedUser.type.ToString();
-            this.chbpSoftwareIsActive.Checked = selectedUser.active;
-            this.txbUserComment.Text = selectedUser.comment;
-
+            else
+            {
+                // 詳細項目値代入
+                this.txbUserName.Text = selectedUser.name;
+                this.cmbUserType.Text = selectedUser.type.ToString();
+                this.chbpUsersActive.Checked = selectedUser.active;
+                this.txbUserComment.Text = selectedUser.comment;
+            }
         }
 
+        //addボタンクリック
         private void btnAdd_Click(object sender, EventArgs e)
         {
             // 表示されているデータの更新確認
@@ -87,14 +114,49 @@ namespace Sudachipon
             }
         }
 
+
+        //deleteボタンクリック
         private void btnDel_Click(object sender, EventArgs e)
         {
             DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
             um.active = false;
             this.dba.UpdateUserMaster(um);
+
+            // ListBox更新
+            dba.SelectUserMaster();
+            this.updateUserList();
+
+            this.txbUserName.Text = String.Empty;
+            this.cmbUserType.Text = String.Empty;
+            this.chbpUsersActive.Checked = false;
+            this.txbUserComment.Text = String.Empty;
+
+
+        }
+        //アップデートボタンクリック
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            // 元データと比較、変更がなければreturn
+            // 更新処理を呼び出し
+            DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
+            um.name = this.txbUserName.ToString();
+            //um.type = this.cmbUserType;
+            um.active = this.chbpUsersActive.Checked;
+            um.comment = this.txbUserComment.Text;
+
+            this.dba.UpdateUserMaster(um);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
+        {
+            dba.SelectUserMaster();
             // ListBox更新
             this.updateUserList();
         }
-
     }
 }
