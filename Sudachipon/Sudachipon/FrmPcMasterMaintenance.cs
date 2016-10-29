@@ -96,13 +96,6 @@ namespace Sudachipon
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
 
-                //AlterCheckPcData.Name = selectedPc.Name;
-                //AlterCheckPcData.Cpu = selectedPc.Cpu;
-                //AlterCheckPcData.Memory = selectedPc.Memory;
-                //AlterCheckPcData.Os = selectedPc.Os;
-                //AlterCheckPcData.IsByod = selectedPc.IsByod;
-                //AlterCheckPcData.Active = selectedPc.Active;
-                //AlterCheckPcData.Comment = selectedPc.Comment;
             }
         }
 
