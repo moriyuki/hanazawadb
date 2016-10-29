@@ -131,8 +131,8 @@ namespace Sudachipon
             this.chbpUsersActive.Checked = false;
             this.txbUserComment.Text = String.Empty;
 
-
         }
+
         //アップデートボタンクリック
         private void btnUpdate_Click(object sender, EventArgs e)
         {
