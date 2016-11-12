@@ -123,9 +123,11 @@
             this.lsbSoftwareMaster.Name = "lsbSoftwareMaster";
             this.lsbSoftwareMaster.Size = new System.Drawing.Size(139, 160);
             this.lsbSoftwareMaster.TabIndex = 75;
+            this.lsbSoftwareMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lsbSoftwareMaster_MouseDown);
             // 
             // lsbSoftwares
             // 
+            this.lsbSoftwares.AllowDrop = true;
             this.lsbSoftwares.FormattingEnabled = true;
             this.lsbSoftwares.ItemHeight = 12;
             this.lsbSoftwares.Location = new System.Drawing.Point(352, 56);
@@ -133,6 +135,8 @@
             this.lsbSoftwares.Name = "lsbSoftwares";
             this.lsbSoftwares.Size = new System.Drawing.Size(139, 148);
             this.lsbSoftwares.TabIndex = 74;
+            this.lsbSoftwares.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbSoftwares_DragDrop);
+            this.lsbSoftwares.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbSoftwares_DragEnter);
             // 
             // lblUserCommentCaption
             // 

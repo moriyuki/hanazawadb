@@ -366,6 +366,32 @@ namespace Sudachipon
                 }
             }
         }
+
+        internal void UpdatePcSoftData(PcMaster pcm, int softid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into dt_pc_soft (ps_pc_id, ps_soft_id) values(");
+            sbinsertsql.Append(pcm.Id + ",");
+            sbinsertsql.Append(softid + ");");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
+
+        }
+
         // ========================= data model =========================
         public
         // PC_master

@@ -54,6 +54,10 @@ namespace Sudachipon
                 this.chbpPcIsActive.Checked = false;
                 this.txbComment.Text = String.Empty;
             }
+            else
+            {
+
+            }
         }
 
         // ListBoxPCs更新
@@ -101,6 +105,7 @@ namespace Sudachipon
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            // 追加作業は、Addボタン押下、データ入力、Saveボタン押下
             // 表示されているデータの更新確認
             // 新しいPCの登録
             // PCitem 生成
@@ -161,6 +166,11 @@ namespace Sudachipon
             pcm.Comment = this.txbComment.Text;
 
             this.dba.UpdatePcMaster(pcm);
+            //this.dba.UpdatePcSoftData(pcm, softid);
+
+            // 表示更新
+            this.dba.SelectPcMaster();
+            this.UpdatePcList();
         }
 
         // Closeボタンクリック時
@@ -198,6 +208,15 @@ namespace Sudachipon
         {
             if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
             {
+                ListBox target = (ListBox)sender;
+                DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
+                foreach (DbAccessor.SoftwareMaster item in target.Items)
+                {
+                    if (item.id == itemSoftware.id)
+                    {
+                        return;
+                    }
+                }
                 e.Effect = DragDropEffects.Move;
             }
             else
@@ -208,6 +227,7 @@ namespace Sudachipon
 
         private void lbxSoft_DragDrop(object sender, DragEventArgs e)
         {
+            // DragDropイベント
             if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
             {
                 ListBox target = (ListBox)sender;
