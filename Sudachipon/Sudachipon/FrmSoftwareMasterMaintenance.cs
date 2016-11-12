@@ -222,7 +222,7 @@ namespace Sudachipon
 
         private bool IsSame(ListBox t, DbAccessor.PcMaster itemPc)
         {
-
+            return false;
         }
 
         private void lsbUsers_DragEnter(object sender, DragEventArgs e)

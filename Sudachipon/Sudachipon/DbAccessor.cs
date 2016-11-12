@@ -367,7 +367,7 @@ namespace Sudachipon
             }
         }
 
-        internal void UpdatePcSoftData(PcMaster pcm, int softid)
+        internal void InsertPcSoftData(PcMaster pcm, int softid)
         {
             // throw new NotImplementedException();
 
