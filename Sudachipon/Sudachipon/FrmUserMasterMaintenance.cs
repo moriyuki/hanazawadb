@@ -207,7 +207,7 @@ namespace Sudachipon
         {
             if (this.lbxUsers.SelectedIndex < 0)
             {
-                // PCマスターの選択が無ければ終了
+                // Userマスターの選択が無ければ終了
                 return;
             }
 
@@ -226,6 +226,15 @@ namespace Sudachipon
 
             if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
             {
+                ListBox target = (ListBox)sender;
+                DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
+                foreach (DbAccessor.SoftwareMaster item in target.Items)
+                {
+                    if (item.id == itemSoftware.id)
+                    {
+                        return;
+                    }
+                }
                 e.Effect = DragDropEffects.Move;
             }
             else
@@ -245,8 +254,34 @@ namespace Sudachipon
             }
         }
 
+        private void lsbSoftwares_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (this.lbxUsers.SelectedIndex < 0 || this.lsbSoftwares.SelectedIndex <0)
+            {
+                // Userマスターの選択が無ければ終了
+                return;
+            }
 
+            // 削除用　keydown
+          if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
+           {
+               DbAccessor.SoftwareMaster soft = (DbAccessor.SoftwareMaster)this.lsbSoftwareMaster.SelectedItem;
 
+                if (soft == null)
+                {
+                    return;
+                }
 
+                if (DialogResult.OK != MessageBox.Show("選択したソフトウェアを削除します", "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                {
+                    return;
+                }
+                else
+                {
+                this.lsbSoftwares.Items.Remove(soft);
+             }
+
+            }
+        }
     }
 }

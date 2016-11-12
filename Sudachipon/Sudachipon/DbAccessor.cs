@@ -322,7 +322,7 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_user (us_id, us_name, us_type, us_active, us_comment) values(");
-            sbinsertsql.Append(um.id + ",");
+            sbinsertsql.Append("(select nextval('seq_user')),");
             sbinsertsql.Append("'" + um.name + "',");
             sbinsertsql.Append("'" + um.type + "',");
             sbinsertsql.Append(um.active.ToString() + ",");
@@ -432,7 +432,7 @@ namespace Sudachipon
             bool _isByod; 
             String _comment;
 
-            public
+            
 
             PcMaster()
             {

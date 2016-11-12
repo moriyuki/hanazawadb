@@ -137,6 +137,7 @@
             this.lsbSoftwares.TabIndex = 74;
             this.lsbSoftwares.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbSoftwares_DragDrop);
             this.lsbSoftwares.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbSoftwares_DragEnter);
+            this.lsbSoftwares.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lsbSoftwares_KeyDown);
             // 
             // lblUserCommentCaption
             // 
