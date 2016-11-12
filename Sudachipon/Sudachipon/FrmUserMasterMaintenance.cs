@@ -27,7 +27,8 @@ namespace Sudachipon
 
             // ListBoxUsers更新
             updateUserList();
-
+            // ListBoxSoftMaster更新
+            UpdateSoftwareMaster();
         }
 
         // ListBoxUsers更新
@@ -69,6 +70,20 @@ namespace Sudachipon
                 if (user.active)
                 {
                     this.lbxUsers.Items.Add(user);
+                }
+            }
+        }
+
+        // ListBoxPCs更新
+        private void UpdateSoftwareMaster()
+        {
+            dba.SelectSoftwareMaster();
+            this.lsbSoftwareMaster.Items.Clear();
+            foreach (DbAccessor.SoftwareMaster soft in dba.SoftwareMasters)
+            {
+                if (soft.active)
+                {
+                    this.lsbSoftwareMaster.Items.Add(soft);
                 }
             }
         }
@@ -186,5 +201,52 @@ namespace Sudachipon
             // ListBox更新
             this.updateUserList();
         }
+
+
+        private void lsbSoftwareMaster_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.lbxUsers.SelectedIndex < 0)
+            {
+                // PCマスターの選択が無ければ終了
+                return;
+            }
+
+
+            if (e.Button == MouseButtons.Left)
+            {
+                ListBox lbx = (ListBox)sender;
+                DbAccessor.SoftwareMaster sfm = lbx.SelectedItem as DbAccessor.SoftwareMaster;
+                DragDropEffects dde = lbx.DoDragDrop(sfm, DragDropEffects.All);
+
+            }
+        }
+
+        private void lsbSoftwares_DragEnter(object sender, DragEventArgs e)
+        {
+
+            if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void lsbSoftwares_DragDrop(object sender, DragEventArgs e)
+        {
+           
+            if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
+            {
+                ListBox target = (ListBox)sender;
+                DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
+                target.Items.Add(itemSoftware);
+            }
+        }
+
+
+
+
     }
 }
