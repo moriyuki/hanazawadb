@@ -167,6 +167,13 @@ namespace Sudachipon
 
         private void lsbPcMaster_MouseDown(object sender, MouseEventArgs e)
         {
+            if (this.lbxSoftwares.SelectedIndex < 0)
+            {
+                // SoftwareMaster選択が無ければ終了
+                return;
+            }
+
+
             if (e.Button == MouseButtons.Left)
             {
                 ListBox lbx = (ListBox)sender;
@@ -177,6 +184,12 @@ namespace Sudachipon
 
         private void lsbUserMaster_MouseDown(object sender, MouseEventArgs e)
         {
+            if (this.lbxSoftwares.SelectedIndex < 0)
+            {
+                // SoftwareMaster選択が無ければ終了
+                return;
+            }
+
             if (e.Button == MouseButtons.Left)
             {
                 ListBox lbx = (ListBox)sender;
@@ -205,6 +218,11 @@ namespace Sudachipon
                 DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)e.Data.GetData(typeof(DbAccessor.PcMaster));
                 target.Items.Add(itemPc);
             }
+        }
+
+        private bool IsSame(ListBox t, DbAccessor.PcMaster itemPc)
+        {
+
         }
 
         private void lsbUsers_DragEnter(object sender, DragEventArgs e)

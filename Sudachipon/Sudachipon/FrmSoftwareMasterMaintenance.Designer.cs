@@ -103,6 +103,7 @@
             // 
             // lsbPcs
             // 
+            this.lsbPcs.AllowDrop = true;
             this.lsbPcs.FormattingEnabled = true;
             this.lsbPcs.ItemHeight = 12;
             this.lsbPcs.Location = new System.Drawing.Point(356, 62);
@@ -289,6 +290,7 @@
             // 
             // lsbUsers
             // 
+            this.lsbUsers.AllowDrop = true;
             this.lsbUsers.FormattingEnabled = true;
             this.lsbUsers.ItemHeight = 12;
             this.lsbUsers.Location = new System.Drawing.Point(521, 62);
