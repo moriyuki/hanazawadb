@@ -258,6 +258,8 @@ namespace Sudachipon
                 else
                 {
                     this.lbxSoft.Items.Remove(soft);
+                    DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
+                    this.dba.DeletePcSoftData(pcm, soft.id);
                 }
             }
         }
