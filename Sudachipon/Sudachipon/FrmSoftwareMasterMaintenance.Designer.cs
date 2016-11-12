@@ -113,6 +113,7 @@
             this.lsbPcs.TabIndex = 44;
             this.lsbPcs.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbPcs_DragDrop);
             this.lsbPcs.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbPcs_DragEnter);
+            this.lsbPcs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lsbPcs_KeyDown);
             // 
             // lblSoftwareCommentCaption
             // 
@@ -300,6 +301,7 @@
             this.lsbUsers.TabIndex = 51;
             this.lsbUsers.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbUsers_DragDrop);
             this.lsbUsers.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbUsers_DragEnter);
+            this.lsbUsers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lsbUsers_KeyDown);
             // 
             // label1
             // 
