@@ -262,7 +262,8 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available, sf_active, sf_comment) values(");
-            sbinsertsql.Append(sfm.id + ",");
+            //            sbinsertsql.Append(sfm.id + ",");
+            sbinsertsql.Append("(select nextval('seq_soft')),");
             sbinsertsql.Append("'" + sfm.name + "',");
             sbinsertsql.Append("'" + sfm.version + "',");
             sbinsertsql.Append("'" + sfm.osType + "',");
