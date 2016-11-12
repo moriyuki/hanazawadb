@@ -165,8 +165,7 @@ namespace Sudachipon
             pcm.Active = this.chbpPcIsActive.Checked;
             pcm.Comment = this.txbComment.Text;
 
-            this.dba.UpdatePcMaster(pcm);
-            //this.dba.UpdatePcSoftData(pcm, softid);
+            dba.UpdatePcMaster(pcm);
 
             // 表示更新
             this.dba.SelectPcMaster();
@@ -233,6 +232,9 @@ namespace Sudachipon
                 ListBox target = (ListBox)sender;
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
                 target.Items.Add(itemSoftware);
+                // DB 更新
+                DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
+                this.dba.InsertPcSoftData(pcm,itemSoftware.id);
             }
         }
 
@@ -240,7 +242,7 @@ namespace Sudachipon
         private void lbxSoft_KeyDown(object sender, KeyEventArgs e)
         {
             // 削除用　keydown
-            if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
+           if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
             {
                 DbAccessor.SoftwareMaster soft = (DbAccessor.SoftwareMaster)this.lbxSoft.SelectedItem;
 
@@ -255,11 +257,16 @@ namespace Sudachipon
                 }
                 else
                 {
-                    // 削除
-
+                    this.lbxSoft.Items.Remove(soft);
+                    DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
+                    this.dba.DeletePcSoftData(pcm, soft.id);
                 }
-
             }
+        }
+
+        private void lbxSoft_Leave(object sender, EventArgs e)
+        {
+            this.lbxSoft.SelectedIndex = -1;
         }
     }
 }

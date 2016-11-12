@@ -200,7 +200,7 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_pc (pc_id, pc_name, pc_os, pc_memory, pc_cpu, pc_active, pc_is_byod, pc_comment) values(");
-            sbinsertsql.Append(pcm.Id + ",");
+            sbinsertsql.Append("(select nextval('seq_pc')),");
             sbinsertsql.Append("'" + pcm.Name + "',");
             sbinsertsql.Append("'" + pcm.Os + "',");
             sbinsertsql.Append("'" + pcm.Memory + "',");
@@ -367,7 +367,7 @@ namespace Sudachipon
             }
         }
 
-        internal void UpdatePcSoftData(PcMaster pcm, int softid)
+        internal void InsertPcSoftData(PcMaster pcm, int softid)
         {
             // throw new NotImplementedException();
 
@@ -390,6 +390,29 @@ namespace Sudachipon
                 }
             }
 
+        }
+        internal void DeletePcSoftData(PcMaster pcm, int softid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbdeletesql = new StringBuilder();
+            sbdeletesql.Append("delete from dt_pc_soft where ");
+            sbdeletesql.Append("ps_pc_id =" + pcm.Id + " ");
+            sbdeletesql.Append("and ps_soft_id =" + softid + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var deleteCommand = new NpgsqlCommand(sbdeletesql.ToString(), conn);
+                var result = deleteCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
         }
 
         // ========================= data model =========================
