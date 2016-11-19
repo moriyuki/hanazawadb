@@ -82,7 +82,10 @@ namespace Sudachipon
 
             foreach (DbAccessor.UserMaster user in dba.UserMasters)
             {
-                this.lbxUsers.Items.Add(user);
+                if (user.active)
+                {
+                    this.lbxUsers.Items.Add(user);
+                }
             }
         }
         // イベント関数
