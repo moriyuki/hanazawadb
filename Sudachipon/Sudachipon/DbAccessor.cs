@@ -12,7 +12,7 @@ namespace Sudachipon
     class DbAccessor
     {
         // 別途設定ファイル外出で設定できるようにする
-        const String CONN_STRING = @"Server=192.168.0.5;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
+        const String CONN_STRING = @"Server=192.168.0.7;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
 
         // singleton
         private static DbAccessor _DbAccessor = new DbAccessor();
@@ -134,7 +134,7 @@ namespace Sudachipon
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
-                nconn.Open();
+                conn.Open();
 
                 var command = new NpgsqlCommand(sql, conn);
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
