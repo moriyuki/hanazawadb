@@ -72,16 +72,28 @@ namespace Sudachipon
             //dgvcolDisable.HeaderText = ((DateTime)dgvcolDate1.Tag).ToShortDateString();
             dgvcolDisable.Name = "dgvcolDisable";
 
- //           this.dgvPcDateManager.Columns.AddRange(new DataGridViewColumn[] { dgvcolPc, dgvcolDate1 });
+            //           this.dgvPcDateManager.Columns.AddRange(new DataGridViewColumn[] { dgvcolPc, dgvcolDate1 });
 
             // レコード追加
             // PCマスタから必要な数を追加する
-            this.dgvPcDateManager.Rows.Add(10);
+            // this.dgvPcDateManager.Rows.Add(10);
 
             // データ反映
             // MessageBox.Show(this.dgvPcDateManager.Columns[0].ToString());
-            this.dgvPcDateManager.Rows[3].Cells[0].Value = "PC4";
+            // this.dgvPcDateManager.Rows[3].Cells[0].Value = "PC4";
             // this.dgvPcDateManager.Rows[masterData,Pcs[i].order].Cells[0].Value = masterData.Pcs[i].Name;
+
+            DbAccessor dba = DbAccessor.GetInstance();
+            dba.SelectPcMaster();
+            DataGridViewRow[] rows = new DataGridViewRow[dba.PcMasters.Count];
+            for(int i = 0; i < dba.PcMasters.Count; i++)
+            {
+                rows[i] = new DataGridViewRow();
+                rows[i].CreateCells(this.dgvPcDateManager);
+                // this.dgvPcDateManager.Rows.Add(1);
+                rows[i].Cells[0].Value = dba.PcMasters[i];
+            }
+            this.dgvPcDateManager.Rows.AddRange(rows);
         }
         
         // userリスト表示
