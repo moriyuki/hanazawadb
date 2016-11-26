@@ -103,6 +103,7 @@
             // 
             // lsbPcs
             // 
+            this.lsbPcs.AllowDrop = true;
             this.lsbPcs.FormattingEnabled = true;
             this.lsbPcs.ItemHeight = 12;
             this.lsbPcs.Location = new System.Drawing.Point(356, 62);
@@ -112,6 +113,7 @@
             this.lsbPcs.TabIndex = 44;
             this.lsbPcs.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbPcs_DragDrop);
             this.lsbPcs.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbPcs_DragEnter);
+            this.lsbPcs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lsbPcs_KeyDown);
             // 
             // lblSoftwareCommentCaption
             // 
@@ -289,6 +291,7 @@
             // 
             // lsbUsers
             // 
+            this.lsbUsers.AllowDrop = true;
             this.lsbUsers.FormattingEnabled = true;
             this.lsbUsers.ItemHeight = 12;
             this.lsbUsers.Location = new System.Drawing.Point(521, 62);
@@ -298,6 +301,7 @@
             this.lsbUsers.TabIndex = 51;
             this.lsbUsers.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsbUsers_DragDrop);
             this.lsbUsers.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsbUsers_DragEnter);
+            this.lsbUsers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lsbUsers_KeyDown);
             // 
             // label1
             // 

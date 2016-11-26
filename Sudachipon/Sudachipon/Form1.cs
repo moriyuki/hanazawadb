@@ -23,6 +23,9 @@ namespace Sudachipon
             
             // dgv値表示
             this.SetDgvPcDateManagerContents();
+
+            // UserList表示
+            this.SetUsersList();
         }
 
         // 内部関数
@@ -31,6 +34,7 @@ namespace Sudachipon
         {
             // データクリア
             this.dgvPcDateManager.Rows.Clear();
+            // カラムもクリアすること
 
             // 初回表示ならカラムを追加
             // カラム追加
@@ -73,6 +77,16 @@ namespace Sudachipon
 
             // データ表示
             // userマスタからユーザを追加
+            DbAccessor dba = DbAccessor.GetInstance();
+            dba.SelectUserMaster();
+
+            foreach (DbAccessor.UserMaster user in dba.UserMasters)
+            {
+                if (user.active)
+                {
+                    this.lbxUsers.Items.Add(user);
+                }
+            }
         }
         // イベント関数
 

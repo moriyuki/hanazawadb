@@ -12,7 +12,7 @@ namespace Sudachipon
     class DbAccessor
     {
         // 別途設定ファイル外出で設定できるようにする
-        const String CONN_STRING = @"Server=192.168.0.13;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
+        const String CONN_STRING = @"Server=192.168.0.7;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
 
         // singleton
         private static DbAccessor _DbAccessor = new DbAccessor();
@@ -200,7 +200,7 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_pc (pc_id, pc_name, pc_os, pc_memory, pc_cpu, pc_active, pc_is_byod, pc_comment) values(");
-            sbinsertsql.Append(pcm.Id + ",");
+            sbinsertsql.Append("(select nextval('seq_pc')),");
             sbinsertsql.Append("'" + pcm.Name + "',");
             sbinsertsql.Append("'" + pcm.Os + "',");
             sbinsertsql.Append("'" + pcm.Memory + "',");
@@ -262,7 +262,8 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available, sf_active, sf_comment) values(");
-            sbinsertsql.Append(sfm.id + ",");
+            //            sbinsertsql.Append(sfm.id + ",");
+            sbinsertsql.Append("(select nextval('seq_soft')),");
             sbinsertsql.Append("'" + sfm.name + "',");
             sbinsertsql.Append("'" + sfm.version + "',");
             sbinsertsql.Append("'" + sfm.osType + "',");
@@ -321,7 +322,7 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_user (us_id, us_name, us_type, us_active, us_comment) values(");
-            sbinsertsql.Append(um.id + ",");
+            sbinsertsql.Append("(select nextval('seq_user')),");
             sbinsertsql.Append("'" + um.name + "',");
             sbinsertsql.Append("'" + um.type + "',");
             sbinsertsql.Append(um.active.ToString() + ",");
@@ -366,6 +367,55 @@ namespace Sudachipon
                 }
             }
         }
+
+        internal void InsertPcSoftData(PcMaster pcm, int softid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into dt_pc_soft (ps_pc_id, ps_soft_id) values(");
+            sbinsertsql.Append(pcm.Id + ",");
+            sbinsertsql.Append(softid + ");");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
+
+        }
+        internal void DeletePcSoftData(PcMaster pcm, int softid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbdeletesql = new StringBuilder();
+            sbdeletesql.Append("delete from dt_pc_soft where ");
+            sbdeletesql.Append("ps_pc_id =" + pcm.Id + " ");
+            sbdeletesql.Append("and ps_soft_id =" + softid + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var deleteCommand = new NpgsqlCommand(sbdeletesql.ToString(), conn);
+                var result = deleteCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
+        }
+
         // ========================= data model =========================
         public
         // PC_master
@@ -382,9 +432,7 @@ namespace Sudachipon
             bool _isByod; 
             String _comment;
 
-            public
-
-            PcMaster()
+            public PcMaster()
             {
 //                PcMaster pm = new PcMaster();
                 this._id = 0;
