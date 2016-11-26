@@ -85,13 +85,29 @@ namespace Sudachipon
 
             DbAccessor dba = DbAccessor.GetInstance();
             dba.SelectPcMaster();
-            DataGridViewRow[] rows = new DataGridViewRow[dba.PcMasters.Count];
+            int activePcNumber = 0;
             for (int i = 0; i < dba.PcMasters.Count; i++)
             {
-                rows[i] = new DataGridViewRow();
-                rows[i].CreateCells(this.dgvPcDateManager);
+                if (dba.PcMasters[i].Active)
+                {
+                    activePcNumber += 1;
+                }
+            }
+
+            DataGridViewRow[] rows = new DataGridViewRow[activePcNumber];
+            int j = 0;
+            for (int i = 0; i < dba.PcMasters.Count; i++)
+            {
+                if (!dba.PcMasters[i].Active)
+                {
+                    continue;
+                }
+
+                rows[j] = new DataGridViewRow();
+                rows[j].CreateCells(this.dgvPcDateManager);
                 // this.dgvPcDateManager.Rows.Add(1);
-                rows[i].Cells[0].Value = dba.PcMasters[i];
+                rows[j].Cells[0].Value = dba.PcMasters[i];
+                j++;
             }
             this.dgvPcDateManager.Rows.AddRange(rows);
         }
