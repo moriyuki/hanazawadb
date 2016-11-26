@@ -121,29 +121,20 @@ namespace Sudachipon
 
         }
 
-        private void dgvPcDateManager_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
-
-        private void dgvPcDateManager_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
-
         private void lbxUsers_MouseDown(object sender, MouseEventArgs e)
         {
+            if (this.lbxUsers.SelectedIndex < 0)
+            {
+                // Userマスターの選択が無ければ終了
+                return;
+            }
 
-        }
-
-        private void lbxUsers_MouseUp(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void lbxUsers_DragLeave(object sender, EventArgs e)
-        {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                ListBox lbx = (ListBox)sender;
+                DbAccessor.UserMaster usm = lbx.SelectedItem as DbAccessor.UserMaster;
+                DragDropEffects dde = lbx.DoDragDrop(usm, DragDropEffects.All);
+            }
         }
 
         private void dgvPcDateManager_KeyDown(object sender, KeyEventArgs e)
@@ -151,7 +142,7 @@ namespace Sudachipon
 
         }
 
-        private void dgvPcDateManager_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvPcDateManager_DragDrop(object sender, DragEventArgs e)
         {
 
         }
