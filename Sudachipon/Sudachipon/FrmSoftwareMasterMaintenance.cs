@@ -19,6 +19,7 @@ namespace Sudachipon
         {
             InitializeComponent();
 
+            dba.SelectSoftwareMaster();
             updateSoftList();
 
             // ListBoxPcMaster更新
@@ -35,7 +36,7 @@ namespace Sudachipon
         // ListBoxSoftwares更新
         private void updateSoftList()
         {
-            dba.SelectSoftwareMaster();
+    //        dba.SelectSoftwareMaster();
 
             this.lbxSoftwares.Items.Clear();
 
@@ -100,6 +101,7 @@ namespace Sudachipon
 
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
+            dba.SelectSoftwareMaster();
             updateSoftList();
         }
 
@@ -133,6 +135,8 @@ namespace Sudachipon
             DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
             sfm.active = false;
             this.dba.UpdateSoftwareMaster(sfm);
+
+            dba.SelectSoftwareMaster();
             // ListBox更新
             this.updateSoftList();
 
