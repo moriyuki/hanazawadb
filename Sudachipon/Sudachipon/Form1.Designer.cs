@@ -53,6 +53,7 @@
             // 
             // dgvPcDateManager
             // 
+            this.dgvPcDateManager.AllowDrop = true;
             this.dgvPcDateManager.AllowUserToAddRows = false;
             this.dgvPcDateManager.AllowUserToDeleteRows = false;
             this.dgvPcDateManager.AllowUserToResizeRows = false;

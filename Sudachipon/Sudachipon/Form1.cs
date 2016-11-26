@@ -13,14 +13,14 @@ namespace Sudachipon
     public partial class Form1 : Form
     {
         // 定数定義
-        
+
         // 変数定義
 
         // 初期化
         public Form1()
         {
             InitializeComponent();
-            
+
             // dgv値表示
             this.SetDgvPcDateManagerContents();
 
@@ -54,7 +54,7 @@ namespace Sudachipon
             //           dgvcolDate1.Name = "dgvcolDate1";
 
             DataGridViewTextBoxColumn[] dgvcolDate = new DataGridViewTextBoxColumn[31];
-            for(int i = 0; i<31;i++)
+            for (int i = 0; i < 31; i++)
             {
                 dgvcolDate[i] = new DataGridViewTextBoxColumn();
                 dgvcolDate[i].ReadOnly = true;
@@ -86,7 +86,7 @@ namespace Sudachipon
             DbAccessor dba = DbAccessor.GetInstance();
             dba.SelectPcMaster();
             DataGridViewRow[] rows = new DataGridViewRow[dba.PcMasters.Count];
-            for(int i = 0; i < dba.PcMasters.Count; i++)
+            for (int i = 0; i < dba.PcMasters.Count; i++)
             {
                 rows[i] = new DataGridViewRow();
                 rows[i].CreateCells(this.dgvPcDateManager);
@@ -95,7 +95,7 @@ namespace Sudachipon
             }
             this.dgvPcDateManager.Rows.AddRange(rows);
         }
-        
+
         // userリスト表示
         private void SetUsersList()
         {
@@ -143,11 +143,6 @@ namespace Sudachipon
         }
 
         // D&Dイベント用
-        private void dgvPcDateManager_DragEnter(object sender, DragEventArgs e)
-        {
-
-        }
-
         private void lbxUsers_MouseDown(object sender, MouseEventArgs e)
         {
             if (this.lbxUsers.SelectedIndex < 0)
@@ -164,14 +159,65 @@ namespace Sudachipon
             }
         }
 
-        private void dgvPcDateManager_KeyDown(object sender, KeyEventArgs e)
+        private void dgvPcDateManager_DragEnter(object sender, DragEventArgs e)
         {
+            if (e.Data.GetDataPresent(typeof(DbAccessor.UserMaster)))
+            {
+                DataGridView target = (DataGridView)sender;
+                DbAccessor.UserMaster itemuser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
+                // 空欄チェック
+                // 
+
+                //DataGridView.HitTestInfo info = ((DataGridView)sender).HitTest(e.X, e.Y);
+                // Console.WriteLine("" + this.dgvPcDateManager.CurrentCell.RowIndex + " " + this.dgvPcDateManager.CurrentCell.ColumnIndex);
+
+                //Point clientPoint = this.dgvPcDateManager.PointToClient(new Point(e.X, e.Y));
+                //DataGridView.HitTestInfo hit = this.dgvPcDateManager.HitTest(clientPoint.X, clientPoint.Y);
+                //if (this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value != null)
+                //{
+                //    MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                //}
+
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
 
         }
 
         private void dgvPcDateManager_DragDrop(object sender, DragEventArgs e)
         {
+            // DragDropイベント
+            if (e.Data.GetDataPresent(typeof(DbAccessor.UserMaster)))
+            {
+                DataGridView target = (DataGridView)sender;
+                DbAccessor.UserMaster itemUser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
 
+                Point clientPoint = this.dgvPcDateManager.PointToClient(new Point(e.X, e.Y));
+                DataGridView.HitTestInfo hit = this.dgvPcDateManager.HitTest(clientPoint.X, clientPoint.Y);
+                // Console.WriteLine("" + hit.RowIndex + " " + hit.ColumnIndex);
+                if (this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value != null)
+                {
+                    if(MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+                    }
+                }
+                else
+                {
+                    this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+                }
+
+
+                // DB 更新
+            }
         }
+
+        private void dgvPcDateManager_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }    
     }
 }
