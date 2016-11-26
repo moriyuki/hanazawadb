@@ -44,12 +44,27 @@ namespace Sudachipon
             dgvcolPc.HeaderText = "PCs";
             dgvcolPc.Name = "dgvcolPc";
 
+            this.dgvPcDateManager.Columns.Add(dgvcolPc);
+
             // dateカラムを指定回数追加する（31列）
-            DataGridViewTextBoxColumn dgvcolDate1 = new DataGridViewTextBoxColumn();
-            dgvcolDate1.ReadOnly = true;
-            dgvcolDate1.Tag = DateTime.Now.AddDays(0);
-            dgvcolDate1.HeaderText = ((DateTime)dgvcolDate1.Tag).ToShortDateString();
-            dgvcolDate1.Name = "dgvcolDate1";
+            //           DataGridViewTextBoxColumn dgvcolDate1 = new DataGridViewTextBoxColumn();
+            //           dgvcolDate1.ReadOnly = true;
+            //           dgvcolDate1.Tag = DateTime.Now.AddDays(0);
+            //           dgvcolDate1.HeaderText = ((DateTime)dgvcolDate1.Tag).ToShortDateString();
+            //           dgvcolDate1.Name = "dgvcolDate1";
+
+            DataGridViewTextBoxColumn[] dgvcolDate = new DataGridViewTextBoxColumn[31];
+            for(int i = 0; i<31;i++)
+            {
+                dgvcolDate[i] = new DataGridViewTextBoxColumn();
+                dgvcolDate[i].ReadOnly = true;
+                dgvcolDate[i].Tag = DateTime.Now.AddDays(i);
+                dgvcolDate[i].HeaderText = ((DateTime)dgvcolDate[i].Tag).ToShortDateString();
+                dgvcolDate[i].Name = "dgvcolDate" + i.ToString();
+            }
+
+            this.dgvPcDateManager.Columns.AddRange(dgvcolDate);
+
 
             DataGridViewTextBoxColumn dgvcolDisable = new DataGridViewTextBoxColumn();
             dgvcolDisable.ReadOnly = true;
@@ -57,7 +72,7 @@ namespace Sudachipon
             //dgvcolDisable.HeaderText = ((DateTime)dgvcolDate1.Tag).ToShortDateString();
             dgvcolDisable.Name = "dgvcolDisable";
 
-            this.dgvPcDateManager.Columns.AddRange(new DataGridViewColumn[] { dgvcolPc, dgvcolDate1 });
+ //           this.dgvPcDateManager.Columns.AddRange(new DataGridViewColumn[] { dgvcolPc, dgvcolDate1 });
 
             // レコード追加
             // PCマスタから必要な数を追加する
