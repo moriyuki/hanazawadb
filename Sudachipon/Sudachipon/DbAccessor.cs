@@ -12,7 +12,7 @@ namespace Sudachipon
     class DbAccessor
     {
         // 別途設定ファイル外出で設定できるようにする
-        const String CONN_STRING = @"Server=192.168.0.5;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
+        const String CONN_STRING = @"Server=192.168.0.7;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
 
         // singleton
         private static DbAccessor _DbAccessor = new DbAccessor();
@@ -262,7 +262,8 @@ namespace Sudachipon
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available, sf_active, sf_comment) values(");
-            sbinsertsql.Append(sfm.id + ",");
+            //            sbinsertsql.Append(sfm.id + ",");
+            sbinsertsql.Append("(select nextval('seq_soft')),");
             sbinsertsql.Append("'" + sfm.name + "',");
             sbinsertsql.Append("'" + sfm.version + "',");
             sbinsertsql.Append("'" + sfm.osType + "',");
@@ -431,9 +432,7 @@ namespace Sudachipon
             bool _isByod; 
             String _comment;
 
-            
-
-            PcMaster()
+            public PcMaster()
             {
 //                PcMaster pm = new PcMaster();
                 this._id = 0;

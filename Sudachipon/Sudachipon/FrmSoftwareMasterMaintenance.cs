@@ -202,6 +202,15 @@ namespace Sudachipon
         {
             if (e.Data.GetDataPresent(typeof(DbAccessor.PcMaster)))
             {
+                ListBox target = (ListBox)sender;
+                DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)e.Data.GetData(typeof(DbAccessor.PcMaster));
+                foreach (DbAccessor.PcMaster item in target.Items)
+                {
+                    if (item.Id == itemPc.Id)
+                    {
+                        return;
+                    }
+                }
                 e.Effect = DragDropEffects.Move;
             }
             else
@@ -229,6 +238,16 @@ namespace Sudachipon
         {
             if (e.Data.GetDataPresent(typeof(DbAccessor.UserMaster)))
             {
+                ListBox target = (ListBox)sender;
+                DbAccessor.UserMaster itemUser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
+                foreach (DbAccessor.UserMaster item in target.Items)
+                {
+                    if (item.id == itemUser.id)
+                    {
+                        return;
+                    }
+                }
+
                 e.Effect = DragDropEffects.Move;
             }
             else
@@ -247,6 +266,54 @@ namespace Sudachipon
             }
         }
 
+        private void lsbPcs_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 削除用　keydown
+            if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
+            {
+                DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.lsbPcs.SelectedItem;
 
+                if (pc == null)
+                {
+                    return;
+                }
+
+                if (DialogResult.OK != MessageBox.Show("選択したPCを削除します", "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                {
+                    return;
+                }
+                else
+                {
+                    // 削除
+                    lsbPcs.Items.Remove(pc);
+                }
+
+            }
+        }
+
+        private void lsbUsers_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 削除用　keydown
+            if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
+            {
+                DbAccessor.UserMaster us = (DbAccessor.UserMaster)this.lsbUsers.SelectedItem;
+
+                if (us == null)
+                {
+                    return;
+                }
+
+                if (DialogResult.OK != MessageBox.Show("選択したユーザーを削除します", "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                {
+                    return;
+                }
+                else
+                {
+                    // 削除
+                    lsbUsers.Items.Remove(us);
+                }
+
+            }
+        }
     }
 }
