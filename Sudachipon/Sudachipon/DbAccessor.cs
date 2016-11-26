@@ -254,10 +254,10 @@ namespace Sudachipon
             sbupdatesql.Append("update mt_soft set ");
             sbupdatesql.Append("sf_name = '" + sfm.name + "', ");
             sbupdatesql.Append("sf_version = '" + sfm.version + "', ");
-            sbupdatesql.Append("sf_os = " + sfm.osType + ", ");
-            sbupdatesql.Append("sf_available = " + sfm.available + ", ");
+            sbupdatesql.Append("sf_os = '" + sfm.osType + "', ");
+            sbupdatesql.Append("sf_available = '" + sfm.available + "', ");
             sbupdatesql.Append("sf_comment = '" + sfm.comment + "', ");
-            sbupdatesql.Append("sf_active = " + sfm.active + " ");
+            sbupdatesql.Append("sf_active = '" + sfm.active + "' ");
             sbupdatesql.Append("where sf_id = " + sfm.id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();
@@ -265,8 +265,8 @@ namespace Sudachipon
             sbinsertsql.Append(sfm.id + ",");
             sbinsertsql.Append("'" + sfm.name + "',");
             sbinsertsql.Append("'" + sfm.version + "',");
-            sbinsertsql.Append(sfm.osType + ",");
-            sbinsertsql.Append(sfm.available.ToString()+ ",");
+            sbinsertsql.Append("'" + sfm.osType + "',");
+            sbinsertsql.Append("'" + sfm.available.ToString()+ "',");
             sbinsertsql.Append(sfm.active.ToString() + ",");
             sbinsertsql.Append("'" + sfm.comment + "');");
 
