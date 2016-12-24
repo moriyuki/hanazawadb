@@ -253,7 +253,7 @@ namespace Sudachipon
             if (DialogResult.OK == this.openFileDialog.ShowDialog())
             {
                 this.openFileDialog.OpenFile();
-            }
+        }
         }
 
 
