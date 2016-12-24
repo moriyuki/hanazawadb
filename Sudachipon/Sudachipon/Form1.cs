@@ -260,9 +260,25 @@ namespace Sudachipon
         private void msiExport_Click(object sender, EventArgs e)
         {
             // ダンプを実行し、ファイルをダイアログを介して保存する
-            DbAccessor dba = DbAccessor.GetInstance();
-            // dba.DBDump("C:\\dump.sql");
-            this.saveFileDialog.ShowDialog();
+            this.saveFileDialog.Title = "データベースのバックアップ先を指定してください。";
+            this.saveFileDialog.FileName = "hanazawadb";
+            this.saveFileDialog.DefaultExt = "bak";
+            this.saveFileDialog.Filter = "backup files (*.bak)|*.bak";
+
+            String before = Application.ExecutablePath;
+            before = before.Replace(".exe", "");
+            this.saveFileDialog.InitialDirectory = before;
+
+            DialogResult result = this.saveFileDialog.ShowDialog();
+
+            Stream fileStream;
+
+            if (result == DialogResult.OK)
+            {
+                fileStream = this.saveFileDialog.OpenFile();
+                fileStream.Close();
+            }
+
         }
 
     }
