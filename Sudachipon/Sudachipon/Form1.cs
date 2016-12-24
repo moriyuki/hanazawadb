@@ -243,16 +243,17 @@ namespace Sudachipon
             this.openFileDialog.Title = "バックアップファイルを選択してください。";
             this.openFileDialog.ShowReadOnly = true;
 
-            //this.openFileDialog.DefaultExt = "テキスト ファイル (*.txt)|*.txt";
-            this.openFileDialog.FileName = "backup.txt";
-            this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*";
+            this.openFileDialog.FileName = "backup";
+            this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|SQLファイル (*.sql)|*.sql|すべてのファイル (*.*)|*.*";
+            this.openFileDialog.DefaultExt = "sql";
             this.openFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
             this.openFileDialog.Multiselect = false;
 
 
-            this.openFileDialog.ShowDialog();
-            this.openFileDialog.OpenFile();
-
+            if (DialogResult.OK == this.openFileDialog.ShowDialog())
+            {
+                this.openFileDialog.OpenFile();
+            }
         }
 
 
