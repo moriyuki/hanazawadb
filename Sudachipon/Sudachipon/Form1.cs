@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Sudachipon
 {
@@ -241,7 +242,15 @@ namespace Sudachipon
             // ファイルを選択するダイアログを表示させる
             this.openFileDialog.Title = "バックアップファイルを選択してください。";
             this.openFileDialog.ShowReadOnly = true;
-            this.openFileDialog.ShowDialog();
+
+            //this.openFileDialog.DefaultExt = "テキスト ファイル (*.txt)|*.txt";
+            this.openFileDialog.FileName = "backup.txt";
+            this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*";
+            this.openFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+            this.openFileDialog.Multiselect = false;
+            
+            this.openFileDialog.ShowDialog() ;
+            
         }
 
         private void msiExport_Click(object sender, EventArgs e)
