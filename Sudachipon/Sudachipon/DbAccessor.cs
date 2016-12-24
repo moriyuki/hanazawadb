@@ -435,6 +435,7 @@ namespace Sudachipon
             sw.WriteLine(sb);
             sw.Dispose();
             sw.Close();
+
             Process processDB = Process.Start("DbBackup.bat");
             do { }
             while (!processDB.HasExited);

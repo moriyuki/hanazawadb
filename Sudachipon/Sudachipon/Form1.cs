@@ -243,10 +243,10 @@ namespace Sudachipon
             this.openFileDialog.Title = "バックアップファイルを選択してください。";
             this.openFileDialog.ShowReadOnly = true;
 
-            this.openFileDialog.FileName = "backup";
-            this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|SQLファイル (*.sql)|*.sql|すべてのファイル (*.*)|*.*";
+            this.openFileDialog.FileName = "";
+            this.openFileDialog.Filter = "SQLファイル (*.sql)|*.sql|すべてのファイル (*.*)|*.*";
             this.openFileDialog.DefaultExt = "sql";
-            this.openFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+            this.openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             this.openFileDialog.Multiselect = false;
 
 
@@ -261,22 +261,24 @@ namespace Sudachipon
         {
             // ダンプを実行し、ファイルをダイアログを介して保存する
             this.saveFileDialog.Title = "データベースのバックアップ先を指定してください。";
-            this.saveFileDialog.FileName = "hanazawadb";
-            this.saveFileDialog.DefaultExt = "bak";
-            this.saveFileDialog.Filter = "backup files (*.bak)|*.bak";
+            DateTime dt = DateTime.Now;
+            this.saveFileDialog.FileName = "hanazawadb_" + dt.ToString("yyyyMMdd_HHmm");
+            this.saveFileDialog.DefaultExt = "sql";
+            this.saveFileDialog.Filter = "backup files (*.sql)|*.sql";
 
             String before = Application.ExecutablePath;
-            before = before.Replace(".exe", "");
-            this.saveFileDialog.InitialDirectory = before;
+            this.saveFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(before);
 
             DialogResult result = this.saveFileDialog.ShowDialog();
 
-            Stream fileStream;
+            // Stream fileStream;
 
             if (result == DialogResult.OK)
             {
-                fileStream = this.saveFileDialog.OpenFile();
-                fileStream.Close();
+                //fileStream = this.saveFileDialog.OpenFile();
+                //fileStream.Close();
+                DbAccessor dba = DbAccessor.GetInstance();
+                dba.DBDump(this.saveFileDialog.FileName);
             }
 
         }
