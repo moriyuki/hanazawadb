@@ -217,7 +217,7 @@ namespace Sudachipon
                 // Console.WriteLine("" + hit.RowIndex + " " + hit.ColumnIndex);
                 if (this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value != null)
                 {
-                    if(MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    if (MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
                         this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
                     }
@@ -248,15 +248,20 @@ namespace Sudachipon
             this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*";
             this.openFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
             this.openFileDialog.Multiselect = false;
-            
-            this.openFileDialog.ShowDialog() ;
-            
+
+
+            this.openFileDialog.ShowDialog();
+            this.openFileDialog.OpenFile();
+
         }
+
 
         private void msiExport_Click(object sender, EventArgs e)
         {
             // ダンプを実行し、ファイルをダイアログを介して保存する
             this.saveFileDialog.ShowDialog();
         }
+
     }
 }
+
