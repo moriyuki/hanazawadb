@@ -247,6 +247,8 @@ namespace Sudachipon
         private void msiExport_Click(object sender, EventArgs e)
         {
             // ダンプを実行し、ファイルをダイアログを介して保存する
+            DbAccessor dba = DbAccessor.GetInstance();
+            // dba.DBDump("C:\\dump.sql");
             this.saveFileDialog.ShowDialog();
         }
     }
