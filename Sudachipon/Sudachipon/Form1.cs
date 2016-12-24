@@ -250,8 +250,7 @@ namespace Sudachipon
             this.openFileDialog.Multiselect = false;
 
 
-            this.openFileDialog.ShowDialog();
-            this.openFileDialog.OpenFile();
+             this.openFileDialog.ShowDialog();
 
         }
 
