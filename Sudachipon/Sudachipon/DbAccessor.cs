@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.IO;
+using System.Diagnostics;
 using Npgsql;
 
 namespace Sudachipon
@@ -414,6 +416,32 @@ namespace Sudachipon
                     System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
                 }
             }
+        }
+
+        // DB DUMP
+        public void DBDump(string filefullpath)
+        {
+            StreamWriter sw = new StreamWriter("DbBackup.bat");
+            StringBuilder sb = new StringBuilder("\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\");
+
+            if (sb.Length == 0)
+            {
+                return;
+            }
+
+            sb.Append("pg_dump.exe\" --host 192.168.0.3 --port 5432 --username postgres --format plain --blobs --verbose --file ");
+            sb.Append("\"" + filefullpath + "\"");
+            sb.Append(" \"Sudachipon\"\r\n\r\n");
+            sw.WriteLine(sb);
+            sw.Dispose();
+            sw.Close();
+            Process processDB = Process.Start("DbBackup.bat");
+            do { }
+            while (!processDB.HasExited);
+            {
+                System.Windows.Forms.MessageBox.Show("Successfully Backed up");
+            }
+
         }
 
         // ========================= data model =========================

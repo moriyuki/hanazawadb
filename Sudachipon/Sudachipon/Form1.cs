@@ -243,22 +243,42 @@ namespace Sudachipon
             this.openFileDialog.Title = "バックアップファイルを選択してください。";
             this.openFileDialog.ShowReadOnly = true;
 
-            //this.openFileDialog.DefaultExt = "テキスト ファイル (*.txt)|*.txt";
-            this.openFileDialog.FileName = "backup.txt";
-            this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*";
+            this.openFileDialog.FileName = "backup";
+            this.openFileDialog.Filter = "テキスト ファイル (*.txt)|*.txt|SQLファイル (*.sql)|*.sql|すべてのファイル (*.*)|*.*";
+            this.openFileDialog.DefaultExt = "sql";
             this.openFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
             this.openFileDialog.Multiselect = false;
 
 
-             this.openFileDialog.ShowDialog();
-
+            if (DialogResult.OK == this.openFileDialog.ShowDialog())
+            {
+                this.openFileDialog.OpenFile();
+        }
         }
 
 
         private void msiExport_Click(object sender, EventArgs e)
         {
             // ダンプを実行し、ファイルをダイアログを介して保存する
-            this.saveFileDialog.ShowDialog();
+            this.saveFileDialog.Title = "データベースのバックアップ先を指定してください。";
+            this.saveFileDialog.FileName = "hanazawadb";
+            this.saveFileDialog.DefaultExt = "bak";
+            this.saveFileDialog.Filter = "backup files (*.bak)|*.bak";
+
+            String before = Application.ExecutablePath;
+            before = before.Replace(".exe", "");
+            this.saveFileDialog.InitialDirectory = before;
+
+            DialogResult result = this.saveFileDialog.ShowDialog();
+
+            Stream fileStream;
+
+            if (result == DialogResult.OK)
+            {
+                fileStream = this.saveFileDialog.OpenFile();
+                fileStream.Close();
+            }
+
         }
 
     }
