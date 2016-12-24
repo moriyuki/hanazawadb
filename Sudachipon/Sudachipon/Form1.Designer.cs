@@ -35,6 +35,11 @@
             this.mstSoftware = new System.Windows.Forms.ToolStripMenuItem();
             this.msiUser = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsersCaption = new System.Windows.Forms.Label();
+            this.msiSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).BeginInit();
             this.msMasters.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +82,8 @@
             this.msMasters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mstPc,
             this.mstSoftware,
-            this.msiUser});
+            this.msiUser,
+            this.msiSetting});
             this.msMasters.Location = new System.Drawing.Point(0, 0);
             this.msMasters.Name = "msMasters";
             this.msMasters.Size = new System.Drawing.Size(1557, 33);
@@ -115,6 +121,33 @@
             this.lblUsersCaption.TabIndex = 4;
             this.lblUsersCaption.Text = "Users";
             // 
+            // msiSetting
+            // 
+            this.msiSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.msiImport,
+            this.msiExport});
+            this.msiSetting.Name = "msiSetting";
+            this.msiSetting.Size = new System.Drawing.Size(80, 29);
+            this.msiSetting.Text = "Setting";
+            // 
+            // msiImport
+            // 
+            this.msiImport.Name = "msiImport";
+            this.msiImport.Size = new System.Drawing.Size(211, 30);
+            this.msiImport.Text = "Import";
+            this.msiImport.Click += new System.EventHandler(this.msiImport_Click);
+            // 
+            // msiExport
+            // 
+            this.msiExport.Name = "msiExport";
+            this.msiExport.Size = new System.Drawing.Size(211, 30);
+            this.msiExport.Text = "Export";
+            this.msiExport.Click += new System.EventHandler(this.msiExport_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -144,6 +177,11 @@
         private System.Windows.Forms.ToolStripMenuItem mstSoftware;
         private System.Windows.Forms.ToolStripMenuItem msiUser;
         private System.Windows.Forms.Label lblUsersCaption;
+        private System.Windows.Forms.ToolStripMenuItem msiSetting;
+        private System.Windows.Forms.ToolStripMenuItem msiImport;
+        private System.Windows.Forms.ToolStripMenuItem msiExport;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

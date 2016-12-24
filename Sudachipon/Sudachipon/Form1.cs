@@ -234,6 +234,20 @@ namespace Sudachipon
         private void dgvPcDateManager_KeyDown(object sender, KeyEventArgs e)
         {
 
-        }    
+        }
+
+        private void msiImport_Click(object sender, EventArgs e)
+        {
+            // ファイルを選択するダイアログを表示させる
+            this.openFileDialog.Title = "バックアップファイルを選択してください。";
+            this.openFileDialog.ShowReadOnly = true;
+            this.openFileDialog.ShowDialog();
+        }
+
+        private void msiExport_Click(object sender, EventArgs e)
+        {
+            // ダンプを実行し、ファイルをダイアログを介して保存する
+            this.saveFileDialog.ShowDialog();
+        }
     }
 }
