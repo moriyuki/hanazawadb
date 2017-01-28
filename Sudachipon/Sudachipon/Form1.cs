@@ -53,6 +53,8 @@ namespace Sudachipon
             //           dgvcolDate1.Tag = DateTime.Now.AddDays(0);
             //           dgvcolDate1.HeaderText = ((DateTime)dgvcolDate1.Tag).ToShortDateString();
             //           dgvcolDate1.Name = "dgvcolDate1";
+            dgvPcDateManager.EnableHeadersVisualStyles = false;
+            // dgvPcDateManager.ColumnHeadersDefaultCellStyle.BackColor = Color.Red;
 
             DataGridViewTextBoxColumn[] dgvcolDate = new DataGridViewTextBoxColumn[31];
             for (int i = 0; i < 31; i++)
@@ -60,11 +62,19 @@ namespace Sudachipon
                 dgvcolDate[i] = new DataGridViewTextBoxColumn();
                 dgvcolDate[i].ReadOnly = true;
                 dgvcolDate[i].Tag = DateTime.Now.AddDays(i);
-                dgvcolDate[i].HeaderText = ((DateTime)dgvcolDate[i].Tag).ToShortDateString();
+                dgvcolDate[i].HeaderText = ((DateTime)dgvcolDate[i].Tag).ToString("MM/dd (ddd)");
                 dgvcolDate[i].Name = "dgvcolDate" + i.ToString();
+                dgvcolDate[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                // paint weekend
+                if (((DateTime)dgvcolDate[i].Tag).DayOfWeek == DayOfWeek.Saturday || ((DateTime)dgvcolDate[i].Tag).DayOfWeek == DayOfWeek.Sunday) {
+                    dgvcolDate[i].HeaderCell.Style.BackColor = Color.Gray;
+                    dgvcolDate[i].DefaultCellStyle.BackColor = Color.LightGray;
+                }
             }
 
+            // test
             this.dgvPcDateManager.Columns.AddRange(dgvcolDate);
+            
 
 
             DataGridViewTextBoxColumn dgvcolDisable = new DataGridViewTextBoxColumn();
@@ -95,6 +105,7 @@ namespace Sudachipon
                 }
             }
 
+            // add row
             DataGridViewRow[] rows = new DataGridViewRow[activePcNumber];
             int j = 0;
             for (int i = 0; i < dba.PcMasters.Count; i++)
@@ -103,7 +114,6 @@ namespace Sudachipon
                 {
                     continue;
                 }
-
                 rows[j] = new DataGridViewRow();
                 rows[j].CreateCells(this.dgvPcDateManager);
                 // this.dgvPcDateManager.Rows.Add(1);
@@ -253,7 +263,7 @@ namespace Sudachipon
             if (DialogResult.OK == this.openFileDialog.ShowDialog())
             {
                 this.openFileDialog.OpenFile();
-        }
+            }
         }
 
 
@@ -280,9 +290,7 @@ namespace Sudachipon
                 DbAccessor dba = DbAccessor.GetInstance();
                 dba.DBDump(this.saveFileDialog.FileName);
             }
-
         }
-
     }
 }
 

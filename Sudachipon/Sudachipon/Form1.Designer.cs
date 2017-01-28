@@ -34,12 +34,13 @@
             this.mstPc = new System.Windows.Forms.ToolStripMenuItem();
             this.mstSoftware = new System.Windows.Forms.ToolStripMenuItem();
             this.msiUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblUsersCaption = new System.Windows.Forms.Label();
             this.msiSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.msiImport = new System.Windows.Forms.ToolStripMenuItem();
             this.msiExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblUsersCaption = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.chkRepeatRegst = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).BeginInit();
             this.msMasters.SuspendLayout();
             this.SuspendLayout();
@@ -111,16 +112,6 @@
             this.msiUser.Text = "User";
             this.msiUser.Click += new System.EventHandler(this.msiUser_Click);
             // 
-            // lblUsersCaption
-            // 
-            this.lblUsersCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblUsersCaption.AutoSize = true;
-            this.lblUsersCaption.Location = new System.Drawing.Point(1375, 45);
-            this.lblUsersCaption.Name = "lblUsersCaption";
-            this.lblUsersCaption.Size = new System.Drawing.Size(51, 18);
-            this.lblUsersCaption.TabIndex = 4;
-            this.lblUsersCaption.Text = "Users";
-            // 
             // msiSetting
             // 
             this.msiSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -133,26 +124,48 @@
             // msiImport
             // 
             this.msiImport.Name = "msiImport";
-            this.msiImport.Size = new System.Drawing.Size(211, 30);
+            this.msiImport.Size = new System.Drawing.Size(152, 30);
             this.msiImport.Text = "Import";
             this.msiImport.Click += new System.EventHandler(this.msiImport_Click);
             // 
             // msiExport
             // 
             this.msiExport.Name = "msiExport";
-            this.msiExport.Size = new System.Drawing.Size(211, 30);
+            this.msiExport.Size = new System.Drawing.Size(152, 30);
             this.msiExport.Text = "Export";
             this.msiExport.Click += new System.EventHandler(this.msiExport_Click);
+            // 
+            // lblUsersCaption
+            // 
+            this.lblUsersCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUsersCaption.AutoSize = true;
+            this.lblUsersCaption.Location = new System.Drawing.Point(1375, 49);
+            this.lblUsersCaption.Name = "lblUsersCaption";
+            this.lblUsersCaption.Size = new System.Drawing.Size(0, 18);
+            this.lblUsersCaption.TabIndex = 4;
             // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // chkRepeatRegst
+            // 
+            this.chkRepeatRegst.AutoSize = true;
+            this.chkRepeatRegst.Checked = true;
+            this.chkRepeatRegst.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRepeatRegst.Location = new System.Drawing.Point(1415, 49);
+            this.chkRepeatRegst.Name = "chkRepeatRegst";
+            this.chkRepeatRegst.Size = new System.Drawing.Size(130, 22);
+            this.chkRepeatRegst.TabIndex = 5;
+            this.chkRepeatRegst.Text = "繰り返し登録";
+            this.chkRepeatRegst.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1557, 455);
+            this.Controls.Add(this.chkRepeatRegst);
             this.Controls.Add(this.lblUsersCaption);
             this.Controls.Add(this.dgvPcDateManager);
             this.Controls.Add(this.lbxUsers);
@@ -182,6 +195,7 @@
         private System.Windows.Forms.ToolStripMenuItem msiExport;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.CheckBox chkRepeatRegst;
     }
 }
 
