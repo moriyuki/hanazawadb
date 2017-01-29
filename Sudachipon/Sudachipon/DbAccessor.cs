@@ -13,13 +13,15 @@ namespace Sudachipon
     // DB Access Class, Data Model Class
     class DbAccessor
     {
-        // 別途設定ファイル外出で設定できるようにする
-        const String CONN_STRING = @"Server=192.168.0.4;Port=5432;User Id=postgres;Password=hanazawa0108;Database=Sudachipon";
+        private static String CONN_STRING;
 
         // singleton
         private static DbAccessor _DbAccessor = new DbAccessor();
         public static DbAccessor GetInstance()
         {
+            DBConnectionSetting dbcs = new DBConnectionSetting();
+            dbcs.LoadSetting();
+            CONN_STRING = dbcs.CreatePostgresConnectionString();
             return _DbAccessor;
         }
 
@@ -64,7 +66,10 @@ namespace Sudachipon
         void SelectPcMaster()
         {
             String sql = "select * from mt_pc;";
+            try
+            {
 
+            
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
                 conn.Open();
@@ -92,6 +97,18 @@ namespace Sudachipon
                     this.PcMasters.Add(pm);
                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                System.Windows.Forms.MessageBox.Show("DBへの接続に失敗しました。DB設定を確認してください。");
+                DBSetting dbs = new DBSetting();
+                dbs.ShowDialog();
+
+                DBConnectionSetting dbcs = new DBConnectionSetting();
+                dbcs.LoadSetting();
+                CONN_STRING = dbcs.CreatePostgresConnectionString();
             }
         }
 

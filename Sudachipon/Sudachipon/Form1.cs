@@ -291,6 +291,13 @@ namespace Sudachipon
                 dba.DBDump(this.saveFileDialog.FileName);
             }
         }
+
+        // DB設定ダイアログを表示
+        private void msiDBSetting_Click(object sender, EventArgs e)
+        {
+            DBSetting dbs = new DBSetting();
+            dbs.ShowDialog();
+        }
     }
 }
 

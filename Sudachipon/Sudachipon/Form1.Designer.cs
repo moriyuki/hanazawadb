@@ -41,6 +41,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.chkRepeatRegst = new System.Windows.Forms.CheckBox();
+            this.msiDBSetting = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).BeginInit();
             this.msMasters.SuspendLayout();
             this.SuspendLayout();
@@ -116,7 +117,8 @@
             // 
             this.msiSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.msiImport,
-            this.msiExport});
+            this.msiExport,
+            this.msiDBSetting});
             this.msiSetting.Name = "msiSetting";
             this.msiSetting.Size = new System.Drawing.Size(80, 29);
             this.msiSetting.Text = "Setting";
@@ -124,14 +126,14 @@
             // msiImport
             // 
             this.msiImport.Name = "msiImport";
-            this.msiImport.Size = new System.Drawing.Size(152, 30);
+            this.msiImport.Size = new System.Drawing.Size(211, 30);
             this.msiImport.Text = "Import";
             this.msiImport.Click += new System.EventHandler(this.msiImport_Click);
             // 
             // msiExport
             // 
             this.msiExport.Name = "msiExport";
-            this.msiExport.Size = new System.Drawing.Size(152, 30);
+            this.msiExport.Size = new System.Drawing.Size(211, 30);
             this.msiExport.Text = "Export";
             this.msiExport.Click += new System.EventHandler(this.msiExport_Click);
             // 
@@ -159,6 +161,13 @@
             this.chkRepeatRegst.TabIndex = 5;
             this.chkRepeatRegst.Text = "繰り返し登録";
             this.chkRepeatRegst.UseVisualStyleBackColor = true;
+            // 
+            // msiDBSetting
+            // 
+            this.msiDBSetting.Name = "msiDBSetting";
+            this.msiDBSetting.Size = new System.Drawing.Size(211, 30);
+            this.msiDBSetting.Text = "DBSetting";
+            this.msiDBSetting.Click += new System.EventHandler(this.msiDBSetting_Click);
             // 
             // Form1
             // 
@@ -196,6 +205,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox chkRepeatRegst;
+        private System.Windows.Forms.ToolStripMenuItem msiDBSetting;
     }
 }
 
