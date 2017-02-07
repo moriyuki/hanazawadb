@@ -91,6 +91,65 @@ namespace Sudachipon
             }
         }
 
+        void SelectSoftwareMaster()
+        {
+            String sql = "select * from mt_software";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    SoftwareMaster sm = new SoftwareMaster();
+                    sm.createData();
+
+                    sm.id = int.Parse(String.Format("{0}", dataReader["sf_id"]));
+                    sm.name = String.Format("{0}", dataReader["sf_name"]);
+                    sm.version = String.Format("{0}", dataReader["sf_version"]);
+                    sm.osType = int.Parse(String.Format("{0}", dataReader["sf_os"]));
+                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_available"]));
+                    sm.active = bool.Parse(String.Format("{0}", dataReader["sf_active"]));
+                    sm.comment = String.Format("{0}", dataReader["sf_comment"]);
+
+                    this.SoftwareMasters.Add(sm);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
+
+        void SelectUserMaster()
+        {
+            String sql = "select * from mt_user";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    UserMaster um = new UserMaster();
+                    um.createData();
+
+                    um.id = int.Parse(String.Format("{0}", dataReader["us_id"]));
+                    um.name = String.Format("{0}", dataReader["us_name"]);
+                    um.type = int.Parse(String.Format("{0}", dataReader["us_type"]));
+                    um.active = bool.Parse(String.Format("{0}", dataReader["us_active"]));
+                    um.comment = String.Format("{0}", dataReader["us_comment"]);
+
+                    this.UserMasters.Add(um);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
         // ========================= data model =========================
         public
         // PC_master
@@ -250,43 +309,57 @@ namespace Sudachipon
         public List<PcMaster> PcMasters = new List<PcMaster>();
 
         // Soft master
+        public
         struct SoftwareMaster
         {
             // SoftwareataModel;
+            public
             int id;
+            public
             String name;
+            public
             String version;
+            public
             int osType;
-            int avalable;
+            public
+            int available;
+            public
             bool active;
+            public
             String comment;
 
-            SoftwareMaster createData()
+            public SoftwareMaster createData()
             {
                 SoftwareMaster sm = new SoftwareMaster();
                 sm.id = 0;
                 sm.name = String.Empty;
                 sm.version = String.Empty;
                 sm.osType = 1;
-                sm.avalable = 1;
+                sm.available = 1;
                 sm.active = true;
                 sm.comment = String.Empty;
                 return sm;
             }
         }
 
-        SoftwareMaster[] SoftwareMasters;
+        public List<SoftwareMaster> SoftwareMasters = new List<SoftwareMaster>();
 
         // User master
+        public
         struct UserMaster
         {
+            public
             int id;
+            public
             String name;
+            public
             int type;
+            public
             bool active;
+            public
             String comment;
 
-            UserMaster createData()
+            public UserMaster createData()
             {
                 UserMaster um = new UserMaster();
                 um.id = 0;
@@ -299,7 +372,7 @@ namespace Sudachipon
             }
         }
 
-        UserMaster[] UserMasters;
+        public List<UserMaster> UserMasters = new List<UserMaster>();
 
         // Pc Soft Relation Data
         struct PcSoftData

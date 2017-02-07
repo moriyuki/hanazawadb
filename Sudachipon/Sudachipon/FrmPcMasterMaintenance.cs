@@ -41,5 +41,10 @@ namespace Sudachipon
 
             // 詳細項目値代入
         }
+
+        private void lbxPcs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

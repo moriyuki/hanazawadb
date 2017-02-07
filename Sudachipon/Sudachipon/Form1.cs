@@ -87,12 +87,17 @@ namespace Sudachipon
         // Softwareマスタ編集画面を表示する
         private void mstSoftware_Click(object sender, EventArgs e)
         {
-
+            // Softwareマスタ表示
+            FrmSoftwareMasterMaintenance fsmm = new FrmSoftwareMasterMaintenance();
+            fsmm.ShowDialog();
         }
 
         // Userマスタ編集画面を表示する
         private void msiUser_Click(object sender, EventArgs e)
         {
+            // Userマスタ表示
+            FrmUserMasterMaintenance fumm = new FrmUserMasterMaintenance();
+            fumm.ShowDialog();
 
         }
 
