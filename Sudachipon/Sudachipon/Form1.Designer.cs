@@ -34,7 +34,14 @@
             this.mstPc = new System.Windows.Forms.ToolStripMenuItem();
             this.mstSoftware = new System.Windows.Forms.ToolStripMenuItem();
             this.msiUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiExport = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsersCaption = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.chkRepeatRegst = new System.Windows.Forms.CheckBox();
+            this.msiDBSetting = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).BeginInit();
             this.msMasters.SuspendLayout();
             this.SuspendLayout();
@@ -45,16 +52,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxUsers.FormattingEnabled = true;
             this.lbxUsers.ItemHeight = 18;
-            this.lbxUsers.Location = new System.Drawing.Point(622, 84);
+            this.lbxUsers.Location = new System.Drawing.Point(1375, 84);
             this.lbxUsers.Name = "lbxUsers";
-            this.lbxUsers.Size = new System.Drawing.Size(170, 238);
+            this.lbxUsers.Size = new System.Drawing.Size(170, 346);
             this.lbxUsers.TabIndex = 0;
-            this.lbxUsers.DragLeave += new System.EventHandler(this.lbxUsers_DragLeave);
             this.lbxUsers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseDown);
-            this.lbxUsers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseUp);
             // 
             // dgvPcDateManager
             // 
+            this.dgvPcDateManager.AllowDrop = true;
             this.dgvPcDateManager.AllowUserToAddRows = false;
             this.dgvPcDateManager.AllowUserToDeleteRows = false;
             this.dgvPcDateManager.AllowUserToResizeRows = false;
@@ -66,11 +72,9 @@
             this.dgvPcDateManager.Name = "dgvPcDateManager";
             this.dgvPcDateManager.RowHeadersVisible = false;
             this.dgvPcDateManager.RowTemplate.Height = 27;
-            this.dgvPcDateManager.Size = new System.Drawing.Size(560, 286);
+            this.dgvPcDateManager.Size = new System.Drawing.Size(1313, 407);
             this.dgvPcDateManager.TabIndex = 2;
-            this.dgvPcDateManager.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPcDateManager_CellContentClick);
-            this.dgvPcDateManager.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPcDateManager_CellMouseDown);
-            this.dgvPcDateManager.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPcDateManager_CellMouseUp);
+            this.dgvPcDateManager.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragDrop);
             this.dgvPcDateManager.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragEnter);
             this.dgvPcDateManager.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvPcDateManager_KeyDown);
             // 
@@ -80,10 +84,11 @@
             this.msMasters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mstPc,
             this.mstSoftware,
-            this.msiUser});
+            this.msiUser,
+            this.msiSetting});
             this.msMasters.Location = new System.Drawing.Point(0, 0);
             this.msMasters.Name = "msMasters";
-            this.msMasters.Size = new System.Drawing.Size(804, 33);
+            this.msMasters.Size = new System.Drawing.Size(1557, 33);
             this.msMasters.TabIndex = 3;
             this.msMasters.Text = "menuStrip1";
             // 
@@ -108,21 +113,68 @@
             this.msiUser.Text = "User";
             this.msiUser.Click += new System.EventHandler(this.msiUser_Click);
             // 
+            // msiSetting
+            // 
+            this.msiSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.msiImport,
+            this.msiExport,
+            this.msiDBSetting});
+            this.msiSetting.Name = "msiSetting";
+            this.msiSetting.Size = new System.Drawing.Size(80, 29);
+            this.msiSetting.Text = "Setting";
+            // 
+            // msiImport
+            // 
+            this.msiImport.Name = "msiImport";
+            this.msiImport.Size = new System.Drawing.Size(211, 30);
+            this.msiImport.Text = "Import";
+            this.msiImport.Click += new System.EventHandler(this.msiImport_Click);
+            // 
+            // msiExport
+            // 
+            this.msiExport.Name = "msiExport";
+            this.msiExport.Size = new System.Drawing.Size(211, 30);
+            this.msiExport.Text = "Export";
+            this.msiExport.Click += new System.EventHandler(this.msiExport_Click);
+            // 
             // lblUsersCaption
             // 
             this.lblUsersCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUsersCaption.AutoSize = true;
-            this.lblUsersCaption.Location = new System.Drawing.Point(622, 45);
+            this.lblUsersCaption.Location = new System.Drawing.Point(1375, 49);
             this.lblUsersCaption.Name = "lblUsersCaption";
-            this.lblUsersCaption.Size = new System.Drawing.Size(51, 18);
+            this.lblUsersCaption.Size = new System.Drawing.Size(0, 18);
             this.lblUsersCaption.TabIndex = 4;
-            this.lblUsersCaption.Text = "Users";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // chkRepeatRegst
+            // 
+            this.chkRepeatRegst.AutoSize = true;
+            this.chkRepeatRegst.Checked = true;
+            this.chkRepeatRegst.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRepeatRegst.Location = new System.Drawing.Point(1415, 49);
+            this.chkRepeatRegst.Name = "chkRepeatRegst";
+            this.chkRepeatRegst.Size = new System.Drawing.Size(130, 22);
+            this.chkRepeatRegst.TabIndex = 5;
+            this.chkRepeatRegst.Text = "繰り返し登録";
+            this.chkRepeatRegst.UseVisualStyleBackColor = true;
+            // 
+            // msiDBSetting
+            // 
+            this.msiDBSetting.Name = "msiDBSetting";
+            this.msiDBSetting.Size = new System.Drawing.Size(211, 30);
+            this.msiDBSetting.Text = "DBSetting";
+            this.msiDBSetting.Click += new System.EventHandler(this.msiDBSetting_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 334);
+            this.ClientSize = new System.Drawing.Size(1557, 455);
+            this.Controls.Add(this.chkRepeatRegst);
             this.Controls.Add(this.lblUsersCaption);
             this.Controls.Add(this.dgvPcDateManager);
             this.Controls.Add(this.lbxUsers);
@@ -147,6 +199,13 @@
         private System.Windows.Forms.ToolStripMenuItem mstSoftware;
         private System.Windows.Forms.ToolStripMenuItem msiUser;
         private System.Windows.Forms.Label lblUsersCaption;
+        private System.Windows.Forms.ToolStripMenuItem msiSetting;
+        private System.Windows.Forms.ToolStripMenuItem msiImport;
+        private System.Windows.Forms.ToolStripMenuItem msiExport;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.CheckBox chkRepeatRegst;
+        private System.Windows.Forms.ToolStripMenuItem msiDBSetting;
     }
 }
 

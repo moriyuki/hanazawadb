@@ -31,7 +31,6 @@
             this.lbxPcs = new System.Windows.Forms.ListBox();
             this.lblPcMasterCaption = new System.Windows.Forms.Label();
             this.chbShowInactive = new System.Windows.Forms.CheckBox();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.lblNameCaption = new System.Windows.Forms.Label();
@@ -45,13 +44,15 @@
             this.lblPcByod = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblPcCommentCaption = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.lbxSoft = new System.Windows.Forms.ListBox();
+            this.lbxSoftMaster = new System.Windows.Forms.ListBox();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.chbPcIsByod = new System.Windows.Forms.CheckBox();
             this.chbpPcIsActive = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txbComment = new System.Windows.Forms.TextBox();
+            this.lblSoftwareMasterCaption = new System.Windows.Forms.Label();
+            this.lblSftwaresCaption = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbxPcs
@@ -71,8 +72,7 @@
             // lblPcMasterCaption
             // 
             this.lblPcMasterCaption.AutoSize = true;
-            this.lblPcMasterCaption.Location = new System.Drawing.Point(8, 9);
-            this.lblPcMasterCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcMasterCaption.Location = new System.Drawing.Point(13, 14);
             this.lblPcMasterCaption.Name = "lblPcMasterCaption";
             this.lblPcMasterCaption.Size = new System.Drawing.Size(59, 12);
             this.lblPcMasterCaption.TabIndex = 1;
@@ -81,46 +81,35 @@
             // chbShowInactive
             // 
             this.chbShowInactive.AutoSize = true;
-            this.chbShowInactive.Location = new System.Drawing.Point(10, 23);
-            this.chbShowInactive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbShowInactive.Location = new System.Drawing.Point(17, 34);
             this.chbShowInactive.Name = "chbShowInactive";
             this.chbShowInactive.Size = new System.Drawing.Size(90, 16);
             this.chbShowInactive.TabIndex = 2;
             this.chbShowInactive.Text = "showInactive";
             this.chbShowInactive.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEdit.Location = new System.Drawing.Point(10, 397);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(43, 37);
-            this.btnEdit.TabIndex = 3;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
+            this.chbShowInactive.CheckedChanged += new System.EventHandler(this.chbShowInactive_CheckedChanged);
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(56, 397);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAdd.Location = new System.Drawing.Point(12, 596);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(43, 37);
+            this.btnAdd.Size = new System.Drawing.Size(100, 56);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDel
             // 
             this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDel.Location = new System.Drawing.Point(102, 397);
-            this.btnDel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDel.Location = new System.Drawing.Point(143, 596);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(43, 37);
+            this.btnDel.Size = new System.Drawing.Size(100, 56);
             this.btnDel.TabIndex = 5;
             this.btnDel.Text = "Delete";
             this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // lblNameCaption
             // 
@@ -151,8 +140,7 @@
             // lblPcOsCaption
             // 
             this.lblPcOsCaption.AutoSize = true;
-            this.lblPcOsCaption.Location = new System.Drawing.Point(165, 83);
-            this.lblPcOsCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcOsCaption.Location = new System.Drawing.Point(275, 124);
             this.lblPcOsCaption.Name = "lblPcOsCaption";
             this.lblPcOsCaption.Size = new System.Drawing.Size(33, 12);
             this.lblPcOsCaption.TabIndex = 8;
@@ -169,8 +157,7 @@
             // lblPcMemoryCaption
             // 
             this.lblPcMemoryCaption.AutoSize = true;
-            this.lblPcMemoryCaption.Location = new System.Drawing.Point(165, 125);
-            this.lblPcMemoryCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcMemoryCaption.Location = new System.Drawing.Point(275, 188);
             this.lblPcMemoryCaption.Name = "lblPcMemoryCaption";
             this.lblPcMemoryCaption.Size = new System.Drawing.Size(61, 12);
             this.lblPcMemoryCaption.TabIndex = 10;
@@ -178,8 +165,7 @@
             // 
             // txbPcCpu
             // 
-            this.txbPcCpu.Location = new System.Drawing.Point(181, 179);
-            this.txbPcCpu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbPcCpu.Location = new System.Drawing.Point(302, 268);
             this.txbPcCpu.Name = "txbPcCpu";
             this.txbPcCpu.Size = new System.Drawing.Size(139, 19);
             this.txbPcCpu.TabIndex = 13;
@@ -197,8 +183,7 @@
             // lblPcByod
             // 
             this.lblPcByod.AutoSize = true;
-            this.lblPcByod.Location = new System.Drawing.Point(165, 205);
-            this.lblPcByod.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcByod.Location = new System.Drawing.Point(275, 308);
             this.lblPcByod.Name = "lblPcByod";
             this.lblPcByod.Size = new System.Drawing.Size(0, 12);
             this.lblPcByod.TabIndex = 14;
@@ -215,60 +200,64 @@
             // lblPcCommentCaption
             // 
             this.lblPcCommentCaption.AutoSize = true;
-            this.lblPcCommentCaption.Location = new System.Drawing.Point(165, 289);
-            this.lblPcCommentCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPcCommentCaption.Location = new System.Drawing.Point(275, 434);
             this.lblPcCommentCaption.Name = "lblPcCommentCaption";
             this.lblPcCommentCaption.Size = new System.Drawing.Size(51, 12);
             this.lblPcCommentCaption.TabIndex = 18;
             this.lblPcCommentCaption.Text = "comment";
             // 
-            // listBox1
+            // lbxSoft
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(352, 56);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(139, 148);
-            this.listBox1.TabIndex = 20;
+            this.lbxSoft.AllowDrop = true;
+            this.lbxSoft.FormattingEnabled = true;
+            this.lbxSoft.ItemHeight = 18;
+            this.lbxSoft.Location = new System.Drawing.Point(587, 84);
+            this.lbxSoft.Name = "lbxSoft";
+            this.lbxSoft.Size = new System.Drawing.Size(229, 220);
+            this.lbxSoft.TabIndex = 20;
+            this.lbxSoft.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragDrop);
+            this.lbxSoft.DragEnter += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragEnter);
+            this.lbxSoft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbxSoft_KeyDown);
+            this.lbxSoft.Leave += new System.EventHandler(this.lbxSoft_Leave);
             // 
-            // listBox2
+            // lbxSoftMaster
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(352, 234);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(139, 160);
-            this.listBox2.TabIndex = 21;
+            this.lbxSoftMaster.FormattingEnabled = true;
+            this.lbxSoftMaster.ItemHeight = 18;
+            this.lbxSoftMaster.Location = new System.Drawing.Point(587, 351);
+            this.lbxSoftMaster.Name = "lbxSoftMaster";
+            this.lbxSoftMaster.Size = new System.Drawing.Size(229, 238);
+            this.lbxSoftMaster.TabIndex = 21;
+            this.lbxSoftMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxSoftMaster_MouseDown);
             // 
-            // button1
+            // btnClose
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(447, 397);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(43, 37);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClose.Location = new System.Drawing.Point(716, 596);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(100, 56);
+            this.btnClose.TabIndex = 22;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // button2
+            // btnUpdate
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(401, 397);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 37);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdate.Location = new System.Drawing.Point(587, 596);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(100, 56);
+            this.btnUpdate.TabIndex = 23;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // chbPcIsByod
             // 
             this.chbPcIsByod.AutoSize = true;
-            this.chbPcIsByod.Location = new System.Drawing.Point(181, 219);
-            this.chbPcIsByod.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbPcIsByod.Location = new System.Drawing.Point(302, 328);
             this.chbPcIsByod.Name = "chbPcIsByod";
             this.chbPcIsByod.Size = new System.Drawing.Size(55, 16);
             this.chbPcIsByod.TabIndex = 24;
@@ -278,35 +267,53 @@
             // chbpPcIsActive
             // 
             this.chbpPcIsActive.AutoSize = true;
-            this.chbpPcIsActive.Location = new System.Drawing.Point(181, 261);
-            this.chbpPcIsActive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbpPcIsActive.Location = new System.Drawing.Point(302, 392);
             this.chbpPcIsActive.Name = "chbpPcIsActive";
             this.chbpPcIsActive.Size = new System.Drawing.Size(57, 16);
             this.chbpPcIsActive.TabIndex = 25;
             this.chbpPcIsActive.Text = "Active";
             this.chbpPcIsActive.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txbComment
             // 
-            this.textBox1.Location = new System.Drawing.Point(181, 303);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(139, 91);
-            this.textBox1.TabIndex = 26;
+            this.txbComment.Location = new System.Drawing.Point(302, 454);
+            this.txbComment.Multiline = true;
+            this.txbComment.Name = "txbComment";
+            this.txbComment.Size = new System.Drawing.Size(229, 134);
+            this.txbComment.TabIndex = 26;
+            // 
+            // lblSoftwareMasterCaption
+            // 
+            this.lblSoftwareMasterCaption.AutoSize = true;
+            this.lblSoftwareMasterCaption.Location = new System.Drawing.Point(637, 328);
+            this.lblSoftwareMasterCaption.Name = "lblSoftwareMasterCaption";
+            this.lblSoftwareMasterCaption.Size = new System.Drawing.Size(131, 18);
+            this.lblSoftwareMasterCaption.TabIndex = 27;
+            this.lblSoftwareMasterCaption.Text = "Software Master";
+            // 
+            // lblSftwaresCaption
+            // 
+            this.lblSftwaresCaption.AutoSize = true;
+            this.lblSftwaresCaption.Location = new System.Drawing.Point(656, 63);
+            this.lblSftwaresCaption.Name = "lblSftwaresCaption";
+            this.lblSftwaresCaption.Size = new System.Drawing.Size(83, 18);
+            this.lblSftwaresCaption.TabIndex = 28;
+            this.lblSftwaresCaption.Text = "Softwares";
             // 
             // FrmPcMasterMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 449);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(830, 674);
+            this.Controls.Add(this.lblSftwaresCaption);
+            this.Controls.Add(this.lblSoftwareMasterCaption);
+            this.Controls.Add(this.txbComment);
             this.Controls.Add(this.chbpPcIsActive);
             this.Controls.Add(this.chbPcIsByod);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.lbxSoftMaster);
+            this.Controls.Add(this.lbxSoft);
             this.Controls.Add(this.lblPcCommentCaption);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblPcByod);
@@ -320,7 +327,6 @@
             this.Controls.Add(this.lblNameCaption);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.chbShowInactive);
             this.Controls.Add(this.lblPcMasterCaption);
             this.Controls.Add(this.lbxPcs);
@@ -337,7 +343,6 @@
         private System.Windows.Forms.ListBox lbxPcs;
         private System.Windows.Forms.Label lblPcMasterCaption;
         private System.Windows.Forms.CheckBox chbShowInactive;
-        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Label lblNameCaption;
@@ -351,12 +356,14 @@
         private System.Windows.Forms.Label lblPcByod;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblPcCommentCaption;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListBox lbxSoft;
+        private System.Windows.Forms.ListBox lbxSoftMaster;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.CheckBox chbPcIsByod;
         private System.Windows.Forms.CheckBox chbpPcIsActive;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txbComment;
+        private System.Windows.Forms.Label lblSoftwareMasterCaption;
+        private System.Windows.Forms.Label lblSftwaresCaption;
     }
 }
