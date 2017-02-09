@@ -274,12 +274,16 @@ namespace Sudachipon
             sbupdatesql.Append("sf_name = '" + sfm.name + "', ");
             sbupdatesql.Append("sf_version = '" + sfm.version + "', ");
             sbupdatesql.Append("sf_os = " + sfm.osType + ", ");
+            // mt_softのフィールドsf_avilable_number
             sbupdatesql.Append("sf_avilable_number = " + sfm.available + ", ");
             sbupdatesql.Append("sf_comment = '" + sfm.comment + "', ");
+            // mt_softのフィールドaf_active
             sbupdatesql.Append("af_active = '" + sfm.active + "' ");
             sbupdatesql.Append("where sf_id = " + sfm.id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();
+            // mt_softのフィールドsf_avilable_number
+            // mt_softのフィールドaf_active
             sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_avilable_number, af_active, sf_comment) values(");
             //            sbinsertsql.Append(sfm.id + ",");
             sbinsertsql.Append("(select nextval('seq_soft')),");

@@ -33,9 +33,9 @@ namespace Sudachipon
         }
 
         // ListBoxSoftwares更新
-        private void updateSoftList()
+        private void updateSoftList(bool dbreadflag = true)
         {
-            dba.SelectSoftwareMaster();
+            if(dbreadflag) dba.SelectSoftwareMaster();
 
             this.lbxSoftwares.Items.Clear();
 
@@ -100,7 +100,7 @@ namespace Sudachipon
 
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
-            updateSoftList();
+            updateSoftList(false);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -114,7 +114,7 @@ namespace Sudachipon
             dba.SoftwareMasters.Add(sfm);
 
             // ListBoxの更新
-            this.updateSoftList();
+            this.updateSoftList(false);
 
             // ListBox選択の変更
             for (var i = 0; i < this.lbxSoftwares.Items.Count; i++)
@@ -134,7 +134,7 @@ namespace Sudachipon
             sfm.active = false;
             this.dba.UpdateSoftwareMaster(sfm);
             // ListBox更新
-            this.updateSoftList();
+            this.updateSoftList(false);
 
             // 詳細項目値代入
             this.txbSoftwareName.Text = String.Empty;
