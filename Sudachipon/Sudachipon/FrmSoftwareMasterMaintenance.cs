@@ -30,6 +30,9 @@ namespace Sudachipon
             this.cmbSoftwareOs.Items.Add("Windows");
             this.cmbSoftwareOs.Items.Add("MacOS");
             this.cmbSoftwareOs.Items.Add("Windows/MacOS");
+
+            this.btnDel.Enabled = false;
+            this.btnUpdate.Enabled = false;
         }
 
         // ListBoxSoftwares更新
@@ -84,6 +87,8 @@ namespace Sudachipon
 
             if (selectedSoftware == null)
             {
+                this.btnDel.Enabled = false;
+                this.btnUpdate.Enabled = false;
                 return;
             }
             // 詳細項目クリア
@@ -96,6 +101,10 @@ namespace Sudachipon
             this.txbSoftAvailable.Text = selectedSoftware.available.ToString();
             this.chbpSoftwareIsActive.Checked = selectedSoftware.active;
             this.txbSoftwareComment.Text = selectedSoftware.comment;
+
+            this.btnDel.Enabled = true;
+            this.btnUpdate.Enabled = true;
+
         }
 
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
@@ -143,6 +152,10 @@ namespace Sudachipon
             this.txbSoftAvailable.Text = "";
             this.chbpSoftwareIsActive.Checked = false;
             this.txbSoftwareComment.Text = String.Empty;
+
+            this.btnDel.Enabled = false;
+            this.btnUpdate.Enabled = false;
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -158,6 +171,18 @@ namespace Sudachipon
             sfm.comment = this.txbSoftwareComment.Text;
 
             this.dba.UpdateSoftwareMaster(sfm);
+
+            updateSoftList(false);
+
+            for (var i = 0; i < this.lbxSoftwares.Items.Count; i++)
+            {
+                DbAccessor.SoftwareMaster sf = this.lbxSoftwares.Items[i] as DbAccessor.SoftwareMaster;
+                if (sf.id == sfm.id)
+                {
+                    this.lbxSoftwares.SelectedIndex = i;
+                }
+            }
+
         }
 
         private void btnClose_Click(object sender, EventArgs e)
