@@ -22,9 +22,9 @@ namespace Sudachipon
             updateSoftList();
 
             // ListBoxPcMaster更新
-            UpdatePcMaster();
+            //UpdatePcMaster();
             // ListBoxUserMaster更新
-            UpdateUserMaster();
+            //UpdateUserMaster();
 
 
             this.cmbSoftwareOs.Items.Add("Windows");
@@ -89,6 +89,11 @@ namespace Sudachipon
             {
                 this.btnDel.Enabled = false;
                 this.btnUpdate.Enabled = false;
+
+                this.lsbPcMaster.Items.Clear();
+                this.lsbPcs.Items.Clear();
+                this.lsbUserMaster.Items.Clear();
+                this.lsbUsers.Items.Clear();
                 return;
             }
             // 詳細項目クリア
@@ -105,11 +110,21 @@ namespace Sudachipon
             this.btnDel.Enabled = true;
             this.btnUpdate.Enabled = true;
 
+            // ListBoxPcMaster更新
+            UpdatePcMaster();
+            // ListBoxUserMaster更新
+            UpdateUserMaster();
+
         }
 
         private void chbShowInactive_CheckedChanged(object sender, EventArgs e)
         {
             updateSoftList(false);
+
+            this.lsbPcMaster.Items.Clear();
+            this.lsbPcs.Items.Clear();
+            this.lsbUserMaster.Items.Clear();
+            this.lsbUsers.Items.Clear();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -124,6 +139,12 @@ namespace Sudachipon
 
             // ListBoxの更新
             this.updateSoftList(false);
+
+            // ListBoxPcMaster更新
+            UpdatePcMaster();
+            // ListBoxUserMaster更新
+            UpdateUserMaster();
+
 
             // ListBox選択の変更
             for (var i = 0; i < this.lbxSoftwares.Items.Count; i++)
@@ -156,6 +177,10 @@ namespace Sudachipon
             this.btnDel.Enabled = false;
             this.btnUpdate.Enabled = false;
 
+            this.lsbPcMaster.Items.Clear();
+            this.lsbPcs.Items.Clear();
+            this.lsbUserMaster.Items.Clear();
+            this.lsbUsers.Items.Clear();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -251,6 +276,10 @@ namespace Sudachipon
                 ListBox target = (ListBox)sender;
                 DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)e.Data.GetData(typeof(DbAccessor.PcMaster));
                 target.Items.Add(itemPc);
+
+                //DB insert
+                DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                this.dba.InsertPcSoftData(itemPc, sfm.id);
             }
         }
 
@@ -288,6 +317,10 @@ namespace Sudachipon
                 ListBox target = (ListBox)sender;
                 DbAccessor.UserMaster itemUser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
                 target.Items.Add(itemUser);
+
+                //DB insert
+                DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                this.dba.InsertUserSoftData(itemUser, sfm.id);
             }
         }
 

@@ -195,13 +195,81 @@ namespace Sudachipon
                 while (dataReader.Read())
                 {
                     PcSoftData psd = new PcSoftData();
-                    psd.createData();
+                    //psd.createData();
 
                     psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
                     psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
                     psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
 
                     this.PcSoftDatas.Add(psd);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
+
+        public void SelectPcSoftData(int softid)
+        {
+            StringBuilder selectsql = new StringBuilder();
+
+            selectsql.Append("select * from dt_pc_soft");
+            selectsql.Append(" where ps_soft_id = " + softid + ";");
+
+            String sql = selectsql.ToString();
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                this.PcSoftDatas.Clear();
+
+                while (dataReader.Read())
+                {
+                    PcSoftData psd = new PcSoftData();
+                    //psd.createData();
+
+                    psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
+                    psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
+                    psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+
+                    this.PcSoftDatas.Add(psd);
+                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                }
+            }
+        }
+
+        public void SelectUserSoftData(int softid)
+        {
+            StringBuilder selectsql = new StringBuilder();
+
+            selectsql.Append("select * from dt_user_soft");
+            selectsql.Append(" where usf_soft_id = " + softid + ";");
+
+            String sql = selectsql.ToString();
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand(sql, conn);
+                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                var dataReader = command.ExecuteReader();
+
+                this.UserSoftDatas.Clear();
+
+                while (dataReader.Read())
+                {
+                    UserSoftData usd = new UserSoftData();
+                    //usd.createData();
+
+                    usd.userId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
+                    usd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
+                    usd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+
+                    this.UserSoftDatas.Add(usd);
                     // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
                 }
             }
@@ -398,7 +466,8 @@ namespace Sudachipon
             }
         }
 
-        internal void InsertPcSoftData(PcMaster pcm, int softid)
+        //internal void InsertPcSoftData(PcMaster pcm, int softid)
+        public void InsertPcSoftData(PcMaster pcm, int softid)
         {
             // throw new NotImplementedException();
 
@@ -422,7 +491,8 @@ namespace Sudachipon
             }
 
         }
-        internal void DeletePcSoftData(PcMaster pcm, int softid)
+        //internal void DeletePcSoftData(PcMaster pcm, int softid)
+        public void DeletePcSoftData(PcMaster pcm, int softid)
         {
             // throw new NotImplementedException();
 
@@ -442,6 +512,56 @@ namespace Sudachipon
                 if (result == 0)
                 {
                     System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
+        }
+
+        
+        public void InsertUserSoftData(UserMaster um, int softid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into dt_user_soft (usf_user_id, usf_soft_id) values(");
+            sbinsertsql.Append(um.id + ",");
+            sbinsertsql.Append(softid + ");");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("User-Soft DBは更新されませんでした");
+                }
+            }
+
+        }
+        
+        public void DeleteUserSoftData(UserMaster um, int softid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbdeletesql = new StringBuilder();
+            sbdeletesql.Append("delete from dt_user_soft where ");
+            sbdeletesql.Append("usf_user_id =" + um.id + " ");
+            sbdeletesql.Append("and usf_soft_id =" + softid + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var deleteCommand = new NpgsqlCommand(sbdeletesql.ToString(), conn);
+                var result = deleteCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("User-Soft DBは更新されませんでした");
                 }
             }
         }
@@ -747,14 +867,13 @@ namespace Sudachipon
             public int softId;
             public String comment;
 
-            public PcSoftData createData()
+            public PcSoftData()
             {
-                PcSoftData pd = new PcSoftData();
-                pd.pcId = 0;
-                pd.softId = 0;
-                pd.comment = String.Empty;
-
-                return pd;
+               // PcSoftData pd = new PcSoftData();
+                this.pcId = 0;
+                this.softId = 0;
+                this.comment = String.Empty;
+                //return pd;
             }
         }
         public List<PcSoftData> PcSoftDatas = new List<PcSoftData>();
@@ -781,17 +900,17 @@ namespace Sudachipon
         // User Soft RelationData
         public class UserSoftData
         {
-            int userId;
-            int softId;
-            String comment;
+            public int userId;
+            public int softId;
+            public String comment;
 
-            UserSoftData createData()
+            public UserSoftData()
             {
-                UserSoftData ud = new UserSoftData();
-                ud.userId = 0;
-                ud.softId = 0;
-                ud.comment = String.Empty;
-                return ud;
+                //UserSoftData ud = new UserSoftData();
+                this.userId = 0;
+                this.softId = 0;
+                this.comment = String.Empty;
+                //return ud;
             }
         }
 
