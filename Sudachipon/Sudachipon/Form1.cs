@@ -16,11 +16,17 @@ namespace Sudachipon
         // 定数定義
 
         // 変数定義
+        public DateTime StartDate;
+        public int LimitNumberOfDate;
 
         // 初期化
         public Form1()
         {
             InitializeComponent();
+
+            //Default Setting
+            this.LimitNumberOfDate = 31;
+            this.StartDate = DateTime.Now.Date;
 
             // dgv値表示
             this.SetDgvPcDateManagerContents();
@@ -56,12 +62,13 @@ namespace Sudachipon
             dgvPcDateManager.EnableHeadersVisualStyles = false;
             // dgvPcDateManager.ColumnHeadersDefaultCellStyle.BackColor = Color.Red;
 
-            DataGridViewTextBoxColumn[] dgvcolDate = new DataGridViewTextBoxColumn[31];
-            for (int i = 0; i < 31; i++)
+            DataGridViewTextBoxColumn[] dgvcolDate = new DataGridViewTextBoxColumn[this.LimitNumberOfDate];
+            for (int i = 0; i < this.LimitNumberOfDate; i++)
             {
                 dgvcolDate[i] = new DataGridViewTextBoxColumn();
                 dgvcolDate[i].ReadOnly = true;
-                dgvcolDate[i].Tag = DateTime.Now.AddDays(i);
+                //dgvcolDate[i].Tag = DateTime.Now.AddDays(i);
+                dgvcolDate[i].Tag = StartDate.AddDays(i);
                 dgvcolDate[i].HeaderText = ((DateTime)dgvcolDate[i].Tag).ToString("MM/dd (ddd)");
                 dgvcolDate[i].Name = "dgvcolDate" + i.ToString();
                 dgvcolDate[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -105,6 +112,11 @@ namespace Sudachipon
                 }
             }
 
+            //Get PcMaster,UserMaster,PcUserDate from DB
+            dba.SelectPcMaster();
+            dba.SelectUserMaster();
+            dba.SelectPcUserDateData(this.StartDate, this.LimitNumberOfDate);
+
             // add row
             DataGridViewRow[] rows = new DataGridViewRow[activePcNumber];
             int j = 0;
@@ -118,9 +130,69 @@ namespace Sudachipon
                 rows[j].CreateCells(this.dgvPcDateManager);
                 // this.dgvPcDateManager.Rows.Add(1);
                 rows[j].Cells[0].Value = dba.PcMasters[i];
+
+                //SetRowsFromPcUserDateData((DataGridViewRow)rows[j], this.StartDate, this.LimitNumberOfDate);
+
                 j++;
             }
+            SetRowsFromPcUserDateData(rows, activePcNumber, this.StartDate, this.LimitNumberOfDate);
+
             this.dgvPcDateManager.Rows.AddRange(rows);
+
+            //SetRowsFromPcUserDateData(activePcNumber, this.StartDate, this.LimitNumberOfDate);
+        }
+
+        // SetRows from PcUserDateDate
+        private void SetRowsFromPcUserDateData(DataGridViewRow[] rows, int activepc,DateTime startdate, int limitnum)
+        {
+            DbAccessor dba = DbAccessor.GetInstance();
+
+            for (int k = 0; k < activepc; k++)
+            {
+                DbAccessor.PcMaster pc = (DbAccessor.PcMaster)rows[k].Cells[0].Value;
+
+                foreach (DbAccessor.PcUserDateData pud in dba.PcUserDateDatas)
+                {
+                    if (pc.Id == pud.PcId)
+                    {
+                        for (int i = 0; i < limitnum; i++)
+                        {
+                            if (startdate.AddDays(i) == pud.Date)
+                            {
+                                foreach (DbAccessor.UserMaster user in dba.UserMasters)
+                                {
+                                    if ((user.id == pud.UserId) && user.active) rows[k].Cells[i + 1].Value = user;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        private void SetRowsFromPcUserDateData(DataGridViewRow row, DateTime startdate, int limitnum)
+        {
+            DbAccessor.PcMaster pc = (DbAccessor.PcMaster)row.Cells[0].Value;
+            DbAccessor dba = DbAccessor.GetInstance();
+
+            foreach (DbAccessor.PcUserDateData pud in dba.PcUserDateDatas)
+            {
+                if (pc.Id == pud.PcId)
+                {
+                    for (int i=0; i < limitnum; i++)
+                    {
+                        if (startdate.AddDays(i) == pud.Date)
+                        {
+                            foreach (DbAccessor.UserMaster user in dba.UserMasters)
+                            {
+                                if ((user.id == pud.UserId) && user.active) row.Cells[i + 1].Value = user;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // userリスト表示
@@ -229,18 +301,33 @@ namespace Sudachipon
                 {
                     if (MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
+                        // DB update
+                        DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
+                        DateTime currentdate = this.StartDate.AddDays(hit.ColumnIndex - 1);
+                        DbAccessor dba = DbAccessor.GetInstance();
+                        DbAccessor.UserMaster oldUser = (DbAccessor.UserMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value;
+                        dba.UpdatePcUserDateData(currentdate, pc.Id, oldUser.id, itemUser.id);
+
                         this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+
                     }
                 }
                 else
                 {
                     this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+
+                    // DB insert
+                    DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
+                    DateTime currentdate = this.StartDate.AddDays(hit.ColumnIndex - 1);
+                    DbAccessor dba = DbAccessor.GetInstance();
+                    dba.InsertPcUserDateData(currentdate, pc.Id, itemUser.id);
                 }
 
 
                 // DB 更新
             }
         }
+
 
         private void dgvPcDateManager_KeyDown(object sender, KeyEventArgs e)
         {

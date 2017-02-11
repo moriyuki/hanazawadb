@@ -588,13 +588,16 @@ namespace Sudachipon
             }
         }
 
-        public void SelectPcUserDateData(DateTime startdate, DateTime enddate)
+        public void SelectPcUserDateData(DateTime startdate, int limitnum)
         {
+            DateTime enddate;
+            enddate = startdate.AddDays(limitnum - 1);
+
             StringBuilder selectsql = new StringBuilder();
 
             selectsql.Append("select * from dt_pc_user_date");
-            selectsql.Append(" where pud_date >= " + startdate + " ");
-            selectsql.Append(" and pud_date <= " + enddate + ";");
+            selectsql.Append(" where pud_date >= '" + startdate.ToString("yyyy-MM-dd") + "' ");
+            selectsql.Append(" and pud_date <= '" + enddate.ToString("yyyy-MM-dd") + "';");
 
             String sql = selectsql.ToString();
 
@@ -636,8 +639,8 @@ namespace Sudachipon
             // throw new NotImplementedException();
 
             StringBuilder sbinsertsql = new StringBuilder();
-            sbinsertsql.Append("insert into dt_pc_user_date (pud_date, pud_pc_id, pud_user_id) values(");
-            sbinsertsql.Append(dt + ",");
+            sbinsertsql.Append("insert into dt_pc_user_date (pud_date, pud_pc_id, pud_user_id) values('");
+            sbinsertsql.Append(dt.ToString("yyyy-MM-dd") + "',");
             sbinsertsql.Append(pcid + ",");
             sbinsertsql.Append(userid + ");");
 
@@ -647,6 +650,34 @@ namespace Sudachipon
                 conn.Open();
 
                 var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-User DBは更新されませんでした");
+                }
+            }
+
+        }
+
+        public void UpdatePcUserDateData(DateTime dt, int pcid, int olduserid, int newuserid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbupdatesql = new StringBuilder();
+            sbupdatesql.Append("update dt_pc_user_date  set  pud_user_id = ");
+            sbupdatesql.Append(newuserid);
+            sbupdatesql.Append(" where pud_date = '");
+            sbupdatesql.Append(dt.ToString("yyyy-MM-dd") + "' and ");
+            sbupdatesql.Append("pud_pc_id = " + pcid + " and ");
+            sbupdatesql.Append("pud_user_id = " +olduserid + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbupdatesql.ToString(), conn);
                 var result = insertCommand.ExecuteNonQuery();
 
                 if (result == 0)
