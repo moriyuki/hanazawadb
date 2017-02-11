@@ -23,6 +23,8 @@ namespace Sudachipon
             dba.SelectPcMaster();
             dba.SelectPcSoftData();
 
+            this.btnDel.Enabled = false;
+
             // ListBoxPCs更新
             UpdatePcList();
             // ListBoxSoftMaster更新
@@ -54,10 +56,29 @@ namespace Sudachipon
                 this.chbPcIsByod.Checked = false;
                 this.chbpPcIsActive.Checked = false;
                 this.txbComment.Text = String.Empty;
+
+                this.txbPcName.Enabled = false;
+                this.txbPcCpu.Enabled = false;
+                this.txbPcMemory.Enabled = false;
+                this.txbPcOs.Enabled = false;
+                this.chbPcIsByod.Enabled = false;
+                this.chbpPcIsActive.Enabled = false;
+                this.txbComment.Enabled = false;
+                this.lbxSoft.Items.Clear();
+                this.lbxSoft.Enabled = false;
+                this.lbxSoftMaster.Enabled = false;
+                this.btnDel.Enabled = false;
+
             }
             else
             {
-
+                this.txbPcName.Enabled = true;
+                this.txbPcCpu.Enabled = true;
+                this.txbPcMemory.Enabled = true;
+                this.txbPcOs.Enabled = true;
+                this.chbPcIsByod.Enabled = true;
+                this.chbpPcIsActive.Enabled = true;
+                this.txbComment.Enabled = true;
             }
         }
 
@@ -78,7 +99,7 @@ namespace Sudachipon
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
             selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
-            
+
             if (selectedPc == null || this.lbxPcs.SelectedIndex < 0)
             {
                 // 詳細項目クリア
@@ -90,10 +111,17 @@ namespace Sudachipon
                 this.chbpPcIsActive.Checked = false;
                 this.txbComment.Text = String.Empty;
 
-                // pc-soft項目クリア
-                this.lbxSoft.Items.Clear();
-
+                this.txbPcName.Enabled = false;
+                this.txbPcCpu.Enabled = false;
+                this.txbPcMemory.Enabled = false;
+                this.txbPcOs.Enabled = false;
+                this.chbPcIsByod.Enabled = false;
+                this.chbpPcIsActive.Enabled = false;
+                this.txbComment.Enabled = false;
                 this.btnDel.Enabled = false;
+                this.lbxSoft.Items.Clear();
+                this.lbxSoft.Enabled = false;
+                this.lbxSoftMaster.Enabled = false;
             }
             else
             {
@@ -106,6 +134,16 @@ namespace Sudachipon
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
 
+                this.txbPcName.Enabled = true;
+                this.txbPcCpu.Enabled = true;
+                this.txbPcMemory.Enabled = true;
+                this.txbPcOs.Enabled = true;
+                this.chbPcIsByod.Enabled = true;
+                this.chbpPcIsActive.Enabled = true;
+                this.txbComment.Enabled = true;
+                this.lbxSoft.Enabled = true;
+                this.lbxSoftMaster.Enabled = true;
+
                 // pc-soft項目
                 this.lbxSoft.Items.Clear();
                 foreach (DbAccessor.PcSoftData data in dba.PcSoftDatas)
@@ -117,13 +155,6 @@ namespace Sudachipon
                             if (data.softId == soft.id)
                             {
                                 this.lbxSoft.Items.Add(soft);
-                            }
-                        }
-                        foreach(DbAccessor.SoftwareMaster sfmaster in this.lbxSoftMaster.Items)
-                        {
-                            if(data.softId == sfmaster.id)
-                            {
-                                // dd 不可
                             }
                         }
                     }
@@ -199,7 +230,6 @@ namespace Sudachipon
 
             // PCMaster UPDATE
             dba.UpdatePcMaster(pcm);
-            // PC USER UPDATE
             
             // 表示更新
             this.dba.SelectPcMaster();
@@ -218,6 +248,8 @@ namespace Sudachipon
             dba.SelectPcMaster();
             // ListBox更新
             this.UpdatePcList();
+            this.lbxPcs.SelectedIndex = -1;
+            
         }
 
         // Drag Drop
@@ -301,11 +333,6 @@ namespace Sudachipon
         private void lbxSoft_Leave(object sender, EventArgs e)
         {
             this.lbxSoft.SelectedIndex = -1;
-        }
-
-        private void lbxPcs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

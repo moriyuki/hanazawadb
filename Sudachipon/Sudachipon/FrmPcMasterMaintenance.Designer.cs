@@ -65,7 +65,6 @@
             this.lbxPcs.Name = "lbxPcs";
             this.lbxPcs.Size = new System.Drawing.Size(229, 526);
             this.lbxPcs.TabIndex = 0;
-            this.lbxPcs.SelectedIndexChanged += new System.EventHandler(this.lbxPcs_SelectedIndexChanged);
             this.lbxPcs.SelectedValueChanged += new System.EventHandler(this.lbxPcs_SelectedValueChanged);
             // 
             // lblPcMasterCaption
