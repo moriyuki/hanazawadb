@@ -137,8 +137,8 @@ namespace Sudachipon
                     sm.name = String.Format("{0}", dataReader["sf_name"]);
                     sm.version = String.Format("{0}", dataReader["sf_version"]);
                     sm.osType = int.Parse(String.Format("{0}", dataReader["sf_os"]));
-                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_avilable_number"]));
-                    sm.active = bool.Parse(String.Format("{0}", dataReader["af_active"]));
+                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_available_number"]));
+                    sm.active = bool.Parse(String.Format("{0}", dataReader["sf_active"]));
                     sm.comment = String.Format("{0}", dataReader["sf_comment"]);
 
                     this.SoftwareMasters.Add(sm);
@@ -258,7 +258,7 @@ namespace Sudachipon
             StringBuilder selectsql = new StringBuilder();
 
             selectsql.Append("select * from dt_user_soft");
-            selectsql.Append(" where usf_soft_id = " + softid + ";");
+            selectsql.Append(" where usf_sf_id = " + softid + ";");
 
             String sql = selectsql.ToString();
 
@@ -281,8 +281,8 @@ namespace Sudachipon
                         UserSoftData usd = new UserSoftData();
                         //usd.createData();
 
-                        usd.userId = int.Parse(String.Format("{0}", dataReader["usf_user_id"]));
-                        usd.softId = int.Parse(String.Format("{0}", dataReader["usf_soft_id"]));
+                        usd.userId = int.Parse(String.Format("{0}", dataReader["usf_us_id"]));
+                        usd.softId = int.Parse(String.Format("{0}", dataReader["usf_sf_id"]));
                         usd.comment = String.Format("{0}", dataReader["usf_comment"]);
 
                         this.UserSoftDatas.Add(usd);
@@ -364,17 +364,17 @@ namespace Sudachipon
             sbupdatesql.Append("sf_name = '" + sfm.name + "', ");
             sbupdatesql.Append("sf_version = '" + sfm.version + "', ");
             sbupdatesql.Append("sf_os = " + sfm.osType + ", ");
-            // mt_softのフィールドsf_avilable_number
-            sbupdatesql.Append("sf_avilable_number = " + sfm.available + ", ");
+            // mt_softのフィールドsf_available_number
+            sbupdatesql.Append("sf_available_number = " + sfm.available + ", ");
             sbupdatesql.Append("sf_comment = '" + sfm.comment + "', ");
-            // mt_softのフィールドaf_active
-            sbupdatesql.Append("af_active = '" + sfm.active + "' ");
+            // mt_softのフィールドsf_active
+            sbupdatesql.Append("sf_active = '" + sfm.active + "' ");
             sbupdatesql.Append("where sf_id = " + sfm.id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();
-            // mt_softのフィールドsf_avilable_number
-            // mt_softのフィールドaf_active
-            sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_avilable_number, af_active, sf_comment) values(");
+            // mt_softのフィールドsf_available_number
+            // mt_softのフィールドsf_active
+            sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available_number, sf_active, sf_comment) values(");
             //            sbinsertsql.Append(sfm.id + ",");
             sbinsertsql.Append("(select nextval('seq_soft')),");
             sbinsertsql.Append("'" + sfm.name + "',");
@@ -544,7 +544,7 @@ namespace Sudachipon
             // throw new NotImplementedException();
 
             StringBuilder sbinsertsql = new StringBuilder();
-            sbinsertsql.Append("insert into dt_user_soft (usf_user_id, usf_soft_id) values(");
+            sbinsertsql.Append("insert into dt_user_soft (usf_us_id, usf_sf_id) values(");
             sbinsertsql.Append(um.id + ",");
             sbinsertsql.Append(softid + ");");
 
@@ -570,8 +570,8 @@ namespace Sudachipon
 
             StringBuilder sbdeletesql = new StringBuilder();
             sbdeletesql.Append("delete from dt_user_soft where ");
-            sbdeletesql.Append("usf_user_id =" + um.id + " ");
-            sbdeletesql.Append("and usf_soft_id =" + softid + ";");
+            sbdeletesql.Append("usf_us_id =" + um.id + " ");
+            sbdeletesql.Append("and usf_sf_id =" + softid + ";");
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
