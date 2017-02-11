@@ -392,6 +392,10 @@ namespace Sudachipon
                 {
                     // 削除
                     lsbPcs.Items.Remove(pc);
+                    //DB delete
+                    DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                    this.dba.DeletePcSoftData(pc, sfm.id);
+
                 }
 
             }
@@ -417,6 +421,10 @@ namespace Sudachipon
                 {
                     // 削除
                     lsbUsers.Items.Remove(us);
+                    //DB delete
+                    DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                    this.dba.DeleteUserSoftData(us, sfm.id);
+
                 }
 
             }
