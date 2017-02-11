@@ -588,6 +588,100 @@ namespace Sudachipon
             }
         }
 
+        public void SelectPcUserDateData(DateTime startdate, DateTime enddate)
+        {
+            StringBuilder selectsql = new StringBuilder();
+
+            selectsql.Append("select * from dt_pc_user_date");
+            selectsql.Append(" where pud_date >= " + startdate + " ");
+            selectsql.Append(" and pud_date <= " + enddate + ";");
+
+            String sql = selectsql.ToString();
+
+            try
+            {
+
+                using (var conn = new NpgsqlConnection(CONN_STRING))
+                {
+                    conn.Open();
+
+                    var command = new NpgsqlCommand(sql, conn);
+                    // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                    var dataReader = command.ExecuteReader();
+
+
+                    this.PcUserDateDatas.Clear();
+
+                    while (dataReader.Read())
+                    {
+                        PcUserDateData pud = new PcUserDateData();
+
+                        pud.Date = DateTime.Parse(String.Format("{0}", dataReader["pud_date"]));
+                        pud.PcId = int.Parse(String.Format("{0}", dataReader["pud_pc_id"]));
+                        pud.UserId = int.Parse(String.Format("{0}", dataReader["pud_user_id"]));
+
+                        this.PcUserDateDatas.Add(pud);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        public void InsertPcUserDateData(DateTime dt, int pcid, int userid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into dt_pc_user_date (pud_date, pud_pc_id, pud_user_id) values(");
+            sbinsertsql.Append(dt + ",");
+            sbinsertsql.Append(pcid + ",");
+            sbinsertsql.Append(userid + ");");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-User DBは更新されませんでした");
+                }
+            }
+
+        }
+
+        public void DeletePcUserDateData(DateTime dt, int pcid, int userid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbdeletesql = new StringBuilder();
+            sbdeletesql.Append("delete from dt_pc_user_date where ");
+            sbdeletesql.Append("pud_date =" + dt + " ");
+            sbdeletesql.Append("and pud_pc_id =" + pcid + " ");
+            sbdeletesql.Append("and pud_user_id =" + userid + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var deleteCommand = new NpgsqlCommand(sbdeletesql.ToString(), conn);
+                var result = deleteCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-User DBは更新されませんでした");
+                }
+            }
+        }
+
         // DB DUMP
         public void DBDump(string filefullpath)
         {
@@ -903,17 +997,63 @@ namespace Sudachipon
         // Pc User Date Relation Data
         public class PcUserDateData
         {
-            DateTime date;
-            int pcId;
-            int userId;
+            private
+            DateTime _date;
+            int _pcId;
+            int _userId;
 
-            PcUserDateData createData()
+            public PcUserDateData()
             {
-                PcUserDateData pd = new PcUserDateData();
-                pd.date = DateTime.MinValue;
-                pd.pcId = 0;
-                pd.userId = 0;
-                return pd;
+                //PcUserDateData pd = new PcUserDateData();
+                this._date = DateTime.MinValue;
+                this._pcId = 0;
+                this._userId = 0;
+                //return pd;
+            }
+
+            // dateプロパティ
+            public DateTime Date
+            {
+                get
+                {
+                    return _date;
+                }
+                set
+                {
+                        _date = value;
+                }
+            }
+
+            // pcidプロパティ
+            public int PcId
+            {
+                get
+                {
+                    return _pcId;
+                }
+                set
+                {
+                    if (value > 0)
+                    {
+                        _pcId = value;
+                    }
+                }
+            }
+
+            // useridプロパティ
+            public int UserId
+            {
+                get
+                {
+                    return _userId;
+                }
+                set
+                {
+                    if (value > 0)
+                    {
+                        _userId = value;
+                    }
+                }
             }
         }
 
