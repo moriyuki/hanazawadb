@@ -34,7 +34,7 @@ namespace Sudachipon
         // ListBoxUsers更新
         private void updateUserList()
         {
-            dba.SelectUserMaster();
+            //dba.SelectUserMaster();
 
             this.lbxUsers.Items.Clear();
 
@@ -46,7 +46,6 @@ namespace Sudachipon
                 }
 
             }
-
 
             // 非選択時は詳細項目空欄
             if (this.lbxUsers.SelectedIndex < 0)
@@ -131,6 +130,7 @@ namespace Sudachipon
             // UserIDを取得
             DbAccessor.UserMaster um = new DbAccessor.UserMaster();
             um.id = um.GetNextId();
+            um.name = "New Person";
             dba.UserMasters.Add(um);
 
             // ListBoxの更新
@@ -171,9 +171,9 @@ namespace Sudachipon
         {
             // 元データと比較、変更がなければreturn
             // 更新処理を呼び出し
-            DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
-            um.name = this.txbUserName.ToString();
+            DbAccessor.UserMaster um =this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
 
+            um.name = this.txbUserName.Text;
             if (this.cmbUserType.Text == "1") 
             {
                 um.type = 1;
@@ -188,6 +188,7 @@ namespace Sudachipon
             um.comment = this.txbUserComment.Text;
 
             this.dba.UpdateUserMaster(um);
+            this.updateUserList();
         }
 
         private void button1_Click(object sender, EventArgs e)
