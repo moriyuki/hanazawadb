@@ -21,6 +21,7 @@ namespace Sudachipon
             InitializeComponent();
 
             dba.SelectPcMaster();
+            dba.SelectPcSoftData();
 
             // ListBoxPCs更新
             UpdatePcList();
@@ -77,7 +78,7 @@ namespace Sudachipon
         private void lbxPcs_SelectedValueChanged(object sender, EventArgs e)
         {
             selectedPc = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
-
+            
             if (selectedPc == null || this.lbxPcs.SelectedIndex < 0)
             {
                 // 詳細項目クリア
@@ -88,6 +89,11 @@ namespace Sudachipon
                 this.chbPcIsByod.Checked = false;
                 this.chbpPcIsActive.Checked = false;
                 this.txbComment.Text = String.Empty;
+
+                // pc-soft項目クリア
+                this.lbxSoft.Items.Clear();
+
+                this.btnDel.Enabled = false;
             }
             else
             {
@@ -100,6 +106,32 @@ namespace Sudachipon
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
 
+                // pc-soft項目
+                this.lbxSoft.Items.Clear();
+                foreach (DbAccessor.PcSoftData data in dba.PcSoftDatas)
+                {
+                    if (data.pcId == selectedPc.Id)
+                    {
+                        foreach (DbAccessor.SoftwareMaster soft in dba.SoftwareMasters)
+                        {
+                            if (data.softId == soft.id)
+                            {
+                                this.lbxSoft.Items.Add(soft);
+                            }
+                        }
+                        foreach(DbAccessor.SoftwareMaster sfmaster in this.lbxSoftMaster.Items)
+                        {
+                            if(data.softId == sfmaster.id)
+                            {
+                                // dd 不可
+                            }
+                        }
+                    }
+                }
+                if (selectedPc.Active)
+                {
+                    this.btnDel.Enabled = true;
+                }
             }
         }
 
@@ -165,8 +197,10 @@ namespace Sudachipon
             pcm.Active = this.chbpPcIsActive.Checked;
             pcm.Comment = this.txbComment.Text;
 
+            // PCMaster UPDATE
             dba.UpdatePcMaster(pcm);
-
+            // PC USER UPDATE
+            
             // 表示更新
             this.dba.SelectPcMaster();
             this.UpdatePcList();

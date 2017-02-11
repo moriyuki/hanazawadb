@@ -200,7 +200,7 @@ namespace Sudachipon
 
                     psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
                     psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
-                    psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+                    psd.comment = String.Format("{0}", dataReader["ps_comment"]);
 
                     this.PcSoftDatas.Add(psd);
                     // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
