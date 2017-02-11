@@ -69,36 +69,36 @@ namespace Sudachipon
             try
             {
 
-            
-            using (var conn = new NpgsqlConnection(CONN_STRING))
-            {
-                conn.Open();
 
-                var command = new NpgsqlCommand(sql, conn);
-                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
-                var dataReader = command.ExecuteReader();
-
-                // PcMasters クリア
-                this.PcMasters.Clear();
-
-                while (dataReader.Read())
+                using (var conn = new NpgsqlConnection(CONN_STRING))
                 {
-                    PcMaster pm = new PcMaster();
-                    
-                    pm.Id = int.Parse(String.Format("{0}",dataReader["pc_id"]));
-                    pm.Name = String.Format("{0}", dataReader["pc_name"]);
-                    pm.Os = String.Format("{0}", dataReader["pc_os"]);
-                    pm.Memory = String.Format("{0}", dataReader["pc_memory"]);
-                    pm.Cpu = String.Format("{0}", dataReader["pc_cpu"]);
-                    pm.Active = bool.Parse(String.Format("{0}", dataReader["pc_active"]));
-                    pm.IsByod = bool.Parse(String.Format("{0}", dataReader["pc_is_byod"]));
-                    pm.Comment = String.Format("{0}", dataReader["pc_comment"]);
+                    conn.Open();
 
-                    this.PcMasters.Add(pm);
-                   // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                    var command = new NpgsqlCommand(sql, conn);
+                    // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                    var dataReader = command.ExecuteReader();
+
+                    // PcMasters クリア
+                    this.PcMasters.Clear();
+
+                    while (dataReader.Read())
+                    {
+                        PcMaster pm = new PcMaster();
+
+                        pm.Id = int.Parse(String.Format("{0}", dataReader["pc_id"]));
+                        pm.Name = String.Format("{0}", dataReader["pc_name"]);
+                        pm.Os = String.Format("{0}", dataReader["pc_os"]);
+                        pm.Memory = String.Format("{0}", dataReader["pc_memory"]);
+                        pm.Cpu = String.Format("{0}", dataReader["pc_cpu"]);
+                        pm.Active = bool.Parse(String.Format("{0}", dataReader["pc_active"]));
+                        pm.IsByod = bool.Parse(String.Format("{0}", dataReader["pc_is_byod"]));
+                        pm.Comment = String.Format("{0}", dataReader["pc_comment"]);
+
+                        this.PcMasters.Add(pm);
+                        // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                    }
                 }
             }
-        }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(ex.ToString());
@@ -131,7 +131,7 @@ namespace Sudachipon
                 while (dataReader.Read())
                 {
                     SoftwareMaster sm = new SoftwareMaster();
-//                    sm.createData();
+                    //                    sm.createData();
 
                     sm.id = int.Parse(String.Format("{0}", dataReader["sf_id"]));
                     sm.name = String.Format("{0}", dataReader["sf_name"]);
@@ -165,7 +165,7 @@ namespace Sudachipon
                 while (dataReader.Read())
                 {
                     UserMaster um = new UserMaster();
-                    
+
                     um.id = int.Parse(String.Format("{0}", dataReader["us_id"]));
                     um.name = String.Format("{0}", dataReader["us_name"]);
                     um.type = int.Parse(String.Format("{0}", dataReader["us_type"]));
@@ -188,6 +188,7 @@ namespace Sudachipon
 
                 var command = new NpgsqlCommand(sql, conn);
                 // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+
                 var dataReader = command.ExecuteReader();
 
                 this.PcSoftDatas.Clear();
@@ -216,29 +217,40 @@ namespace Sudachipon
 
             String sql = selectsql.ToString();
 
-            using (var conn = new NpgsqlConnection(CONN_STRING))
+            try
             {
-                conn.Open();
 
-                var command = new NpgsqlCommand(sql, conn);
-                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
-                var dataReader = command.ExecuteReader();
-
-                this.PcSoftDatas.Clear();
-
-                while (dataReader.Read())
+                using (var conn = new NpgsqlConnection(CONN_STRING))
                 {
-                    PcSoftData psd = new PcSoftData();
-                    //psd.createData();
+                    conn.Open();
 
-                    psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
-                    psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
-                    psd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+                    var command = new NpgsqlCommand(sql, conn);
+                    // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
 
-                    this.PcSoftDatas.Add(psd);
-                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
-                }
+                    var dataReader = command.ExecuteReader();
+ 
+
+            this.PcSoftDatas.Clear();
+
+            while (dataReader.Read())
+            {
+                PcSoftData psd = new PcSoftData();
+                //psd.createData();
+
+                psd.pcId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
+                psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
+                psd.comment = String.Format("{0}", dataReader["ps_comment"]);
+
+                this.PcSoftDatas.Add(psd);
+                // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
             }
+        }
+    }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+
         }
 
         public void SelectUserSoftData(int softid)
@@ -250,29 +262,39 @@ namespace Sudachipon
 
             String sql = selectsql.ToString();
 
-            using (var conn = new NpgsqlConnection(CONN_STRING))
+            try
             {
-                conn.Open();
 
-                var command = new NpgsqlCommand(sql, conn);
-                // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
-                var dataReader = command.ExecuteReader();
-
-                this.UserSoftDatas.Clear();
-
-                while (dataReader.Read())
+                using (var conn = new NpgsqlConnection(CONN_STRING))
                 {
-                    UserSoftData usd = new UserSoftData();
-                    //usd.createData();
+                    conn.Open();
 
-                    usd.userId = int.Parse(String.Format("{0}", dataReader["ps_pc_id"]));
-                    usd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
-                    usd.comment = String.Format("{0}", dataReader["ps_pc_comment"]);
+                    var command = new NpgsqlCommand(sql, conn);
+                    // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                    var dataReader = command.ExecuteReader();
 
-                    this.UserSoftDatas.Add(usd);
-                    // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+
+                    this.UserSoftDatas.Clear();
+
+                    while (dataReader.Read())
+                    {
+                        UserSoftData usd = new UserSoftData();
+                        //usd.createData();
+
+                        usd.userId = int.Parse(String.Format("{0}", dataReader["usf_user_id"]));
+                        usd.softId = int.Parse(String.Format("{0}", dataReader["usf_soft_id"]));
+                        usd.comment = String.Format("{0}", dataReader["usf_comment"]);
+
+                        this.UserSoftDatas.Add(usd);
+                        // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+
         }
 
         public

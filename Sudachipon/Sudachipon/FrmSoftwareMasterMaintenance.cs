@@ -80,6 +80,42 @@ namespace Sudachipon
             }
         }
 
+        // ListBoxPCs更新
+        private void UpdatePcSoftData()
+        {
+            selectedSoftware = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+            dba.SelectPcSoftData(selectedSoftware.id);
+            this.lsbPcs.Items.Clear();
+            foreach (DbAccessor.PcSoftData pcsoft in dba.PcSoftDatas)
+            {
+                foreach (DbAccessor.PcMaster pc in dba.PcMasters)
+                {
+                    if (pcsoft.pcId == pc.Id)
+                    {
+                        this.lsbPcs.Items.Add(pc);
+                    }
+                }
+            }
+        }
+
+        // ListBoxUsers更新
+        private void UpdateUserSoftData()
+        {
+            selectedSoftware = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+            dba.SelectUserSoftData(selectedSoftware.id);
+            this.lsbUsers.Items.Clear();
+            foreach (DbAccessor.UserSoftData usersoft in dba.UserSoftDatas)
+            {
+                foreach (DbAccessor.UserMaster user in dba.UserMasters)
+                {
+                    if (usersoft.userId == user.id)
+                    {
+                        this.lsbUsers.Items.Add(user);
+                    }
+                }
+            }
+        }
+
         // 選択変更時
         private void lbxSoftwares_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -114,6 +150,10 @@ namespace Sudachipon
             UpdatePcMaster();
             // ListBoxUserMaster更新
             UpdateUserMaster();
+            // ListBoxPcs更新
+            UpdatePcSoftData();
+            // ListBoxUsers更新
+            UpdateUserSoftData();
 
         }
 
@@ -137,13 +177,10 @@ namespace Sudachipon
             sfm.id = sfm.GetNextId();
             dba.SoftwareMasters.Add(sfm);
 
+            this.dba.UpdateSoftwareMaster(sfm);
+
             // ListBoxの更新
             this.updateSoftList(false);
-
-            // ListBoxPcMaster更新
-            UpdatePcMaster();
-            // ListBoxUserMaster更新
-            UpdateUserMaster();
 
 
             // ListBox選択の変更
@@ -155,6 +192,17 @@ namespace Sudachipon
                     this.lbxSoftwares.SelectedIndex = i;
                 }
             }
+
+            // ListBoxPcMaster更新
+            UpdatePcMaster();
+            // ListBoxUserMaster更新
+            UpdateUserMaster();
+            // ListBoxPcs更新
+            UpdatePcSoftData();
+            // ListBoxUsers更新
+            UpdateUserSoftData();
+
+
 
         }
 
