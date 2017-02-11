@@ -37,11 +37,11 @@
             this.msiSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.msiImport = new System.Windows.Forms.ToolStripMenuItem();
             this.msiExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiDBSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsersCaption = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.chkRepeatRegst = new System.Windows.Forms.CheckBox();
-            this.msiDBSetting = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).BeginInit();
             this.msMasters.SuspendLayout();
             this.SuspendLayout();
@@ -51,10 +51,11 @@
             this.lbxUsers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxUsers.FormattingEnabled = true;
-            this.lbxUsers.ItemHeight = 18;
-            this.lbxUsers.Location = new System.Drawing.Point(1375, 84);
+            this.lbxUsers.ItemHeight = 12;
+            this.lbxUsers.Location = new System.Drawing.Point(849, 71);
+            this.lbxUsers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lbxUsers.Name = "lbxUsers";
-            this.lbxUsers.Size = new System.Drawing.Size(170, 346);
+            this.lbxUsers.Size = new System.Drawing.Size(104, 244);
             this.lbxUsers.TabIndex = 0;
             this.lbxUsers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseDown);
             // 
@@ -68,11 +69,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPcDateManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPcDateManager.Location = new System.Drawing.Point(33, 36);
+            this.dgvPcDateManager.Location = new System.Drawing.Point(20, 24);
+            this.dgvPcDateManager.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvPcDateManager.Name = "dgvPcDateManager";
             this.dgvPcDateManager.RowHeadersVisible = false;
             this.dgvPcDateManager.RowTemplate.Height = 27;
-            this.dgvPcDateManager.Size = new System.Drawing.Size(1313, 407);
+            this.dgvPcDateManager.Size = new System.Drawing.Size(806, 294);
             this.dgvPcDateManager.TabIndex = 2;
             this.dgvPcDateManager.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragDrop);
             this.dgvPcDateManager.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragEnter);
@@ -88,28 +90,29 @@
             this.msiSetting});
             this.msMasters.Location = new System.Drawing.Point(0, 0);
             this.msMasters.Name = "msMasters";
-            this.msMasters.Size = new System.Drawing.Size(1557, 33);
+            this.msMasters.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.msMasters.Size = new System.Drawing.Size(982, 24);
             this.msMasters.TabIndex = 3;
             this.msMasters.Text = "menuStrip1";
             // 
             // mstPc
             // 
             this.mstPc.Name = "mstPc";
-            this.mstPc.Size = new System.Drawing.Size(45, 29);
+            this.mstPc.Size = new System.Drawing.Size(33, 22);
             this.mstPc.Text = "PC";
             this.mstPc.Click += new System.EventHandler(this.mstPc_Click);
             // 
             // mstSoftware
             // 
             this.mstSoftware.Name = "mstSoftware";
-            this.mstSoftware.Size = new System.Drawing.Size(94, 29);
+            this.mstSoftware.Size = new System.Drawing.Size(65, 22);
             this.mstSoftware.Text = "Software";
             this.mstSoftware.Click += new System.EventHandler(this.mstSoftware_Click);
             // 
             // msiUser
             // 
             this.msiUser.Name = "msiUser";
-            this.msiUser.Size = new System.Drawing.Size(59, 29);
+            this.msiUser.Size = new System.Drawing.Size(42, 22);
             this.msiUser.Text = "User";
             this.msiUser.Click += new System.EventHandler(this.msiUser_Click);
             // 
@@ -120,30 +123,38 @@
             this.msiExport,
             this.msiDBSetting});
             this.msiSetting.Name = "msiSetting";
-            this.msiSetting.Size = new System.Drawing.Size(80, 29);
+            this.msiSetting.Size = new System.Drawing.Size(56, 22);
             this.msiSetting.Text = "Setting";
             // 
             // msiImport
             // 
             this.msiImport.Name = "msiImport";
-            this.msiImport.Size = new System.Drawing.Size(211, 30);
+            this.msiImport.Size = new System.Drawing.Size(126, 22);
             this.msiImport.Text = "Import";
             this.msiImport.Click += new System.EventHandler(this.msiImport_Click);
             // 
             // msiExport
             // 
             this.msiExport.Name = "msiExport";
-            this.msiExport.Size = new System.Drawing.Size(211, 30);
+            this.msiExport.Size = new System.Drawing.Size(126, 22);
             this.msiExport.Text = "Export";
             this.msiExport.Click += new System.EventHandler(this.msiExport_Click);
+            // 
+            // msiDBSetting
+            // 
+            this.msiDBSetting.Name = "msiDBSetting";
+            this.msiDBSetting.Size = new System.Drawing.Size(126, 22);
+            this.msiDBSetting.Text = "DBSetting";
+            this.msiDBSetting.Click += new System.EventHandler(this.msiDBSetting_Click);
             // 
             // lblUsersCaption
             // 
             this.lblUsersCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUsersCaption.AutoSize = true;
-            this.lblUsersCaption.Location = new System.Drawing.Point(1375, 49);
+            this.lblUsersCaption.Location = new System.Drawing.Point(995, 33);
+            this.lblUsersCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUsersCaption.Name = "lblUsersCaption";
-            this.lblUsersCaption.Size = new System.Drawing.Size(0, 18);
+            this.lblUsersCaption.Size = new System.Drawing.Size(0, 12);
             this.lblUsersCaption.TabIndex = 4;
             // 
             // openFileDialog
@@ -155,31 +166,26 @@
             this.chkRepeatRegst.AutoSize = true;
             this.chkRepeatRegst.Checked = true;
             this.chkRepeatRegst.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRepeatRegst.Location = new System.Drawing.Point(1415, 49);
+            this.chkRepeatRegst.Location = new System.Drawing.Point(849, 33);
+            this.chkRepeatRegst.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkRepeatRegst.Name = "chkRepeatRegst";
-            this.chkRepeatRegst.Size = new System.Drawing.Size(130, 22);
+            this.chkRepeatRegst.Size = new System.Drawing.Size(89, 16);
             this.chkRepeatRegst.TabIndex = 5;
             this.chkRepeatRegst.Text = "繰り返し登録";
             this.chkRepeatRegst.UseVisualStyleBackColor = true;
             // 
-            // msiDBSetting
-            // 
-            this.msiDBSetting.Name = "msiDBSetting";
-            this.msiDBSetting.Size = new System.Drawing.Size(211, 30);
-            this.msiDBSetting.Text = "DBSetting";
-            this.msiDBSetting.Click += new System.EventHandler(this.msiDBSetting_Click);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1557, 455);
+            this.ClientSize = new System.Drawing.Size(982, 326);
             this.Controls.Add(this.chkRepeatRegst);
             this.Controls.Add(this.lblUsersCaption);
             this.Controls.Add(this.dgvPcDateManager);
             this.Controls.Add(this.lbxUsers);
             this.Controls.Add(this.msMasters);
             this.MainMenuStrip = this.msMasters;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Sudachipon";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).EndInit();
