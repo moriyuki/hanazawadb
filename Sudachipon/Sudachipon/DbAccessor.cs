@@ -694,7 +694,7 @@ namespace Sudachipon
 
             StringBuilder sbdeletesql = new StringBuilder();
             sbdeletesql.Append("delete from dt_pc_user_date where ");
-            sbdeletesql.Append("pud_date =" + dt + " ");
+            sbdeletesql.Append("pud_date ='" + dt.ToString("yyyy-MM-dd") + "' ");
             sbdeletesql.Append("and pud_pc_id =" + pcid + " ");
             sbdeletesql.Append("and pud_user_id =" + userid + ";");
 
