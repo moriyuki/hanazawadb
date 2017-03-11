@@ -13,67 +13,68 @@ namespace Sudachipon
     public partial class UserControl1 : UserControl
     {
 
-        private DateTime _date;
-        private DbAccessor.UserMaster _prevuser;
-        private DbAccessor.UserMaster _newuser;
+            private DateTime _date;
+            private DbAccessor.UserMaster _prevuser;
+            private DbAccessor.UserMaster _newuser;
 
-        public UserControl1()
-        {
-            InitializeComponent();
+            public UserControl1()
+            {
+                InitializeComponent();
 
-            this.lblDate.Text = _date.ToString("MM/dd (ddd)");
-            if(_prevuser == null)
-            {
-                this.lblPrevUser.Text = "";
-            } else
-            {
-                this.lblPrevUser.Text = _prevuser.name;
+                this.lblDate.Text = _date.ToString("MM/dd (ddd)");
+                if (_prevuser == null)
+                {
+                    this.lblPrevUser.Text = "";
+                }
+                else
+                {
+                    this.lblPrevUser.Text = _prevuser.name;
+                }
+
+                if (_newuser == null)
+                {
+                    this.lblNewUser.Text = "";
+                }
+                else
+                {
+                    this.lblNewUser.Text = _newuser.name;
+                }
             }
 
-            if (_newuser == null)
+            public DateTime Date
             {
-                this.lblNewUser.Text = "";
+                get
+                {
+                    return _date;
+                }
+                set
+                {
+                    _date = value;
+                }
             }
-            else
-            {
-                this.lblNewUser.Text = _newuser.name;
-            }
-        }
 
-        public DateTime Date
-        {
-            get
+            public DbAccessor.UserMaster PrevUser
             {
-                return _date;
+                get
+                {
+                    return _prevuser;
+                }
+                set
+                {
+                    _prevuser = value;
+                }
             }
-            set
-            {
-                _date = value;
-            }
-        }
 
-        public DbAccessor.UserMaster PrevUser
-        {
-            get
+            public DbAccessor.UserMaster NewUser
             {
-                return _prevuser;
-            }
-            set
-            {
-                _prevuser = value;
-            }
-        }
-
-        public DbAccessor.UserMaster NewUser
-        {
-            get
-            {
-                return _newuser;
-            }
-            set
-            {
-                _newuser = value;
+                get
+                {
+                    return _newuser;
+                }
+                set
+                {
+                    _newuser = value;
+                }
             }
         }
     }
-}
