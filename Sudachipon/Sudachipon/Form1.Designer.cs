@@ -53,7 +53,7 @@
             this.lbxUsers.FormattingEnabled = true;
             this.lbxUsers.ItemHeight = 12;
             this.lbxUsers.Location = new System.Drawing.Point(849, 71);
-            this.lbxUsers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lbxUsers.Margin = new System.Windows.Forms.Padding(2);
             this.lbxUsers.Name = "lbxUsers";
             this.lbxUsers.Size = new System.Drawing.Size(104, 244);
             this.lbxUsers.TabIndex = 0;
@@ -70,7 +70,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPcDateManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPcDateManager.Location = new System.Drawing.Point(20, 24);
-            this.dgvPcDateManager.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvPcDateManager.Margin = new System.Windows.Forms.Padding(2);
             this.dgvPcDateManager.Name = "dgvPcDateManager";
             this.dgvPcDateManager.RowHeadersVisible = false;
             this.dgvPcDateManager.RowTemplate.Height = 27;
@@ -164,14 +164,12 @@
             // chkRepeatRegst
             // 
             this.chkRepeatRegst.AutoSize = true;
-            this.chkRepeatRegst.Checked = true;
-            this.chkRepeatRegst.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRepeatRegst.Location = new System.Drawing.Point(849, 33);
-            this.chkRepeatRegst.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkRepeatRegst.Margin = new System.Windows.Forms.Padding(2);
             this.chkRepeatRegst.Name = "chkRepeatRegst";
-            this.chkRepeatRegst.Size = new System.Drawing.Size(89, 16);
+            this.chkRepeatRegst.Size = new System.Drawing.Size(119, 16);
             this.chkRepeatRegst.TabIndex = 5;
-            this.chkRepeatRegst.Text = "繰り返し登録";
+            this.chkRepeatRegst.Text = "繰り返し登録/削除";
             this.chkRepeatRegst.UseVisualStyleBackColor = true;
             // 
             // Form1
@@ -185,7 +183,7 @@
             this.Controls.Add(this.lbxUsers);
             this.Controls.Add(this.msMasters);
             this.MainMenuStrip = this.msMasters;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Sudachipon";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPcDateManager)).EndInit();

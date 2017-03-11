@@ -11,7 +11,7 @@ using Npgsql;
 namespace Sudachipon
 {
     // DB Access Class, Data Model Class
-    class DbAccessor
+    public class DbAccessor
     {
         private static String CONN_STRING;
 

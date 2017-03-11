@@ -296,6 +296,9 @@ namespace Sudachipon
 
                 Point clientPoint = this.dgvPcDateManager.PointToClient(new Point(e.X, e.Y));
                 DataGridView.HitTestInfo hit = this.dgvPcDateManager.HitTest(clientPoint.X, clientPoint.Y);
+
+                if (this.chkRepeatRegst.Checked == false) { 
+
                 // Console.WriteLine("" + hit.RowIndex + " " + hit.ColumnIndex);
                 if (this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value != null)
                 {
@@ -323,8 +326,13 @@ namespace Sudachipon
                     dba.InsertPcUserDateData(currentdate, pc.Id, itemUser.id);
                 }
 
-
-                // DB 更新
+                } else { 
+                //Test Test
+                FrmRepeatRegst fm = new FrmRepeatRegst();
+                fm.PC = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
+                fm.ShowDialog();
+                    // DB 更新
+                }
             }
         }
 
@@ -335,31 +343,36 @@ namespace Sudachipon
             if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
             {
                 
-                int cou = this.dgvPcDateManager.SelectedCells.Count;
+                for(int cou =0;cou < this.dgvPcDateManager.SelectedCells.Count;cou++) { 
 
 
-                if (this.dgvPcDateManager.SelectedCells.Count == 1 && this.dgvPcDateManager.SelectedCells[0].Value != null )
+                if ( this.dgvPcDateManager.SelectedCells[cou].Value != null )
                 {
+                        DbAccessor dba = DbAccessor.GetInstance();
+                        DbAccessor.UserMaster user = (DbAccessor.UserMaster)(this.dgvPcDateManager.SelectedCells[cou].Value);
+                        DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[this.dgvPcDateManager.SelectedCells[cou].RowIndex].Cells[0].Value;
+                        DateTime currentdate = this.StartDate.AddDays(this.dgvPcDateManager.SelectedCells[cou].ColumnIndex - 1);
 
-                if (DialogResult.OK != MessageBox.Show("選択したユーザーを削除します", "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                        String strmessage;
+                        strmessage = "選択したユーザー:"+user.name+"を削除します";
+
+                 if (DialogResult.OK != MessageBox.Show(strmessage, "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
                 {
-                    return;
+                    continue;
                 }
                 else
                 {
                         //DB delete
-                        DbAccessor dba = DbAccessor.GetInstance();
-                        DbAccessor.UserMaster user = (DbAccessor.UserMaster)(this.dgvPcDateManager.SelectedCells[0].Value);
-                        DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[this.dgvPcDateManager.SelectedCells[0].RowIndex].Cells[0].Value;
-                        DateTime currentdate = this.StartDate.AddDays(this.dgvPcDateManager.SelectedCells[0].ColumnIndex - 1);
                         dba.DeletePcUserDateData(currentdate, pc.Id, user.id);
                         // 削除
-                        this.dgvPcDateManager.SelectedCells[0].Value = null;
+                        this.dgvPcDateManager.SelectedCells[cou].Value = null;
 
                     }
 
                 }
-        }
+
+                }
+            }
     }
 
         private void msiImport_Click(object sender, EventArgs e)

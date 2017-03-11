@@ -72,6 +72,12 @@
     <Compile Include="FrmPcMasterMaintenance.Designer.cs">
       <DependentUpon>FrmPcMasterMaintenance.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRepeatRegst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRepeatRegst.Designer.cs">
+      <DependentUpon>FrmRepeatRegst.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSoftwareMasterMaintenance.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DBSetting.resx">
       <DependentUpon>DBSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPcMasterMaintenance.resx">
       <DependentUpon>FrmPcMasterMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRepeatRegst.resx">
+      <DependentUpon>FrmRepeatRegst.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSoftwareMasterMaintenance.resx">
       <DependentUpon>FrmSoftwareMasterMaintenance.cs</DependentUpon>
@@ -110,6 +125,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Docments\画面案.pdf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
