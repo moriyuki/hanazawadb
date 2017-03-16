@@ -49,31 +49,31 @@
             // lblDate
             // 
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(79, 5);
+            this.lblDate.Location = new System.Drawing.Point(113, 4);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(73, 12);
+            this.lblDate.Size = new System.Drawing.Size(35, 12);
             this.lblDate.TabIndex = 1;
-            this.lblDate.Text = "12月12日(水)";
+            this.lblDate.Text = "label1";
             // 
             // lblPrevUser
             // 
             this.lblPrevUser.AutoSize = true;
-            this.lblPrevUser.Location = new System.Drawing.Point(188, 5);
+            this.lblPrevUser.Location = new System.Drawing.Point(255, 5);
             this.lblPrevUser.Name = "lblPrevUser";
-            this.lblPrevUser.Size = new System.Drawing.Size(69, 12);
+            this.lblPrevUser.Size = new System.Drawing.Size(35, 12);
             this.lblPrevUser.TabIndex = 2;
-            this.lblPrevUser.Text = "既存ユーザー";
+            this.lblPrevUser.Text = "label2";
             // 
             // lblNewUser
             // 
             this.lblNewUser.AutoSize = true;
-            this.lblNewUser.Location = new System.Drawing.Point(325, 5);
+            this.lblNewUser.Location = new System.Drawing.Point(445, 4);
             this.lblNewUser.Name = "lblNewUser";
-            this.lblNewUser.Size = new System.Drawing.Size(69, 12);
+            this.lblNewUser.Size = new System.Drawing.Size(35, 12);
             this.lblNewUser.TabIndex = 3;
-            this.lblNewUser.Text = "新規ユーザー";
+            this.lblNewUser.Text = "label3";
             // 
-            // UserControl1
+            // UserControl2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -81,8 +81,8 @@
             this.Controls.Add(this.lblPrevUser);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.chkUpdate);
-            this.Name = "UserControl1";
-            this.Size = new System.Drawing.Size(458, 27);
+            this.Name = "UserControl2";
+            this.Size = new System.Drawing.Size(675, 24);
             this.ResumeLayout(false);
             this.PerformLayout();
 

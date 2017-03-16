@@ -57,6 +57,9 @@ namespace Sudachipon
                 this.txbUserComment.Text = String.Empty;
             }
 
+            // なぜかtrueに変えた瞬間しか並び替えが実行されない
+            this.lbxUsers.Sorted = false;
+            this.lbxUsers.Sorted = true;
         }
 
         // ListBoxUsers更新
