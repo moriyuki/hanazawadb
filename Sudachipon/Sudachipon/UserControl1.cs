@@ -13,6 +13,7 @@ namespace Sudachipon
     public partial class UserControl1 : UserControl
     {
 
+            private bool _updateflag;
             private DateTime _date;
             private DbAccessor.UserMaster _prevuser;
             private DbAccessor.UserMaster _newuser;
@@ -39,9 +40,39 @@ namespace Sudachipon
                 {
                     this.lblNewUser.Text = _newuser.name;
                 }
+
+                _updateflag = this.chkUpdate.Checked;
             }
 
-            public DateTime Date
+        public UserControl1(bool Delete)
+        {
+            InitializeComponent();
+
+            this.chkUpdate.Text = "削除";
+
+            this.lblDate.Text = _date.ToString("MM/dd (ddd)");
+            if (_prevuser == null)
+            {
+                this.lblPrevUser.Text = "";
+            }
+            else
+            {
+                this.lblPrevUser.Text = _prevuser.name;
+            }
+
+            if (_newuser == null)
+            {
+                this.lblNewUser.Text = "";
+            }
+            else
+            {
+                this.lblNewUser.Text = _newuser.name;
+            }
+
+            _updateflag = this.chkUpdate.Checked;
+        }
+
+        public DateTime Date
             {
                 get
                 {
@@ -50,10 +81,23 @@ namespace Sudachipon
                 set
                 {
                     _date = value;
-                }
+                    this.lblDate.Text = _date.ToString("MM/dd (ddd)");
+            }
             }
 
-            public DbAccessor.UserMaster PrevUser
+        public bool UpdateFlag
+        {
+            get
+            {
+                return _updateflag;
+            }
+            set
+            {
+                _updateflag = value;
+            }
+        }
+
+        public DbAccessor.UserMaster PrevUser
             {
                 get
                 {
@@ -62,6 +106,13 @@ namespace Sudachipon
                 set
                 {
                     _prevuser = value;
+                if (_prevuser != null)
+                {
+                    this.lblPrevUser.Text = _prevuser.name;
+                } else
+                {
+                    this.lblPrevUser.Text = "";
+                }
                 }
             }
 
@@ -74,7 +125,19 @@ namespace Sudachipon
                 set
                 {
                     _newuser = value;
+                if (_newuser != null)
+                {
+                    this.lblNewUser.Text = _newuser.name;
+                } else
+                {
+                    this.lblNewUser.Text = "";
+                }
                 }
             }
+
+        private void chkUpdate_Click(object sender, EventArgs e)
+        {
+            _updateflag = this.chkUpdate.Checked;
         }
+    }
     }

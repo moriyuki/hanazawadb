@@ -51,6 +51,8 @@ namespace Sudachipon
             dgvcolPc.HeaderText = "PCs";
             dgvcolPc.Name = "dgvcolPc";
 
+            // データクリア
+            this.dgvPcDateManager.Columns.Clear();
             this.dgvPcDateManager.Columns.Add(dgvcolPc);
 
             // dateカラムを指定回数追加する（31列）
@@ -330,7 +332,10 @@ namespace Sudachipon
                 //Test Test
                 FrmRepeatRegst fm = new FrmRepeatRegst();
                 fm.PC = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
-                fm.ShowDialog();
+                    fm.NewUser = itemUser;
+                    fm.StartDate = this.StartDate.AddDays(hit.ColumnIndex - 1);
+                    fm.ShowDialog();
+                    SetDgvPcDateManagerContents();
                     // DB 更新
                 }
             }
@@ -342,35 +347,54 @@ namespace Sudachipon
             // 削除用　keydown
             if ((e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
             {
-                
-                for(int cou =0;cou < this.dgvPcDateManager.SelectedCells.Count;cou++) { 
-
-
-                if ( this.dgvPcDateManager.SelectedCells[cou].Value != null )
+                if (chkRepeatRegst.Checked == false)
                 {
+
+                    for (int cou = 0; cou < this.dgvPcDateManager.SelectedCells.Count; cou++)
+                    {
+
+
+                        if (this.dgvPcDateManager.SelectedCells[cou].Value != null)
+                        {
+                            DbAccessor dba = DbAccessor.GetInstance();
+                            DbAccessor.UserMaster user = (DbAccessor.UserMaster)(this.dgvPcDateManager.SelectedCells[cou].Value);
+                            DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[this.dgvPcDateManager.SelectedCells[cou].RowIndex].Cells[0].Value;
+                            DateTime currentdate = this.StartDate.AddDays(this.dgvPcDateManager.SelectedCells[cou].ColumnIndex - 1);
+
+                            String strmessage;
+                            strmessage = "選択したユーザー:" + user.name + "を削除します";
+
+                            if (DialogResult.OK != MessageBox.Show(strmessage, "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                //DB delete
+                                dba.DeletePcUserDateData(currentdate, pc.Id, user.id);
+                                // 削除
+                                this.dgvPcDateManager.SelectedCells[cou].Value = null;
+
+                            }
+
+                        }
+
+                    }
+                } else
+                {
+                    for (int cou = 0; cou < this.dgvPcDateManager.SelectedCells.Count; cou++)
+                    {
+                        // forms
                         DbAccessor dba = DbAccessor.GetInstance();
                         DbAccessor.UserMaster user = (DbAccessor.UserMaster)(this.dgvPcDateManager.SelectedCells[cou].Value);
                         DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[this.dgvPcDateManager.SelectedCells[cou].RowIndex].Cells[0].Value;
                         DateTime currentdate = this.StartDate.AddDays(this.dgvPcDateManager.SelectedCells[cou].ColumnIndex - 1);
-
-                        String strmessage;
-                        strmessage = "選択したユーザー:"+user.name+"を削除します";
-
-                 if (DialogResult.OK != MessageBox.Show(strmessage, "caution", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
-                {
-                    continue;
-                }
-                else
-                {
-                        //DB delete
-                        dba.DeletePcUserDateData(currentdate, pc.Id, user.id);
-                        // 削除
-                        this.dgvPcDateManager.SelectedCells[cou].Value = null;
-
+                        FrmRepeatRegst fm = new FrmRepeatRegst(true);
+                        fm.PC = pc;
+                        fm.StartDate = currentdate;
+                        fm.ShowDialog();
                     }
-
-                }
-
+                    SetDgvPcDateManagerContents();
                 }
             }
     }

@@ -14,6 +14,9 @@ namespace Sudachipon
     {
         private DbAccessor.PcMaster _pc;
         private DateTime _startdate;
+        private DbAccessor.UserMaster _newuser;
+
+        private bool _deleteflag;
 
         public DbAccessor.PcMaster PC
         {
@@ -24,6 +27,18 @@ namespace Sudachipon
             set
             {
                 _pc = value;
+            }
+        }
+
+        public DbAccessor.UserMaster NewUser
+        {
+            get
+            {
+                return _newuser;
+            }
+            set
+            {
+                _newuser = value;
             }
         }
 
@@ -44,6 +59,16 @@ namespace Sudachipon
         public FrmRepeatRegst()
         {
             InitializeComponent();
+            _deleteflag = false;
+
+        }
+
+        public FrmRepeatRegst(bool deleteon)
+        {
+            InitializeComponent();
+            _deleteflag = true;
+            btnReplace.Text = "削除";
+            label4.Text = "";
 
         }
 
@@ -51,13 +76,64 @@ namespace Sudachipon
         {
             this.lblPCName.Text = _pc.Name;
 
-            UserControl1 mycontrol = new UserControl1();
+            DbAccessor dba = DbAccessor.GetInstance();
 
-            this.panel1.Controls.Add(mycontrol);
+//
+
+            for (int i = 0; i < 5; i++)
+            {
+                UserControl1 mycontrol = new UserControl1();
+                
+                if(_deleteflag == true)   mycontrol = new UserControl1(true);
+                
+
+                mycontrol.Name = "ucmycontrol" + i.ToString();
+                mycontrol.Size = new System.Drawing.Size(700, 30);
+                mycontrol.Location = new System.Drawing.Point(10, 10 +35 * i);
+                mycontrol.TabIndex = 0;
+                mycontrol.Date = this.StartDate.AddDays(7 * i);
+                if (mycontrol.Date.Month != this.StartDate.Month) break;
+                mycontrol.NewUser = this.NewUser;
+                mycontrol.PrevUser = dba.SelectPcUserDateData(mycontrol.Date, _pc);
+
+                this.panel1.Controls.Add(mycontrol);
+            }
         }
 
         private void btnReplace_Click(object sender, EventArgs e)
         {
+            foreach(UserControl1 mycontorl in this.panel1.Controls)
+            {
+                if (_deleteflag == false)
+                {
+
+                    if (mycontorl.UpdateFlag == true)
+                    {
+                        //System.Windows.Forms.MessageBox.Show(mycontorl.PrevUser.name + " + " + mycontorl.NewUser.name);
+                        DbAccessor dba = DbAccessor.GetInstance();
+                        if (mycontorl.PrevUser != null)
+                        {
+                            dba.UpdatePcUserDateData(mycontorl.Date, PC.Id, mycontorl.PrevUser.id, mycontorl.NewUser.id);
+                        }
+                        else {
+                            dba.InsertPcUserDateData(mycontorl.Date, PC.Id, mycontorl.NewUser.id);
+                        }
+                    }
+                } else
+                {
+                    if (mycontorl.UpdateFlag == true)
+                    {
+                        //System.Windows.Forms.MessageBox.Show(mycontorl.PrevUser.name + " + " + mycontorl.NewUser.name);
+                        DbAccessor dba = DbAccessor.GetInstance();
+                        if (mycontorl.PrevUser != null)
+                        {
+                            dba.DeletePcUserDateData(mycontorl.Date, PC.Id, mycontorl.PrevUser.id);
+                        }
+                    }
+                }
+
+        }
+
             Close();
         }
 
