@@ -450,6 +450,20 @@ namespace Sudachipon
             DBSetting dbs = new DBSetting();
             dbs.ShowDialog();
         }
+
+        // CSV出力
+        private void msiCsvExport_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.No == MessageBox.Show("CSVデータを出力します。よろしいですか？", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+            {
+                return;
+            }
+
+            /// todo カンマ区切りのデータ作成
+            String result = "PC1" + "," + "PC2"; 
+            /// 当月1か月間のデータのみ出力対象にする
+            /// todo 所定のファイルに保存
+        }
     }
 }
 
