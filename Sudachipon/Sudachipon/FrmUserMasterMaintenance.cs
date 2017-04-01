@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -56,7 +57,7 @@ namespace Sudachipon
                 this.chbpUsersActive.Checked = false;
                 this.txbUserComment.Text = String.Empty;
             }
-
+ 
         }
 
         // ListBoxUsers更新
