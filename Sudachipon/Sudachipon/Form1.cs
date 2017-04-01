@@ -460,9 +460,63 @@ namespace Sudachipon
             }
 
             /// todo カンマ区切りのデータ作成
-            String result = "PC1" + "," + "PC2"; 
+            StringBuilder sb = new StringBuilder();
+            List<int> pcIds = new List<int>();
+            DbAccessor dba = DbAccessor.GetInstance();
+            foreach (DbAccessor.PcMaster pcm in dba.PcMasters)
+            {
+                if (pcm.Active)
+                {
+                    sb.Append(",");
+                    sb.Append(pcm.Name);
+                    pcIds.Add(pcm.Id);
+                }
+            }
+            sb.Append("\r\n");
+
+            DateTime n = DateTime.Now;
+            DateTime startDate = new DateTime(n.Year, n.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
             /// 当月1か月間のデータのみ出力対象にする
+            DateTime tmpDate = startDate;
+            while(tmpDate <= endDate)
+            {
+                sb.Append(tmpDate.ToShortDateString());
+
+                // PcId
+                foreach (int pcid in pcIds)
+                {
+                    sb.Append(",");
+
+                    foreach (DbAccessor.PcUserDateData pcudd in dba.PcUserDateDatas)
+                    {
+                        // Date 
+                        if (pcudd.Date == tmpDate)
+                        {
+                            if (pcudd.PcId == pcid)
+                            {
+                                // User
+                                foreach (DbAccessor.UserMaster um in dba.UserMasters)
+                                {
+                                    if (um.id == pcudd.UserId)
+                                    {
+                                        sb.Append(um.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                tmpDate = tmpDate.AddDays(1);
+                sb.Append("\r\n");
+            }
             /// todo 所定のファイルに保存
+            //MessageBox.Show(sb.ToString());
+            using (StreamWriter sw = File.AppendText("testcsv.csv"))
+            {
+                sw.Write(sb.ToString());
+            }
         }
     }
 }
