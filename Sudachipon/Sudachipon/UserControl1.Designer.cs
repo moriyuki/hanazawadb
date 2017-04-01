@@ -45,6 +45,7 @@
             this.chkUpdate.TabIndex = 0;
             this.chkUpdate.Text = "更新";
             this.chkUpdate.UseVisualStyleBackColor = true;
+            this.chkUpdate.Click += new System.EventHandler(this.chkUpdate_Click);
             // 
             // lblDate
             // 
@@ -73,7 +74,7 @@
             this.lblNewUser.TabIndex = 3;
             this.lblNewUser.Text = "label3";
             // 
-            // UserControl2
+            // UserControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -81,7 +82,7 @@
             this.Controls.Add(this.lblPrevUser);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.chkUpdate);
-            this.Name = "UserControl2";
+            this.Name = "UserControl1";
             this.Size = new System.Drawing.Size(675, 24);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -660,6 +660,56 @@ namespace Sudachipon
 
         }
 
+        public DbAccessor.UserMaster SelectPcUserDateData(DateTime targetdate, DbAccessor.PcMaster targetpc)
+        {
+
+            StringBuilder selectsql = new StringBuilder();
+
+            selectsql.Append("select * from dt_pc_user_date");
+            selectsql.Append(" where pud_date = '" + targetdate.ToString("yyyy-MM-dd") + "' ");
+            selectsql.Append(" and pud_pc_id = " + targetpc.Id + ";");
+
+            String sql = selectsql.ToString();
+
+            try
+            {
+
+                using (var conn = new NpgsqlConnection(CONN_STRING))
+                {
+                    conn.Open();
+
+                    var command = new NpgsqlCommand(sql, conn);
+                    // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                    var dataReader = command.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        int UserId;
+
+                        UserId = int.Parse(String.Format("{0}", dataReader["pud_user_id"]));
+
+                        foreach(DbAccessor.UserMaster targetuser in _DbAccessor.UserMasters)
+                        {
+                            if (targetuser.id == UserId) return targetuser;
+                        }
+
+                        return null;
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                return null;
+            }
+
+            return null;
+
+        }
+
+
+
         public void UpdatePcUserDateData(DateTime dt, int pcid, int olduserid, int newuserid)
         {
             // throw new NotImplementedException();
