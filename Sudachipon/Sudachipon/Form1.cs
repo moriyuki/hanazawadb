@@ -511,13 +511,36 @@ namespace Sudachipon
                 tmpDate = tmpDate.AddDays(1);
                 sb.Append("\r\n");
             }
-            /// todo 所定のファイルに保存
-            //MessageBox.Show(sb.ToString());
-            using (StreamWriter sw = File.AppendText("testcsv.csv"))
+           
+            this.csvSaveFileDialog.Title = "CSVファイルの保存先を指定してください。";
+            DateTime dt = DateTime.Now;
+            this.csvSaveFileDialog.FileName = "hanazawacsv_" + dt.ToString("yyyyMMdd_HHmm");
+            this.csvSaveFileDialog.DefaultExt = "csv";
+            this.csvSaveFileDialog.Filter = "csv files (*.csv)|*.csv";
+
+            String before = Application.ExecutablePath;
+            this.csvSaveFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(before);
+
+            DialogResult result = this.csvSaveFileDialog.ShowDialog();
+
+            // Stream fileStream;
+
+            if (result == DialogResult.OK)
             {
-                sw.Write(sb.ToString());
+
+                using (StreamWriter sw = File.AppendText(this.csvSaveFileDialog.FileName))
+                {
+                    sw.Write(sb.ToString());
+                }
+
             }
         }
+
+
     }
-}
+
+
+
+
+    }
 
