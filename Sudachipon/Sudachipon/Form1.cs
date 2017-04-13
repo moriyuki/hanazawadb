@@ -451,6 +451,34 @@ namespace Sudachipon
             dbs.ShowDialog();
         }
 
+
+        // CSVの文字列用にダブルコーテーションを付加する処理
+        private String ConvertCSVString(String str)
+        {
+            const Char DoubleQuote = '"';
+
+            StringBuilder sbcsvstr = new StringBuilder();
+
+            sbcsvstr.Append(DoubleQuote);
+
+            for(int i=0;i<str.Length;i++)
+            {
+                if(str[i] == DoubleQuote)
+                {
+                    sbcsvstr.Append(DoubleQuote);
+                    sbcsvstr.Append(DoubleQuote);
+                } else
+                {
+                    sbcsvstr.Append(str[i]);
+                }
+            }
+
+            sbcsvstr.Append(DoubleQuote);
+
+            return sbcsvstr.ToString();
+        }
+
+
         // CSV出力
         private void msiCsvExport_Click(object sender, EventArgs e)
         {
@@ -468,7 +496,7 @@ namespace Sudachipon
                 if (pcm.Active)
                 {
                     sb.Append(",");
-                    sb.Append(pcm.Name);
+                    sb.Append(ConvertCSVString(pcm.Name));
                     pcIds.Add(pcm.Id);
                 }
             }
@@ -501,7 +529,7 @@ namespace Sudachipon
                                 {
                                     if (um.id == pcudd.UserId)
                                     {
-                                        sb.Append(um.name);
+                                        sb.Append(ConvertCSVString(um.name));
                                     }
                                 }
                             }
