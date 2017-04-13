@@ -297,26 +297,27 @@ namespace Sudachipon
 
         }
 
+
         public
         void UpdatePcMaster(PcMaster pcm)
         {
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_pc set ");
-            sbupdatesql.Append("pc_name = '" + pcm.Name + "', ");
-            sbupdatesql.Append("pc_os = '" + pcm.Os + "', ");
+            sbupdatesql.Append("pc_name = '" + ConvertIntoSQLString(pcm.Name) + "', ");
+            sbupdatesql.Append("pc_os = '" + ConvertIntoSQLString(pcm.Os) + "', ");
             sbupdatesql.Append("pc_active = '" + pcm.Active + "' ");
             sbupdatesql.Append("where pc_id = " + pcm.Id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_pc (pc_id, pc_name, pc_os, pc_memory, pc_cpu, pc_active, pc_is_byod, pc_comment) values(");
             sbinsertsql.Append("(select nextval('seq_pc')),");
-            sbinsertsql.Append("'" + pcm.Name + "',");
-            sbinsertsql.Append("'" + pcm.Os + "',");
-            sbinsertsql.Append("'" + pcm.Memory + "',");
-            sbinsertsql.Append("'" + pcm.Cpu + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Name) + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Os) + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Memory) + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Cpu) + "',");
             sbinsertsql.Append(pcm.Active.ToString() + ",");
             sbinsertsql.Append(pcm.IsByod.ToString() + ",");
-            sbinsertsql.Append("'" + pcm.Comment + "');");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Comment) + "');");
 
             
             //= sbsql.ToString();
@@ -361,12 +362,12 @@ namespace Sudachipon
         {
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_soft set ");
-            sbupdatesql.Append("sf_name = '" + sfm.name + "', ");
-            sbupdatesql.Append("sf_version = '" + sfm.version + "', ");
+            sbupdatesql.Append("sf_name = '" + ConvertIntoSQLString(sfm.name) + "', ");
+            sbupdatesql.Append("sf_version = '" + ConvertIntoSQLString(sfm.version) + "', ");
             sbupdatesql.Append("sf_os = " + sfm.osType + ", ");
             // mt_softのフィールドsf_available_number
             sbupdatesql.Append("sf_available_number = " + sfm.available + ", ");
-            sbupdatesql.Append("sf_comment = '" + sfm.comment + "', ");
+            sbupdatesql.Append("sf_comment = '" + ConvertIntoSQLString(sfm.comment) + "', ");
             // mt_softのフィールドsf_active
             sbupdatesql.Append("sf_active = '" + sfm.active + "' ");
             sbupdatesql.Append("where sf_id = " + sfm.id + ";");
@@ -377,12 +378,12 @@ namespace Sudachipon
             sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available_number, sf_active, sf_comment) values(");
             //            sbinsertsql.Append(sfm.id + ",");
             sbinsertsql.Append("(select nextval('seq_soft')),");
-            sbinsertsql.Append("'" + sfm.name + "',");
-            sbinsertsql.Append("'" + sfm.version + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(sfm.name) + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(sfm.version) + "',");
             sbinsertsql.Append("" + sfm.osType + ",");
             sbinsertsql.Append("" + sfm.available.ToString()+ ",");
             sbinsertsql.Append(sfm.active.ToString() + ",");
-            sbinsertsql.Append("'" + sfm.comment + "');");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(sfm.comment) + "');");
 
 
             //= sbsql.ToString();
@@ -435,7 +436,7 @@ namespace Sudachipon
         {
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_user set ");
-            sbupdatesql.Append("us_name = '" + um.name + "', ");
+            sbupdatesql.Append("us_name = '" + ConvertIntoSQLString(um.name) + "', ");
             sbupdatesql.Append("us_type = '" + um.type + "', ");
             sbupdatesql.Append("us_active = '" + um.active + "' ");
             sbupdatesql.Append("where us_id = " + um.id + ";");
@@ -443,10 +444,10 @@ namespace Sudachipon
             StringBuilder sbinsertsql = new StringBuilder();
             sbinsertsql.Append("insert into mt_user (us_id, us_name, us_type, us_active, us_comment) values(");
             sbinsertsql.Append("(select nextval('seq_user')),");
-            sbinsertsql.Append("'" + um.name + "',");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(um.name) + "',");
             sbinsertsql.Append("'" + um.type + "',");
             sbinsertsql.Append(um.active.ToString() + ",");
-            sbinsertsql.Append("'" + um.comment + "');");
+            sbinsertsql.Append("'" + ConvertIntoSQLString(um.comment) + "');");
 
 
             //= sbsql.ToString();
@@ -762,6 +763,31 @@ namespace Sudachipon
                 }
             }
         }
+
+        // SQL文内の文字列を適切なエスケープ文字を追加する
+        public String ConvertIntoSQLString(String str)
+        { 
+
+            const Char EscapeCode = '\'';
+
+            StringBuilder sbsqlstr = new StringBuilder();
+
+            for(int i =0;i<str.Length;i++)
+            {
+                if(str[i] == EscapeCode)
+                {
+                    sbsqlstr.Append(EscapeCode);
+                    sbsqlstr.Append(EscapeCode);
+                } else
+                {
+                    sbsqlstr.Append(str[i]);
+                }
+            }
+
+
+            return sbsqlstr.ToString();
+        }
+
 
         // DB DUMP
         public void DBDump(string filefullpath)
