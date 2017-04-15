@@ -215,6 +215,11 @@ namespace Sudachipon
                     this.lbxUsers.Items.Add(user);
                 }
             }
+
+            // なぜかtrueに変えた瞬間しか並び替えが実行されない
+            this.lbxUsers.Sorted = false;
+            this.lbxUsers.Sorted = true;
+
         }
         // イベント関数
 
@@ -224,14 +229,22 @@ namespace Sudachipon
             // PCマスタ表示
             FrmPcMasterMaintenance fpmm = new FrmPcMasterMaintenance();
             fpmm.ShowDialog();
+
+            //メイン画面のデータグリッドビューを更新する
+            SetDgvPcDateManagerContents();
+
         }
 
-        // Softwareマスタ編集画面を表示する
-        private void mstSoftware_Click(object sender, EventArgs e)
+    // Softwareマスタ編集画面を表示する
+    private void mstSoftware_Click(object sender, EventArgs e)
         {
             // Softwareマスタ表示
             FrmSoftwareMasterMaintenance fsmm = new FrmSoftwareMasterMaintenance();
             fsmm.ShowDialog();
+
+            //メイン画面のデータグリッドビューを更新する
+            SetDgvPcDateManagerContents();
+
         }
 
         // Userマスタ編集画面を表示する
@@ -240,6 +253,9 @@ namespace Sudachipon
             // Userマスタ表示
             FrmUserMasterMaintenance fumm = new FrmUserMasterMaintenance();
             fumm.ShowDialog();
+
+            //メイン画面のデータグリッドビューを更新する
+            SetDgvPcDateManagerContents();
 
         }
 

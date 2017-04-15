@@ -345,6 +345,7 @@
             // 
             // cmbSoftwareOs
             // 
+            this.cmbSoftwareOs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSoftwareOs.FormattingEnabled = true;
             this.cmbSoftwareOs.Location = new System.Drawing.Point(185, 146);
             this.cmbSoftwareOs.Name = "cmbSoftwareOs";

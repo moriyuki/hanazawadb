@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbxUsers = new System.Windows.Forms.ListBox();
+            //            this.lbxUsers = new System.Windows.Forms.ListBox();
+            this.lbxUsers = new SortedListBox();
             this.dgvPcDateManager = new System.Windows.Forms.DataGridView();
             this.msMasters = new System.Windows.Forms.MenuStrip();
             this.mstPc = new System.Windows.Forms.ToolStripMenuItem();
@@ -209,7 +210,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lbxUsers;
+//        private System.Windows.Forms.ListBox lbxUsers;
+        private SortedListBox lbxUsers;
         private System.Windows.Forms.DataGridView dgvPcDateManager;
         private System.Windows.Forms.MenuStrip msMasters;
         private System.Windows.Forms.ToolStripMenuItem mstPc;
