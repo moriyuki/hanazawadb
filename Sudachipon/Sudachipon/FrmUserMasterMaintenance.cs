@@ -288,5 +288,11 @@ namespace Sudachipon
 
             }
         }
+
+        private void txbUserName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

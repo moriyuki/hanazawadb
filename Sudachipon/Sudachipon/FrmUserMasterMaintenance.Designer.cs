@@ -72,7 +72,7 @@
             // txbUserComment
             // 
             this.txbUserComment.Location = new System.Drawing.Point(181, 303);
-            this.txbUserComment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbUserComment.Margin = new System.Windows.Forms.Padding(2);
             this.txbUserComment.Multiline = true;
             this.txbUserComment.Name = "txbUserComment";
             this.txbUserComment.Size = new System.Drawing.Size(139, 91);
@@ -82,7 +82,7 @@
             // 
             this.chbpUsersActive.AutoSize = true;
             this.chbpUsersActive.Location = new System.Drawing.Point(185, 146);
-            this.chbpUsersActive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbpUsersActive.Margin = new System.Windows.Forms.Padding(2);
             this.chbpUsersActive.Name = "chbpUsersActive";
             this.chbpUsersActive.Size = new System.Drawing.Size(57, 16);
             this.chbpUsersActive.TabIndex = 78;
@@ -94,7 +94,7 @@
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnUpdate.Location = new System.Drawing.Point(352, 397);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(60, 37);
             this.btnUpdate.TabIndex = 77;
@@ -106,7 +106,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(431, 397);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(60, 37);
             this.button1.TabIndex = 76;
@@ -119,7 +119,7 @@
             this.lsbSoftwareMaster.FormattingEnabled = true;
             this.lsbSoftwareMaster.ItemHeight = 12;
             this.lsbSoftwareMaster.Location = new System.Drawing.Point(352, 234);
-            this.lsbSoftwareMaster.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lsbSoftwareMaster.Margin = new System.Windows.Forms.Padding(2);
             this.lsbSoftwareMaster.Name = "lsbSoftwareMaster";
             this.lsbSoftwareMaster.Size = new System.Drawing.Size(139, 160);
             this.lsbSoftwareMaster.TabIndex = 75;
@@ -131,7 +131,7 @@
             this.lsbSoftwares.FormattingEnabled = true;
             this.lsbSoftwares.ItemHeight = 12;
             this.lsbSoftwares.Location = new System.Drawing.Point(352, 56);
-            this.lsbSoftwares.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lsbSoftwares.Margin = new System.Windows.Forms.Padding(2);
             this.lsbSoftwares.Name = "lsbSoftwares";
             this.lsbSoftwares.Size = new System.Drawing.Size(139, 148);
             this.lsbSoftwares.TabIndex = 74;
@@ -170,8 +170,9 @@
             // 
             // txbUserName
             // 
+            this.txbUserName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txbUserName.Location = new System.Drawing.Point(181, 56);
-            this.txbUserName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txbUserName.Margin = new System.Windows.Forms.Padding(2);
             this.txbUserName.Name = "txbUserName";
             this.txbUserName.Size = new System.Drawing.Size(139, 19);
             this.txbUserName.TabIndex = 64;
@@ -190,7 +191,7 @@
             // 
             this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDel.Location = new System.Drawing.Point(86, 397);
-            this.btnDel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDel.Margin = new System.Windows.Forms.Padding(2);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(60, 37);
             this.btnDel.TabIndex = 62;
@@ -202,7 +203,7 @@
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAdd.Location = new System.Drawing.Point(7, 397);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(60, 37);
             this.btnAdd.TabIndex = 61;
@@ -214,7 +215,7 @@
             // 
             this.chbShowInactive.AutoSize = true;
             this.chbShowInactive.Location = new System.Drawing.Point(10, 23);
-            this.chbShowInactive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbShowInactive.Margin = new System.Windows.Forms.Padding(2);
             this.chbShowInactive.Name = "chbShowInactive";
             this.chbShowInactive.Size = new System.Drawing.Size(90, 16);
             this.chbShowInactive.TabIndex = 59;
@@ -239,7 +240,7 @@
             this.lbxUsers.FormattingEnabled = true;
             this.lbxUsers.ItemHeight = 12;
             this.lbxUsers.Location = new System.Drawing.Point(7, 42);
-            this.lbxUsers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lbxUsers.Margin = new System.Windows.Forms.Padding(2);
             this.lbxUsers.Name = "lbxUsers";
             this.lbxUsers.Size = new System.Drawing.Size(139, 352);
             this.lbxUsers.TabIndex = 57;
