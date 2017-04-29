@@ -129,7 +129,8 @@ namespace Sudachipon
                 this.txbPcName.Text = selectedPc.Name;
                 this.txbPcCpu.Text = selectedPc.Cpu;
                 this.txbPcMemory.Text = selectedPc.Memory;
-                this.txbPcOs.Text = selectedPc.Os;
+                // todo 要コンボボックス対応
+                this.txbPcOs.Text = selectedPc.Os.ToString();
                 this.chbPcIsByod.Checked = selectedPc.IsByod;
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
@@ -227,7 +228,7 @@ namespace Sudachipon
             DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
             //DbAccessor.PcMaster pcm = new DbAccessor.PcMaster();
             pcm.Name = this.txbPcName.Text;
-            pcm.Os = this.txbPcOs.Text;
+            pcm.Os = int.Parse(this.txbPcOs.Text);
             pcm.Cpu = this.txbPcCpu.Text;
             pcm.Memory = this.txbPcMemory.Text;
             pcm.IsByod = this.chbPcIsByod.Checked;
@@ -339,6 +340,16 @@ namespace Sudachipon
         private void lbxSoft_Leave(object sender, EventArgs e)
         {
             this.lbxSoft.SelectedIndex = -1;
+        }
+
+        // 空欄時、強制的にフォーカスを外さない
+        private void txbPcName_Leave(object sender, EventArgs e)
+        {
+            String strValidCheck = txbPcName.Text;
+            if (String.IsNullOrEmpty(strValidCheck) || String.IsNullOrEmpty(strValidCheck.Trim()))
+            {
+                MessageBox.Show("test");
+            }
         }
     }
 }

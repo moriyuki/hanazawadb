@@ -87,7 +87,7 @@ namespace Sudachipon
 
                         pm.Id = int.Parse(String.Format("{0}", dataReader["pc_id"]));
                         pm.Name = String.Format("{0}", dataReader["pc_name"]);
-                        pm.Os = String.Format("{0}", dataReader["pc_os"]);
+                        pm.Os = int.Parse(String.Format("{0}", dataReader["pc_os"]));
                         pm.Memory = String.Format("{0}", dataReader["pc_memory"]);
                         pm.Cpu = String.Format("{0}", dataReader["pc_cpu"]);
                         pm.Active = bool.Parse(String.Format("{0}", dataReader["pc_active"]));
@@ -304,7 +304,7 @@ namespace Sudachipon
             StringBuilder sbupdatesql = new StringBuilder();
             sbupdatesql.Append("update mt_pc set ");
             sbupdatesql.Append("pc_name = '" + ConvertIntoSQLString(pcm.Name) + "', ");
-            sbupdatesql.Append("pc_os = '" + ConvertIntoSQLString(pcm.Os) + "', ");
+            sbupdatesql.Append("pc_os = " + pcm.Os + ", ");
             sbupdatesql.Append("pc_active = '" + pcm.Active + "' ");
             sbupdatesql.Append("where pc_id = " + pcm.Id + ";");
 
@@ -312,7 +312,7 @@ namespace Sudachipon
             sbinsertsql.Append("insert into mt_pc (pc_id, pc_name, pc_os, pc_memory, pc_cpu, pc_active, pc_is_byod, pc_comment) values(");
             sbinsertsql.Append("(select nextval('seq_pc')),");
             sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Name) + "',");
-            sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Os) + "',");
+            sbinsertsql.Append( pcm.Os + ",");
             sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Memory) + "',");
             sbinsertsql.Append("'" + ConvertIntoSQLString(pcm.Cpu) + "',");
             sbinsertsql.Append(pcm.Active.ToString() + ",");
@@ -821,11 +821,12 @@ namespace Sudachipon
         // PC_master
         class PcMaster
         {
+            const int PC_OS_DEFAULT = 1;
             // PC data model
             private
             int _id;
             String _name;
-            String _os;
+            int _os;
             String _memory;
             String _cpu;
             bool _active;
@@ -837,7 +838,7 @@ namespace Sudachipon
 //                PcMaster pm = new PcMaster();
                 this._id = 0;
                 this._name = "New Pc";
-                this._os = String.Empty;
+                this._os = PC_OS_DEFAULT;
                 this._memory = String.Empty;
                 this._cpu = String.Empty;
                 this._active = true;
@@ -898,7 +899,7 @@ namespace Sudachipon
             }
 
             // osプロパティ
-            public String Os
+            public int Os
             {
                 get
                 {
