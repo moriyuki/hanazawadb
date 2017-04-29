@@ -429,5 +429,10 @@ namespace Sudachipon
 
             }
         }
+
+        private void txbSoftwareName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

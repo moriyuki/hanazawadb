@@ -215,6 +215,11 @@ namespace Sudachipon
                     this.lbxUsers.Items.Add(user);
                 }
             }
+
+            // なぜかtrueに変えた瞬間しか並び替えが実行されない
+            this.lbxUsers.Sorted = false;
+            this.lbxUsers.Sorted = true;
+
         }
         // イベント関数
 
@@ -224,14 +229,22 @@ namespace Sudachipon
             // PCマスタ表示
             FrmPcMasterMaintenance fpmm = new FrmPcMasterMaintenance();
             fpmm.ShowDialog();
+
+            //メイン画面のデータグリッドビューを更新する
+            SetDgvPcDateManagerContents();
+
         }
 
-        // Softwareマスタ編集画面を表示する
-        private void mstSoftware_Click(object sender, EventArgs e)
+    // Softwareマスタ編集画面を表示する
+    private void mstSoftware_Click(object sender, EventArgs e)
         {
             // Softwareマスタ表示
             FrmSoftwareMasterMaintenance fsmm = new FrmSoftwareMasterMaintenance();
             fsmm.ShowDialog();
+
+            //メイン画面のデータグリッドビューを更新する
+            SetDgvPcDateManagerContents();
+
         }
 
         // Userマスタ編集画面を表示する
@@ -240,6 +253,9 @@ namespace Sudachipon
             // Userマスタ表示
             FrmUserMasterMaintenance fumm = new FrmUserMasterMaintenance();
             fumm.ShowDialog();
+
+            //メイン画面のデータグリッドビューを更新する
+            SetDgvPcDateManagerContents();
 
         }
 
@@ -451,6 +467,34 @@ namespace Sudachipon
             dbs.ShowDialog();
         }
 
+
+        // CSVの文字列用にダブルコーテーションを付加する処理
+        private String ConvertCSVString(String str)
+        {
+            const Char DoubleQuote = '"';
+
+            StringBuilder sbcsvstr = new StringBuilder();
+
+            sbcsvstr.Append(DoubleQuote);
+
+            for(int i=0;i<str.Length;i++)
+            {
+                if(str[i] == DoubleQuote)
+                {
+                    sbcsvstr.Append(DoubleQuote);
+                    sbcsvstr.Append(DoubleQuote);
+                } else
+                {
+                    sbcsvstr.Append(str[i]);
+                }
+            }
+
+            sbcsvstr.Append(DoubleQuote);
+
+            return sbcsvstr.ToString();
+        }
+
+
         // CSV出力
         private void msiCsvExport_Click(object sender, EventArgs e)
         {
@@ -468,7 +512,7 @@ namespace Sudachipon
                 if (pcm.Active)
                 {
                     sb.Append(",");
-                    sb.Append(pcm.Name);
+                    sb.Append(ConvertCSVString(pcm.Name));
                     pcIds.Add(pcm.Id);
                 }
             }
@@ -501,7 +545,7 @@ namespace Sudachipon
                                 {
                                     if (um.id == pcudd.UserId)
                                     {
-                                        sb.Append(um.name);
+                                        sb.Append(ConvertCSVString(um.name));
                                     }
                                 }
                             }
@@ -511,13 +555,36 @@ namespace Sudachipon
                 tmpDate = tmpDate.AddDays(1);
                 sb.Append("\r\n");
             }
-            /// todo 所定のファイルに保存
-            //MessageBox.Show(sb.ToString());
-            using (StreamWriter sw = File.AppendText("testcsv.csv"))
+           
+            this.csvSaveFileDialog.Title = "CSVファイルの保存先を指定してください。";
+            DateTime dt = DateTime.Now;
+            this.csvSaveFileDialog.FileName = "hanazawacsv_" + dt.ToString("yyyyMMdd_HHmm");
+            this.csvSaveFileDialog.DefaultExt = "csv";
+            this.csvSaveFileDialog.Filter = "csv files (*.csv)|*.csv";
+
+            String before = Application.ExecutablePath;
+            this.csvSaveFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(before);
+
+            DialogResult result = this.csvSaveFileDialog.ShowDialog();
+
+            // Stream fileStream;
+
+            if (result == DialogResult.OK)
             {
-                sw.Write(sb.ToString());
+
+                using (StreamWriter sw = File.AppendText(this.csvSaveFileDialog.FileName))
+                {
+                    sw.Write(sb.ToString());
+                }
+
             }
         }
+
+
     }
-}
+
+
+
+
+    }
 

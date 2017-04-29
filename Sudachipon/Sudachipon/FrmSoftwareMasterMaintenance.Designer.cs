@@ -191,11 +191,13 @@
             // 
             // txbSoftwareName
             // 
+            this.txbSoftwareName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txbSoftwareName.Location = new System.Drawing.Point(185, 62);
             this.txbSoftwareName.Margin = new System.Windows.Forms.Padding(2);
             this.txbSoftwareName.Name = "txbSoftwareName";
             this.txbSoftwareName.Size = new System.Drawing.Size(139, 19);
             this.txbSoftwareName.TabIndex = 34;
+            this.txbSoftwareName.TextChanged += new System.EventHandler(this.txbSoftwareName_TextChanged);
             // 
             // lblSoftwareCaption
             // 
@@ -345,6 +347,7 @@
             // 
             // cmbSoftwareOs
             // 
+            this.cmbSoftwareOs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSoftwareOs.FormattingEnabled = true;
             this.cmbSoftwareOs.Location = new System.Drawing.Point(185, 146);
             this.cmbSoftwareOs.Name = "cmbSoftwareOs";
