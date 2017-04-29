@@ -341,15 +341,5 @@ namespace Sudachipon
         {
             this.lbxSoft.SelectedIndex = -1;
         }
-
-        // 空欄時、強制的にフォーカスを外さない
-        private void txbPcName_Leave(object sender, EventArgs e)
-        {
-            String strValidCheck = txbPcName.Text;
-            if (String.IsNullOrEmpty(strValidCheck) || String.IsNullOrEmpty(strValidCheck.Trim()))
-            {
-                MessageBox.Show("test");
-            }
-        }
     }
 }

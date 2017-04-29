@@ -132,7 +132,6 @@
             this.txbPcName.Size = new System.Drawing.Size(229, 25);
             this.txbPcName.TabIndex = 7;
             this.ttpPcName.SetToolTip(this.txbPcName, "シングルクォーテーションは使用できません");
-            this.txbPcName.Leave += new System.EventHandler(this.txbPcName_Leave);
             // 
             // txbPcOs
             // 
