@@ -216,6 +216,12 @@ namespace Sudachipon
         // updateボタンクリック時
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            // nameが空欄、空白の場合は処理終了
+            if (!cmn.ValidationCheck_NameIsNotNull(this.txbPcName.Text))
+            {
+                return;
+            }
+
             // 元データと比較、変更がなければreturn
             // 更新処理を呼び出し
             DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
