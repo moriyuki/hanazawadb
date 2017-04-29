@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbxPcs = new System.Windows.Forms.ListBox();
             this.lblPcMasterCaption = new System.Windows.Forms.Label();
             this.chbShowInactive = new System.Windows.Forms.CheckBox();
@@ -53,6 +54,7 @@
             this.txbComment = new System.Windows.Forms.TextBox();
             this.lblSoftwareMasterCaption = new System.Windows.Forms.Label();
             this.lblSftwaresCaption = new System.Windows.Forms.Label();
+            this.ttpPcName = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lbxPcs
@@ -128,6 +130,7 @@
             this.txbPcName.Name = "txbPcName";
             this.txbPcName.Size = new System.Drawing.Size(229, 25);
             this.txbPcName.TabIndex = 7;
+            this.ttpPcName.SetToolTip(this.txbPcName, "シングルクォーテーションは使用できません");
             // 
             // txbPcOs
             // 
@@ -372,5 +375,6 @@
         private System.Windows.Forms.TextBox txbComment;
         private System.Windows.Forms.Label lblSoftwareMasterCaption;
         private System.Windows.Forms.Label lblSftwaresCaption;
+        private System.Windows.Forms.ToolTip ttpPcName;
     }
 }
