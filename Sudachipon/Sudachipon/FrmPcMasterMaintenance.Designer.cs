@@ -36,7 +36,6 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.lblNameCaption = new System.Windows.Forms.Label();
             this.txbPcName = new System.Windows.Forms.TextBox();
-            this.txbPcOs = new System.Windows.Forms.TextBox();
             this.lblPcOsCaption = new System.Windows.Forms.Label();
             this.txbPcMemory = new System.Windows.Forms.TextBox();
             this.lblPcMemoryCaption = new System.Windows.Forms.Label();
@@ -55,6 +54,7 @@
             this.lblSoftwareMasterCaption = new System.Windows.Forms.Label();
             this.lblSftwaresCaption = new System.Windows.Forms.Label();
             this.ttpPcName = new System.Windows.Forms.ToolTip(this.components);
+            this.cmbPcOs = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbxPcs
@@ -62,30 +62,29 @@
             this.lbxPcs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lbxPcs.FormattingEnabled = true;
-            this.lbxPcs.ItemHeight = 18;
-            this.lbxPcs.Location = new System.Drawing.Point(12, 63);
+            this.lbxPcs.ItemHeight = 12;
+            this.lbxPcs.Location = new System.Drawing.Point(7, 42);
+            this.lbxPcs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lbxPcs.Name = "lbxPcs";
-            this.lbxPcs.Size = new System.Drawing.Size(229, 526);
+            this.lbxPcs.Size = new System.Drawing.Size(139, 352);
             this.lbxPcs.TabIndex = 0;
             this.lbxPcs.SelectedValueChanged += new System.EventHandler(this.lbxPcs_SelectedValueChanged);
             // 
             // lblPcMasterCaption
             // 
             this.lblPcMasterCaption.AutoSize = true;
-            this.lblPcMasterCaption.Location = new System.Drawing.Point(8, 26);
-            this.lblPcMasterCaption.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPcMasterCaption.Location = new System.Drawing.Point(5, 17);
             this.lblPcMasterCaption.Name = "lblPcMasterCaption";
-            this.lblPcMasterCaption.Size = new System.Drawing.Size(87, 18);
+            this.lblPcMasterCaption.Size = new System.Drawing.Size(59, 12);
             this.lblPcMasterCaption.TabIndex = 1;
             this.lblPcMasterCaption.Text = "PC Master";
             // 
             // chbShowInactive
             // 
             this.chbShowInactive.AutoSize = true;
-            this.chbShowInactive.Location = new System.Drawing.Point(110, 21);
-            this.chbShowInactive.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.chbShowInactive.Location = new System.Drawing.Point(66, 14);
             this.chbShowInactive.Name = "chbShowInactive";
-            this.chbShowInactive.Size = new System.Drawing.Size(131, 22);
+            this.chbShowInactive.Size = new System.Drawing.Size(90, 16);
             this.chbShowInactive.TabIndex = 2;
             this.chbShowInactive.Text = "showInactive";
             this.chbShowInactive.UseVisualStyleBackColor = true;
@@ -94,10 +93,9 @@
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(20, 608);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnAdd.Location = new System.Drawing.Point(12, 405);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(167, 84);
+            this.btnAdd.Size = new System.Drawing.Size(100, 56);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -106,10 +104,9 @@
             // btnDel
             // 
             this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDel.Location = new System.Drawing.Point(198, 608);
-            this.btnDel.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnDel.Location = new System.Drawing.Point(119, 405);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(167, 84);
+            this.btnDel.Size = new System.Drawing.Size(100, 56);
             this.btnDel.TabIndex = 5;
             this.btnDel.Text = "Delete";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -118,96 +115,89 @@
             // lblNameCaption
             // 
             this.lblNameCaption.AutoSize = true;
-            this.lblNameCaption.Location = new System.Drawing.Point(275, 63);
+            this.lblNameCaption.Location = new System.Drawing.Point(165, 42);
+            this.lblNameCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNameCaption.Name = "lblNameCaption";
-            this.lblNameCaption.Size = new System.Drawing.Size(71, 18);
+            this.lblNameCaption.Size = new System.Drawing.Size(48, 12);
             this.lblNameCaption.TabIndex = 6;
             this.lblNameCaption.Text = "pc_name";
             // 
             // txbPcName
             // 
             this.txbPcName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txbPcName.Location = new System.Drawing.Point(278, 84);
+            this.txbPcName.Location = new System.Drawing.Point(167, 56);
+            this.txbPcName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txbPcName.Name = "txbPcName";
-            this.txbPcName.Size = new System.Drawing.Size(229, 25);
+            this.txbPcName.Size = new System.Drawing.Size(139, 19);
             this.txbPcName.TabIndex = 7;
             this.ttpPcName.SetToolTip(this.txbPcName, "シングルクォーテーションは使用できません");
-            // 
-            // txbPcOs
-            // 
-            this.txbPcOs.Location = new System.Drawing.Point(278, 146);
-            this.txbPcOs.Name = "txbPcOs";
-            this.txbPcOs.Size = new System.Drawing.Size(229, 25);
-            this.txbPcOs.TabIndex = 9;
             // 
             // lblPcOsCaption
             // 
             this.lblPcOsCaption.AutoSize = true;
-            this.lblPcOsCaption.Location = new System.Drawing.Point(275, 124);
-            this.lblPcOsCaption.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPcOsCaption.Location = new System.Drawing.Point(165, 83);
             this.lblPcOsCaption.Name = "lblPcOsCaption";
-            this.lblPcOsCaption.Size = new System.Drawing.Size(48, 18);
+            this.lblPcOsCaption.Size = new System.Drawing.Size(33, 12);
             this.lblPcOsCaption.TabIndex = 8;
             this.lblPcOsCaption.Text = "pc_os";
             // 
             // txbPcMemory
             // 
-            this.txbPcMemory.Location = new System.Drawing.Point(278, 208);
+            this.txbPcMemory.Location = new System.Drawing.Point(167, 139);
+            this.txbPcMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txbPcMemory.Name = "txbPcMemory";
-            this.txbPcMemory.Size = new System.Drawing.Size(229, 25);
+            this.txbPcMemory.Size = new System.Drawing.Size(139, 19);
             this.txbPcMemory.TabIndex = 11;
             // 
             // lblPcMemoryCaption
             // 
             this.lblPcMemoryCaption.AutoSize = true;
-            this.lblPcMemoryCaption.Location = new System.Drawing.Point(275, 188);
-            this.lblPcMemoryCaption.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPcMemoryCaption.Location = new System.Drawing.Point(165, 125);
             this.lblPcMemoryCaption.Name = "lblPcMemoryCaption";
-            this.lblPcMemoryCaption.Size = new System.Drawing.Size(90, 18);
+            this.lblPcMemoryCaption.Size = new System.Drawing.Size(61, 12);
             this.lblPcMemoryCaption.TabIndex = 10;
             this.lblPcMemoryCaption.Text = "pc_memory";
             // 
             // txbPcCpu
             // 
-            this.txbPcCpu.Location = new System.Drawing.Point(278, 270);
-            this.txbPcCpu.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txbPcCpu.Location = new System.Drawing.Point(167, 180);
             this.txbPcCpu.Name = "txbPcCpu";
-            this.txbPcCpu.Size = new System.Drawing.Size(229, 25);
+            this.txbPcCpu.Size = new System.Drawing.Size(139, 19);
             this.txbPcCpu.TabIndex = 13;
             // 
             // lblPcCpuCaption
             // 
             this.lblPcCpuCaption.AutoSize = true;
-            this.lblPcCpuCaption.Location = new System.Drawing.Point(275, 248);
+            this.lblPcCpuCaption.Location = new System.Drawing.Point(165, 165);
+            this.lblPcCpuCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPcCpuCaption.Name = "lblPcCpuCaption";
-            this.lblPcCpuCaption.Size = new System.Drawing.Size(58, 18);
+            this.lblPcCpuCaption.Size = new System.Drawing.Size(39, 12);
             this.lblPcCpuCaption.TabIndex = 12;
             this.lblPcCpuCaption.Text = "pc_cpu";
             // 
             // lblPcByod
             // 
             this.lblPcByod.AutoSize = true;
-            this.lblPcByod.Location = new System.Drawing.Point(458, 462);
-            this.lblPcByod.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPcByod.Location = new System.Drawing.Point(275, 308);
             this.lblPcByod.Name = "lblPcByod";
-            this.lblPcByod.Size = new System.Drawing.Size(0, 18);
+            this.lblPcByod.Size = new System.Drawing.Size(0, 12);
             this.lblPcByod.TabIndex = 14;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(275, 369);
+            this.label6.Location = new System.Drawing.Point(165, 246);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 18);
+            this.label6.Size = new System.Drawing.Size(0, 12);
             this.label6.TabIndex = 16;
             // 
             // lblPcCommentCaption
             // 
             this.lblPcCommentCaption.AutoSize = true;
-            this.lblPcCommentCaption.Location = new System.Drawing.Point(275, 370);
-            this.lblPcCommentCaption.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPcCommentCaption.Location = new System.Drawing.Point(165, 247);
             this.lblPcCommentCaption.Name = "lblPcCommentCaption";
-            this.lblPcCommentCaption.Size = new System.Drawing.Size(76, 18);
+            this.lblPcCommentCaption.Size = new System.Drawing.Size(51, 12);
             this.lblPcCommentCaption.TabIndex = 18;
             this.lblPcCommentCaption.Text = "comment";
             // 
@@ -215,11 +205,10 @@
             // 
             this.lbxSoft.AllowDrop = true;
             this.lbxSoft.FormattingEnabled = true;
-            this.lbxSoft.ItemHeight = 18;
-            this.lbxSoft.Location = new System.Drawing.Point(692, 86);
-            this.lbxSoft.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.lbxSoft.ItemHeight = 12;
+            this.lbxSoft.Location = new System.Drawing.Point(415, 57);
             this.lbxSoft.Name = "lbxSoft";
-            this.lbxSoft.Size = new System.Drawing.Size(199, 238);
+            this.lbxSoft.Size = new System.Drawing.Size(121, 160);
             this.lbxSoft.TabIndex = 20;
             this.lbxSoft.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragDrop);
             this.lbxSoft.DragEnter += new System.Windows.Forms.DragEventHandler(this.lbxSoft_DragEnter);
@@ -229,21 +218,20 @@
             // lbxSoftMaster
             // 
             this.lbxSoftMaster.FormattingEnabled = true;
-            this.lbxSoftMaster.ItemHeight = 18;
-            this.lbxSoftMaster.Location = new System.Drawing.Point(692, 370);
-            this.lbxSoftMaster.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.lbxSoftMaster.ItemHeight = 12;
+            this.lbxSoftMaster.Location = new System.Drawing.Point(415, 247);
             this.lbxSoftMaster.Name = "lbxSoftMaster";
-            this.lbxSoftMaster.Size = new System.Drawing.Size(199, 220);
+            this.lbxSoftMaster.Size = new System.Drawing.Size(121, 148);
             this.lbxSoftMaster.TabIndex = 21;
             this.lbxSoftMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxSoftMaster_MouseDown);
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClose.Location = new System.Drawing.Point(723, 608);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.btnClose.Location = new System.Drawing.Point(434, 405);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(167, 84);
+            this.btnClose.Size = new System.Drawing.Size(100, 56);
             this.btnClose.TabIndex = 22;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -252,10 +240,10 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnUpdate.Location = new System.Drawing.Point(542, 608);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.btnUpdate.Location = new System.Drawing.Point(325, 405);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(167, 84);
+            this.btnUpdate.Size = new System.Drawing.Size(100, 56);
             this.btnUpdate.TabIndex = 23;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -264,10 +252,9 @@
             // chbPcIsByod
             // 
             this.chbPcIsByod.AutoSize = true;
-            this.chbPcIsByod.Location = new System.Drawing.Point(278, 314);
-            this.chbPcIsByod.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.chbPcIsByod.Location = new System.Drawing.Point(167, 209);
             this.chbPcIsByod.Name = "chbPcIsByod";
-            this.chbPcIsByod.Size = new System.Drawing.Size(81, 22);
+            this.chbPcIsByod.Size = new System.Drawing.Size(55, 16);
             this.chbPcIsByod.TabIndex = 24;
             this.chbPcIsByod.Text = "BYOD";
             this.chbPcIsByod.UseVisualStyleBackColor = true;
@@ -275,48 +262,54 @@
             // chbpPcIsActive
             // 
             this.chbpPcIsActive.AutoSize = true;
-            this.chbpPcIsActive.Location = new System.Drawing.Point(277, 344);
-            this.chbpPcIsActive.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.chbpPcIsActive.Location = new System.Drawing.Point(166, 229);
             this.chbpPcIsActive.Name = "chbpPcIsActive";
-            this.chbpPcIsActive.Size = new System.Drawing.Size(82, 22);
+            this.chbpPcIsActive.Size = new System.Drawing.Size(57, 16);
             this.chbpPcIsActive.TabIndex = 25;
             this.chbpPcIsActive.Text = "Active";
             this.chbpPcIsActive.UseVisualStyleBackColor = true;
             // 
             // txbComment
             // 
-            this.txbComment.Location = new System.Drawing.Point(277, 390);
-            this.txbComment.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txbComment.Location = new System.Drawing.Point(166, 260);
             this.txbComment.Multiline = true;
             this.txbComment.Name = "txbComment";
-            this.txbComment.Size = new System.Drawing.Size(379, 199);
+            this.txbComment.Size = new System.Drawing.Size(229, 134);
             this.txbComment.TabIndex = 26;
             // 
             // lblSoftwareMasterCaption
             // 
             this.lblSoftwareMasterCaption.AutoSize = true;
-            this.lblSoftwareMasterCaption.Location = new System.Drawing.Point(688, 344);
-            this.lblSoftwareMasterCaption.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSoftwareMasterCaption.Location = new System.Drawing.Point(413, 229);
             this.lblSoftwareMasterCaption.Name = "lblSoftwareMasterCaption";
-            this.lblSoftwareMasterCaption.Size = new System.Drawing.Size(131, 18);
+            this.lblSoftwareMasterCaption.Size = new System.Drawing.Size(89, 12);
             this.lblSoftwareMasterCaption.TabIndex = 27;
             this.lblSoftwareMasterCaption.Text = "Software Master";
             // 
             // lblSftwaresCaption
             // 
             this.lblSftwaresCaption.AutoSize = true;
-            this.lblSftwaresCaption.Location = new System.Drawing.Point(688, 63);
-            this.lblSftwaresCaption.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSftwaresCaption.Location = new System.Drawing.Point(413, 42);
             this.lblSftwaresCaption.Name = "lblSftwaresCaption";
-            this.lblSftwaresCaption.Size = new System.Drawing.Size(83, 18);
+            this.lblSftwaresCaption.Size = new System.Drawing.Size(56, 12);
             this.lblSftwaresCaption.TabIndex = 28;
             this.lblSftwaresCaption.Text = "Softwares";
             // 
+            // cmbPcOs
+            // 
+            this.cmbPcOs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPcOs.FormattingEnabled = true;
+            this.cmbPcOs.Location = new System.Drawing.Point(166, 98);
+            this.cmbPcOs.Name = "cmbPcOs";
+            this.cmbPcOs.Size = new System.Drawing.Size(121, 20);
+            this.cmbPcOs.TabIndex = 29;
+            // 
             // FrmPcMasterMaintenance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 706);
+            this.ClientSize = new System.Drawing.Size(544, 471);
+            this.Controls.Add(this.cmbPcOs);
             this.Controls.Add(this.lblSftwaresCaption);
             this.Controls.Add(this.lblSoftwareMasterCaption);
             this.Controls.Add(this.txbComment);
@@ -333,7 +326,6 @@
             this.Controls.Add(this.lblPcCpuCaption);
             this.Controls.Add(this.txbPcMemory);
             this.Controls.Add(this.lblPcMemoryCaption);
-            this.Controls.Add(this.txbPcOs);
             this.Controls.Add(this.lblPcOsCaption);
             this.Controls.Add(this.txbPcName);
             this.Controls.Add(this.lblNameCaption);
@@ -342,6 +334,7 @@
             this.Controls.Add(this.chbShowInactive);
             this.Controls.Add(this.lblPcMasterCaption);
             this.Controls.Add(this.lbxPcs);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmPcMasterMaintenance";
             this.Text = "FrmPcMasterMaintenance";
             this.ResumeLayout(false);
@@ -358,7 +351,6 @@
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Label lblNameCaption;
         private System.Windows.Forms.TextBox txbPcName;
-        private System.Windows.Forms.TextBox txbPcOs;
         private System.Windows.Forms.Label lblPcOsCaption;
         private System.Windows.Forms.TextBox txbPcMemory;
         private System.Windows.Forms.Label lblPcMemoryCaption;
@@ -377,5 +369,6 @@
         private System.Windows.Forms.Label lblSoftwareMasterCaption;
         private System.Windows.Forms.Label lblSftwaresCaption;
         private System.Windows.Forms.ToolTip ttpPcName;
+        private System.Windows.Forms.ComboBox cmbPcOs;
     }
 }

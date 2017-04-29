@@ -353,6 +353,7 @@
             this.cmbSoftwareOs.Name = "cmbSoftwareOs";
             this.cmbSoftwareOs.Size = new System.Drawing.Size(139, 20);
             this.cmbSoftwareOs.TabIndex = 57;
+            this.cmbSoftwareOs.SelectedIndexChanged += new System.EventHandler(this.cmbSoftwareOs_SelectedIndexChanged);
             // 
             // FrmSoftwareMasterMaintenance
             // 

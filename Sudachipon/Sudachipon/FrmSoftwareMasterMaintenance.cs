@@ -439,5 +439,10 @@ namespace Sudachipon
         {
 
         }
+
+        private void cmbSoftwareOs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
