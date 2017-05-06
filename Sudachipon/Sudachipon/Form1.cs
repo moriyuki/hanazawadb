@@ -459,10 +459,10 @@ namespace Sudachipon
                 return;
             }
 
-            /// todo カンマ区切りのデータ作成
-            String result = "PC1" + "," + "PC2"; 
+
+
             /// 当月1か月間のデータのみ出力対象にする
-            /// todo 所定のファイルに保存
+            /// todo 所定のファイルに保存 
         }
     }
 }
