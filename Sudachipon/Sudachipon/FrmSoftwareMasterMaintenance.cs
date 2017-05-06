@@ -474,5 +474,28 @@ namespace Sudachipon
         {
 
         }
+
+        private void nudPcLicense_ValueChanged(object sender, EventArgs e)
+        {
+            if(this.nudPcLicense.Value == -1)
+            {
+                return;
+            } else
+            {
+                this.nudUserLicense.Value = -1;
+            }
+        }
+
+        private void nudUserLicense_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.nudUserLicense.Value == -1)
+            {
+                return;
+            }
+            else
+            {
+                this.nudPcLicense.Value = -1;
+            }
+        }
     }
 }
