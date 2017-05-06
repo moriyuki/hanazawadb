@@ -125,9 +125,9 @@
             this.lblSoftwareCommentCaption.Location = new System.Drawing.Point(169, 295);
             this.lblSoftwareCommentCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSoftwareCommentCaption.Name = "lblSoftwareCommentCaption";
-            this.lblSoftwareCommentCaption.Size = new System.Drawing.Size(65, 12);
+            this.lblSoftwareCommentCaption.Size = new System.Drawing.Size(38, 12);
             this.lblSoftwareCommentCaption.TabIndex = 43;
-            this.lblSoftwareCommentCaption.Text = "sf_comment";
+            this.lblSoftwareCommentCaption.Text = "コメント";
             // 
             // label6
             // 
@@ -153,9 +153,9 @@
             this.lblSoftwareAvailableNumberCaption.Location = new System.Drawing.Point(169, 171);
             this.lblSoftwareAvailableNumberCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSoftwareAvailableNumberCaption.Name = "lblSoftwareAvailableNumberCaption";
-            this.lblSoftwareAvailableNumberCaption.Size = new System.Drawing.Size(71, 12);
+            this.lblSoftwareAvailableNumberCaption.Size = new System.Drawing.Size(77, 12);
             this.lblSoftwareAvailableNumberCaption.TabIndex = 39;
-            this.lblSoftwareAvailableNumberCaption.Text = "sf_pc_license";
+            this.lblSoftwareAvailableNumberCaption.Text = "PCライセンス数";
             // 
             // lblSoftOSCaption
             // 
@@ -163,9 +163,9 @@
             this.lblSoftOSCaption.Location = new System.Drawing.Point(169, 131);
             this.lblSoftOSCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSoftOSCaption.Name = "lblSoftOSCaption";
-            this.lblSoftOSCaption.Size = new System.Drawing.Size(31, 12);
+            this.lblSoftOSCaption.Size = new System.Drawing.Size(20, 12);
             this.lblSoftOSCaption.TabIndex = 37;
-            this.lblSoftOSCaption.Text = "sf_os";
+            this.lblSoftOSCaption.Text = "OS";
             // 
             // txbSoftwareVersion
             // 
@@ -181,9 +181,9 @@
             this.lblSoftwareOsCaption.Location = new System.Drawing.Point(169, 89);
             this.lblSoftwareOsCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSoftwareOsCaption.Name = "lblSoftwareOsCaption";
-            this.lblSoftwareOsCaption.Size = new System.Drawing.Size(56, 12);
+            this.lblSoftwareOsCaption.Size = new System.Drawing.Size(44, 12);
             this.lblSoftwareOsCaption.TabIndex = 35;
-            this.lblSoftwareOsCaption.Text = "sf_version";
+            this.lblSoftwareOsCaption.Text = "Version";
             // 
             // txbSoftwareName
             // 
@@ -201,9 +201,9 @@
             this.lblSoftwareCaption.Location = new System.Drawing.Point(169, 48);
             this.lblSoftwareCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSoftwareCaption.Name = "lblSoftwareCaption";
-            this.lblSoftwareCaption.Size = new System.Drawing.Size(46, 12);
+            this.lblSoftwareCaption.Size = new System.Drawing.Size(67, 12);
             this.lblSoftwareCaption.TabIndex = 33;
-            this.lblSoftwareCaption.Text = "sf_name";
+            this.lblSoftwareCaption.Text = "ソフトウェア名";
             // 
             // btnDel
             // 
@@ -391,9 +391,9 @@
             this.label5.Location = new System.Drawing.Point(169, 215);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 12);
+            this.label5.Size = new System.Drawing.Size(86, 12);
             this.label5.TabIndex = 39;
-            this.label5.Text = "sf_user_license";
+            this.label5.Text = "Userライセンス数";
             // 
             // FrmSoftwareMasterMaintenance
             // 
