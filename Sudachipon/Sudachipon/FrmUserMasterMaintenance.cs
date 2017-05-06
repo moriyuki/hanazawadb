@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -172,6 +173,11 @@ namespace Sudachipon
         //アップデートボタンクリック
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            // nameが空欄、空白の場合は処理終了
+            if (!cmn.ValidationCheck_NameIsNotNull(this.txbUserName.Text))
+            {
+                return;
+            }
             // 元データと比較、変更がなければreturn
             // 更新処理を呼び出し
             DbAccessor.UserMaster um =this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
@@ -287,5 +293,11 @@ namespace Sudachipon
 
             }
         }
+
+        private void txbUserName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

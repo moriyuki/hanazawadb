@@ -8,7 +8,7 @@ namespace Sudachipon
 {
     static class Program
     {
-        /// <summary>
+        /// <summary>License
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
         [STAThread]

@@ -29,6 +29,10 @@ namespace Sudachipon
             UpdatePcList();
             // ListBoxSoftMaster更新
             UpdateSoftwareMaster();
+
+            this.cmbPcOs.Items.Add("Windows");
+            this.cmbPcOs.Items.Add("MacOS");
+            this.cmbPcOs.Items.Add("Windows/MacOS");
         }
 
         // ListBoxPCs更新
@@ -52,7 +56,7 @@ namespace Sudachipon
                 this.txbPcName.Text = String.Empty;
                 this.txbPcCpu.Text = String.Empty;
                 this.txbPcMemory.Text = String.Empty;
-                this.txbPcOs.Text = String.Empty;
+                this.cmbPcOs.SelectedIndex = -1;
                 this.chbPcIsByod.Checked = false;
                 this.chbpPcIsActive.Checked = false;
                 this.txbComment.Text = String.Empty;
@@ -60,7 +64,6 @@ namespace Sudachipon
                 this.txbPcName.Enabled = false;
                 this.txbPcCpu.Enabled = false;
                 this.txbPcMemory.Enabled = false;
-                this.txbPcOs.Enabled = false;
                 this.chbPcIsByod.Enabled = false;
                 this.chbpPcIsActive.Enabled = false;
                 this.txbComment.Enabled = false;
@@ -75,7 +78,6 @@ namespace Sudachipon
                 this.txbPcName.Enabled = true;
                 this.txbPcCpu.Enabled = true;
                 this.txbPcMemory.Enabled = true;
-                this.txbPcOs.Enabled = true;
                 this.chbPcIsByod.Enabled = true;
                 this.chbpPcIsActive.Enabled = true;
                 this.txbComment.Enabled = true;
@@ -106,7 +108,7 @@ namespace Sudachipon
                 this.txbPcName.Text = String.Empty;
                 this.txbPcCpu.Text = String.Empty;
                 this.txbPcMemory.Text = String.Empty;
-                this.txbPcOs.Text = String.Empty;
+                this.cmbPcOs.SelectedIndex = -1;
                 this.chbPcIsByod.Checked = false;
                 this.chbpPcIsActive.Checked = false;
                 this.txbComment.Text = String.Empty;
@@ -114,7 +116,6 @@ namespace Sudachipon
                 this.txbPcName.Enabled = false;
                 this.txbPcCpu.Enabled = false;
                 this.txbPcMemory.Enabled = false;
-                this.txbPcOs.Enabled = false;
                 this.chbPcIsByod.Enabled = false;
                 this.chbpPcIsActive.Enabled = false;
                 this.txbComment.Enabled = false;
@@ -129,7 +130,8 @@ namespace Sudachipon
                 this.txbPcName.Text = selectedPc.Name;
                 this.txbPcCpu.Text = selectedPc.Cpu;
                 this.txbPcMemory.Text = selectedPc.Memory;
-                this.txbPcOs.Text = selectedPc.Os;
+               
+                this.cmbPcOs.SelectedIndex = selectedPc.Os -1;
                 this.chbPcIsByod.Checked = selectedPc.IsByod;
                 this.chbpPcIsActive.Checked = selectedPc.Active;
                 this.txbComment.Text = selectedPc.Comment;
@@ -137,7 +139,6 @@ namespace Sudachipon
                 this.txbPcName.Enabled = true;
                 this.txbPcCpu.Enabled = true;
                 this.txbPcMemory.Enabled = true;
-                this.txbPcOs.Enabled = true;
                 this.chbPcIsByod.Enabled = true;
                 this.chbpPcIsActive.Enabled = true;
                 this.txbComment.Enabled = true;
@@ -207,7 +208,7 @@ namespace Sudachipon
             this.txbPcName.Text = String.Empty;
             this.txbPcCpu.Text = String.Empty;
             this.txbPcMemory.Text = String.Empty;
-            this.txbPcOs.Text = String.Empty;
+            this.cmbPcOs.SelectedIndex = -1;
             this.chbPcIsByod.Checked = false;
             this.chbpPcIsActive.Checked = false;
             this.txbComment.Text = String.Empty;
@@ -216,12 +217,19 @@ namespace Sudachipon
         // updateボタンクリック時
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            // nameが空欄、空白の場合は処理終了
+            if (!cmn.ValidationCheck_NameIsNotNull(this.txbPcName.Text))
+            {
+                return;
+            }
+
             // 元データと比較、変更がなければreturn
             // 更新処理を呼び出し
             DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
             //DbAccessor.PcMaster pcm = new DbAccessor.PcMaster();
             pcm.Name = this.txbPcName.Text;
-            pcm.Os = this.txbPcOs.Text;
+            //pcm.Os = int.Parse(this.txbPcOs.Text);
+            pcm.Os = this.cmbPcOs.SelectedIndex + 1;
             pcm.Cpu = this.txbPcCpu.Text;
             pcm.Memory = this.txbPcMemory.Text;
             pcm.IsByod = this.chbPcIsByod.Checked;
