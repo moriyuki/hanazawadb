@@ -139,7 +139,9 @@ namespace Sudachipon
             this.txbSoftwareName.Text = selectedSoftware.name;
             this.txbSoftwareVersion.Text = selectedSoftware.version;
             this.cmbSoftwareOs.SelectedIndex = selectedSoftware.osType -1;
-            this.txbSoftAvailable.Text = selectedSoftware.available.ToString();
+            //this.txbSoftAvailable.Text = selectedSoftware.available.ToString();
+            this.nudPcLicense.Value =selectedSoftware.pcLicense;
+            this.nudUserLicense.Value =selectedSoftware.userLicense;
             this.chbpSoftwareIsActive.Checked = selectedSoftware.active;
             this.txbSoftwareComment.Text = selectedSoftware.comment;
 
@@ -218,7 +220,7 @@ namespace Sudachipon
             this.txbSoftwareName.Text = String.Empty;
             this.txbSoftwareVersion.Text = String.Empty;
             this.cmbSoftwareOs.SelectedIndex = -1;
-            this.txbSoftAvailable.Text = "";
+            //this.txbSoftAvailable.Text = "";
             this.chbpSoftwareIsActive.Checked = false;
             this.txbSoftwareComment.Text = String.Empty;
 
@@ -244,7 +246,9 @@ namespace Sudachipon
             sfm.name = this.txbSoftwareName.Text;
             sfm.version = this.txbSoftwareVersion.Text;
             sfm.osType = this.cmbSoftwareOs.SelectedIndex + 1;
-            sfm.available = int.Parse(this.txbSoftAvailable.Text);
+            //sfm.available = int.Parse(this.txbSoftAvailable.Text);
+            sfm.pcLicense = (int)this.nudPcLicense.Value;
+            sfm.userLicense = (int)this.nudUserLicense.Value;
             sfm.active = this.chbpSoftwareIsActive.Checked;
             sfm.comment = this.txbSoftwareComment.Text;
 

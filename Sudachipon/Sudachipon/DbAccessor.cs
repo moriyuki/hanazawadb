@@ -137,7 +137,9 @@ namespace Sudachipon
                     sm.name = String.Format("{0}", dataReader["sf_name"]);
                     sm.version = String.Format("{0}", dataReader["sf_version"]);
                     sm.osType = int.Parse(String.Format("{0}", dataReader["sf_os"]));
-                    sm.available = int.Parse(String.Format("{0}", dataReader["sf_available_number"]));
+                    //sm.available = int.Parse(String.Format("{0}", dataReader["sf_available_number"]));
+                    sm.userLicense = int.Parse(String.Format("{0}", dataReader["sf_user_license_number"]));
+                    sm.pcLicense= int.Parse(String.Format("{0}", dataReader["sf_pc_license_number"]));
                     sm.active = bool.Parse(String.Format("{0}", dataReader["sf_active"]));
                     sm.comment = String.Format("{0}", dataReader["sf_comment"]);
 
@@ -366,8 +368,12 @@ namespace Sudachipon
             sbupdatesql.Append("sf_version = '" + ConvertIntoSQLString(sfm.version) + "', ");
             sbupdatesql.Append("sf_os = " + sfm.osType + ", ");
             // mt_softのフィールドsf_available_number
-            sbupdatesql.Append("sf_available_number = " + sfm.available + ", ");
+            //sbupdatesql.Append("sf_available_number = " + sfm.available + ", ");
+            sbupdatesql.Append("sf_pc_license_number = " + sfm.pcLicense + ", ");
+            sbupdatesql.Append("sf_user_license_number = " + sfm.userLicense + ", ");
             sbupdatesql.Append("sf_comment = '" + ConvertIntoSQLString(sfm.comment) + "', ");
+            
+            
             // mt_softのフィールドsf_active
             sbupdatesql.Append("sf_active = '" + sfm.active + "' ");
             sbupdatesql.Append("where sf_id = " + sfm.id + ";");
@@ -375,13 +381,17 @@ namespace Sudachipon
             StringBuilder sbinsertsql = new StringBuilder();
             // mt_softのフィールドsf_available_number
             // mt_softのフィールドsf_active
-            sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os, sf_available_number, sf_active, sf_comment) values(");
+
+            //todo PclicenseとUserLicenseを追加
+            sbinsertsql.Append("insert into mt_soft (sf_id, sf_name, sf_version, sf_os,sf_pc_license_number,sf_user_license_number, sf_active, sf_comment) values(");
             //            sbinsertsql.Append(sfm.id + ",");
             sbinsertsql.Append("(select nextval('seq_soft')),");
             sbinsertsql.Append("'" + ConvertIntoSQLString(sfm.name) + "',");
             sbinsertsql.Append("'" + ConvertIntoSQLString(sfm.version) + "',");
             sbinsertsql.Append("" + sfm.osType + ",");
-            sbinsertsql.Append("" + sfm.available.ToString()+ ",");
+            //sbinsertsql.Append("" + sfm.available.ToString()+ ",");
+            sbinsertsql.Append("" + sfm.pcLicense.ToString()+ ",");
+            sbinsertsql.Append("" + sfm.userLicense.ToString()+ ",");
             sbinsertsql.Append(sfm.active.ToString() + ",");
             sbinsertsql.Append("'" + ConvertIntoSQLString(sfm.comment) + "');");
 
@@ -994,7 +1004,10 @@ namespace Sudachipon
             public
             int osType;
             public
-            int available;
+            int pcLicense;
+            public
+            int userLicense;
+            //int available;
             public
             bool active;
             public
@@ -1008,7 +1021,9 @@ namespace Sudachipon
                 this.name = "A Software";
                 this.version = String.Empty;
                 this.osType = 1;
-                this.available = 1;
+                //this.available = 1;
+                this.pcLicense = -1;
+                this.userLicense = -1;
                 this.active = true;
                 this.comment = String.Empty;
 //                return sm;

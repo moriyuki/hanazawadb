@@ -36,7 +36,6 @@
             this.lblSoftwareCommentCaption = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblPcByod = new System.Windows.Forms.Label();
-            this.txbSoftAvailable = new System.Windows.Forms.TextBox();
             this.lblSoftwareAvailableNumberCaption = new System.Windows.Forms.Label();
             this.lblSoftOSCaption = new System.Windows.Forms.Label();
             this.txbSoftwareVersion = new System.Windows.Forms.TextBox();
@@ -56,6 +55,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbSoftwareOs = new System.Windows.Forms.ComboBox();
+            this.nudPcLicense = new System.Windows.Forms.NumericUpDown();
+            this.nudUserLicense = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPcLicense)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUserLicense)).BeginInit();
             this.SuspendLayout();
             // 
             // txbSoftwareComment
@@ -70,7 +74,7 @@
             // chbpSoftwareIsActive
             // 
             this.chbpSoftwareIsActive.AutoSize = true;
-            this.chbpSoftwareIsActive.Location = new System.Drawing.Point(185, 224);
+            this.chbpSoftwareIsActive.Location = new System.Drawing.Point(185, 263);
             this.chbpSoftwareIsActive.Margin = new System.Windows.Forms.Padding(2);
             this.chbpSoftwareIsActive.Name = "chbpSoftwareIsActive";
             this.chbpSoftwareIsActive.Size = new System.Drawing.Size(57, 16);
@@ -143,23 +147,15 @@
             this.lblPcByod.Size = new System.Drawing.Size(0, 12);
             this.lblPcByod.TabIndex = 41;
             // 
-            // txbSoftAvailable
-            // 
-            this.txbSoftAvailable.Location = new System.Drawing.Point(185, 185);
-            this.txbSoftAvailable.Margin = new System.Windows.Forms.Padding(2);
-            this.txbSoftAvailable.Name = "txbSoftAvailable";
-            this.txbSoftAvailable.Size = new System.Drawing.Size(139, 19);
-            this.txbSoftAvailable.TabIndex = 40;
-            // 
             // lblSoftwareAvailableNumberCaption
             // 
             this.lblSoftwareAvailableNumberCaption.AutoSize = true;
             this.lblSoftwareAvailableNumberCaption.Location = new System.Drawing.Point(169, 171);
             this.lblSoftwareAvailableNumberCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSoftwareAvailableNumberCaption.Name = "lblSoftwareAvailableNumberCaption";
-            this.lblSoftwareAvailableNumberCaption.Size = new System.Drawing.Size(105, 12);
+            this.lblSoftwareAvailableNumberCaption.Size = new System.Drawing.Size(71, 12);
             this.lblSoftwareAvailableNumberCaption.TabIndex = 39;
-            this.lblSoftwareAvailableNumberCaption.Text = "sf_available_number";
+            this.lblSoftwareAvailableNumberCaption.Text = "sf_pc_license";
             // 
             // lblSoftOSCaption
             // 
@@ -355,11 +351,57 @@
             this.cmbSoftwareOs.TabIndex = 57;
             this.cmbSoftwareOs.SelectedIndexChanged += new System.EventHandler(this.cmbSoftwareOs_SelectedIndexChanged);
             // 
+            // nudPcLicense
+            // 
+            this.nudPcLicense.Location = new System.Drawing.Point(185, 193);
+            this.nudPcLicense.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudPcLicense.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudPcLicense.Name = "nudPcLicense";
+            this.nudPcLicense.Size = new System.Drawing.Size(120, 19);
+            this.nudPcLicense.TabIndex = 58;
+            // 
+            // nudUserLicense
+            // 
+            this.nudUserLicense.Location = new System.Drawing.Point(185, 228);
+            this.nudUserLicense.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudUserLicense.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudUserLicense.Name = "nudUserLicense";
+            this.nudUserLicense.Size = new System.Drawing.Size(120, 19);
+            this.nudUserLicense.TabIndex = 59;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(169, 215);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 12);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "sf_user_license";
+            // 
             // FrmSoftwareMasterMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 513);
+            this.Controls.Add(this.nudUserLicense);
+            this.Controls.Add(this.nudPcLicense);
             this.Controls.Add(this.cmbSoftwareOs);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -375,7 +417,7 @@
             this.Controls.Add(this.lblSoftwareCommentCaption);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblPcByod);
-            this.Controls.Add(this.txbSoftAvailable);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblSoftwareAvailableNumberCaption);
             this.Controls.Add(this.lblSoftOSCaption);
             this.Controls.Add(this.txbSoftwareVersion);
@@ -390,6 +432,8 @@
             this.Controls.Add(this.lbxSoftwares);
             this.Name = "FrmSoftwareMasterMaintenance";
             this.Text = "FrmSoftwareMasterMaintenance";
+            ((System.ComponentModel.ISupportInitialize)(this.nudPcLicense)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudUserLicense)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,10 +464,12 @@
         private System.Windows.Forms.CheckBox chbShowInactive;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDel;
-        private System.Windows.Forms.TextBox txbSoftAvailable;
         private System.Windows.Forms.Label lblPcByod;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ComboBox cmbSoftwareOs;
+        private System.Windows.Forms.NumericUpDown nudPcLicense;
+        private System.Windows.Forms.NumericUpDown nudUserLicense;
+        private System.Windows.Forms.Label label5;
     }
 }
