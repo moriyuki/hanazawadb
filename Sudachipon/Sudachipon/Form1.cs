@@ -235,8 +235,8 @@ namespace Sudachipon
 
         }
 
-    // Softwareマスタ編集画面を表示する
-    private void mstSoftware_Click(object sender, EventArgs e)
+        // Softwareマスタ編集画面を表示する
+        private void mstSoftware_Click(object sender, EventArgs e)
         {
             // Softwareマスタ表示
             FrmSoftwareMasterMaintenance fsmm = new FrmSoftwareMasterMaintenance();
@@ -586,5 +586,5 @@ namespace Sudachipon
 
 
 
-    }
+}
 

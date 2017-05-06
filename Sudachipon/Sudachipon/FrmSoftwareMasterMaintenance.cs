@@ -240,6 +240,19 @@ namespace Sudachipon
             {
                 return;
             }
+            //PC-License数の上限のチェック
+            if ((int)this.nudPcLicense.Value >= 0 && this.lsbPcs.Items.Count > (int)this.nudPcLicense.Value)
+            {
+                MessageBox.Show("PCライセンス数の上限を超えています！", "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            //User-License数の上限のチェック
+            if ((int)this.nudUserLicense.Value >= 0 && this.lsbUsers.Items.Count > (int)this.nudUserLicense.Value)
+            {
+                MessageBox.Show("Userライセンス数の上限を超えています！", "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             // 元データと比較、変更がなければreturn
             // 更新処理を呼び出し
             DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
@@ -311,6 +324,7 @@ namespace Sudachipon
             {
                 ListBox target = (ListBox)sender;
                 DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)e.Data.GetData(typeof(DbAccessor.PcMaster));
+                //同一PCは許可しない！
                 foreach (DbAccessor.PcMaster item in target.Items)
                 {
                     if (item.Id == itemPc.Id)
@@ -318,6 +332,12 @@ namespace Sudachipon
                         return;
                     }
                 }
+                //License数の上限のチェック
+                if((int)this.nudPcLicense.Value >= 0 && this.lsbPcs.Items.Count >= (int)this.nudPcLicense.Value)
+                {
+                    return;
+                }
+
                 e.Effect = DragDropEffects.Move;
             }
             else
@@ -358,6 +378,12 @@ namespace Sudachipon
                         return;
                     }
                 }
+                //License数の上限のチェック
+                if ((int)this.nudUserLicense.Value >= 0 && this.lsbUsers.Items.Count >= (int)this.nudUserLicense.Value)
+                {
+                    return;
+                }
+
 
                 e.Effect = DragDropEffects.Move;
             }
