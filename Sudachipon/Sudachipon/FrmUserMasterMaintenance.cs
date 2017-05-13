@@ -107,6 +107,7 @@ namespace Sudachipon
                 this.txbUserName.Text = String.Empty;
                 this.cmbUserType.Text = String.Empty;
                 this.chbpUsersActive.Checked = false;
+                this.lsbSoftwares.Text = String.Empty;
                 this.txbUserComment.Text = String.Empty;
             }
             else
@@ -268,6 +269,7 @@ namespace Sudachipon
 
         private void lsbSoftwares_DragDrop(object sender, DragEventArgs e)
         {
+            tssl.ForeColor = Color.Black;
             tssl.Text = cmn.ST_MSG_USM_ドロップ時;
 
             if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
@@ -303,7 +305,8 @@ namespace Sudachipon
                 else
                 {
                 this.lsbSoftwares.Items.Remove(soft);
-                tssl.Text = cmn.ST_MSG_USM_ソフト削除時;
+                    tssl.ForeColor = Color.Black;
+                    tssl.Text = cmn.ST_MSG_USM_ソフト削除時;
                 }
 
             }
@@ -311,7 +314,8 @@ namespace Sudachipon
 
         private void lsbSoftwareMaster_Leave(object sender, EventArgs e)
         {
-            tssl.Text = null;
+            tssl.ForeColor = Color.Black;
+            tssl.Text = String.Empty;
         }
     }
 }
