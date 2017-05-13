@@ -12,6 +12,9 @@ namespace Sudachipon
 {
     public partial class FrmSoftwareMasterMaintenance : Form
     {
+        // 定数定義
+        private ToolStripStatusLabel tssl;
+
         DbAccessor dba = DbAccessor.GetInstance();
         DbAccessor.SoftwareMaster selectedSoftware;
 
@@ -33,6 +36,12 @@ namespace Sudachipon
 
             this.btnDel.Enabled = false;
             this.btnUpdate.Enabled = false;
+
+            this.tssl = new ToolStripStatusLabel();
+            this.stsMessage.Items.Add(tssl);
+            tssl.Text = cmn.ST_MSG_SFM_フォーム起動時_正常;
+            tssl.ForeColor = Color.Black;
+
         }
 
         // ListBoxSoftwares更新
@@ -205,7 +214,8 @@ namespace Sudachipon
             UpdateUserSoftData();
 
 
-
+            tssl.Text = cmn.ST_MSG_SFM_Add時_正常;
+            tssl.ForeColor = Color.Black;
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -231,6 +241,9 @@ namespace Sudachipon
             this.lsbPcs.Items.Clear();
             this.lsbUserMaster.Items.Clear();
             this.lsbUsers.Items.Clear();
+
+            tssl.Text = cmn.ST_MSG_SFM_Delete時_正常;
+            tssl.ForeColor = Color.Black;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -238,18 +251,24 @@ namespace Sudachipon
             // nameが空欄、空白の場合は処理終了
             if (!cmn.ValidationCheck_NameIsNotNull(this.txbSoftwareName.Text))
             {
+                tssl.Text = cmn.ST_MSG_SFM_Update時_異常;
+                tssl.ForeColor = Color.Red;
                 return;
             }
             //PC-License数の上限のチェック
             if ((int)this.nudPcLicense.Value >= 0 && this.lsbPcs.Items.Count > (int)this.nudPcLicense.Value)
             {
                 MessageBox.Show("PCライセンス数の上限を超えています！", "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                tssl.Text = cmn.ST_MSG_SFM_Update時_異常;
+                tssl.ForeColor = Color.Red;
                 return;
             }
             //User-License数の上限のチェック
             if ((int)this.nudUserLicense.Value >= 0 && this.lsbUsers.Items.Count > (int)this.nudUserLicense.Value)
             {
                 MessageBox.Show("Userライセンス数の上限を超えています！", "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                tssl.Text = cmn.ST_MSG_SFM_Update時_異常;
+                tssl.ForeColor = Color.Red;
                 return;
             }
 
@@ -278,6 +297,8 @@ namespace Sudachipon
                 }
             }
 
+            tssl.Text = cmn.ST_MSG_SFM_Update時_正常;
+            tssl.ForeColor = Color.Black;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -298,7 +319,13 @@ namespace Sudachipon
             {
                 ListBox lbx = (ListBox)sender;
                 DbAccessor.PcMaster pcm = lbx.SelectedItem as DbAccessor.PcMaster;
+
+                tssl.Text = cmn.ST_MSG_SFM_PCMasterからのドラッグ時_正常;
+                tssl.ForeColor = Color.Black;
+
                 DragDropEffects dde = lbx.DoDragDrop(pcm, DragDropEffects.All);
+
+
             }
         }
 
@@ -314,7 +341,13 @@ namespace Sudachipon
             {
                 ListBox lbx = (ListBox)sender;
                 DbAccessor.UserMaster usm = lbx.SelectedItem as DbAccessor.UserMaster;
+
+                tssl.Text = cmn.ST_MSG_SFM_UserMasterからのドラッグ時_正常;
+                tssl.ForeColor = Color.Black;
+
                 DragDropEffects dde = lbx.DoDragDrop(usm, DragDropEffects.All);
+
+                
             }
         }
 
@@ -329,16 +362,21 @@ namespace Sudachipon
                 {
                     if (item.Id == itemPc.Id)
                     {
+                        tssl.Text = cmn.ST_MSG_SFM_PCMasterからのドロップ時_異常;
+                        tssl.ForeColor = Color.Red;
                         return;
                     }
                 }
                 //License数の上限のチェック
                 if((int)this.nudPcLicense.Value >= 0 && this.lsbPcs.Items.Count >= (int)this.nudPcLicense.Value)
                 {
+                    tssl.Text = cmn.ST_MSG_SFM_PCMasterからのドロップ時_異常;
+                    tssl.ForeColor = Color.Red;
                     return;
                 }
 
                 e.Effect = DragDropEffects.Move;
+
             }
             else
             {
@@ -357,6 +395,9 @@ namespace Sudachipon
                 //DB insert
                 DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
                 this.dba.InsertPcSoftData(itemPc, sfm.id);
+
+                tssl.Text = cmn.ST_MSG_SFM_PCMasterからのドロップ時_正常;
+                tssl.ForeColor = Color.Black;
             }
         }
 
@@ -375,12 +416,16 @@ namespace Sudachipon
                 {
                     if (item.id == itemUser.id)
                     {
+                        tssl.Text = cmn.ST_MSG_SFM_UserMasterからのドロップ時_異常;
+                        tssl.ForeColor = Color.Red;
                         return;
                     }
                 }
                 //License数の上限のチェック
                 if ((int)this.nudUserLicense.Value >= 0 && this.lsbUsers.Items.Count >= (int)this.nudUserLicense.Value)
                 {
+                    tssl.Text = cmn.ST_MSG_SFM_UserMasterからのドロップ時_異常;
+                    tssl.ForeColor = Color.Red;
                     return;
                 }
 
@@ -404,6 +449,9 @@ namespace Sudachipon
                 //DB insert
                 DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
                 this.dba.InsertUserSoftData(itemUser, sfm.id);
+
+                tssl.Text = cmn.ST_MSG_SFM_UserMasterからのドロップ時_正常;
+                tssl.ForeColor = Color.Black;
             }
         }
 
@@ -431,6 +479,8 @@ namespace Sudachipon
                     DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
                     this.dba.DeletePcSoftData(pc, sfm.id);
 
+                    tssl.Text = cmn.ST_MSG_SFM_PCsからの削除時_正常;
+                    tssl.ForeColor = Color.Black;
                 }
 
             }
@@ -460,6 +510,8 @@ namespace Sudachipon
                     DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
                     this.dba.DeleteUserSoftData(us, sfm.id);
 
+                    tssl.Text = cmn.ST_MSG_SFM_Usersからの削除時_正常;
+                    tssl.ForeColor = Color.Black;
                 }
 
             }
