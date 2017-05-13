@@ -470,7 +470,8 @@ namespace Sudachipon
             sbupdatesql.Append("update mt_user set ");
             sbupdatesql.Append("us_name = '" + ConvertIntoSQLString(um.name) + "', ");
             sbupdatesql.Append("us_type = '" + um.type + "', ");
-            sbupdatesql.Append("us_active = '" + um.active + "' ");
+            sbupdatesql.Append("us_active = '" + um.active + "', ");
+            sbupdatesql.Append("us_comment = '" + ConvertIntoSQLString(um.comment) + "' ");
             sbupdatesql.Append("where us_id = " + um.id + ";");
 
             StringBuilder sbinsertsql = new StringBuilder();

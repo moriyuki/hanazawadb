@@ -58,7 +58,7 @@
             this.nudPcLicense = new System.Windows.Forms.NumericUpDown();
             this.nudUserLicense = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.stsMessage = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.nudPcLicense)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudUserLicense)).BeginInit();
             this.SuspendLayout();
@@ -398,20 +398,20 @@
             this.label5.TabIndex = 39;
             this.label5.Text = "Userライセンス数";
             // 
-            // statusStrip1
+            // stsMessage
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 491);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(690, 22);
-            this.statusStrip1.TabIndex = 60;
-            this.statusStrip1.Text = "statusStrip1";
+            this.stsMessage.Location = new System.Drawing.Point(0, 491);
+            this.stsMessage.Name = "stsMessage";
+            this.stsMessage.Size = new System.Drawing.Size(690, 22);
+            this.stsMessage.TabIndex = 60;
+            this.stsMessage.Text = "statusStrip1";
             // 
             // FrmSoftwareMasterMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 513);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.stsMessage);
             this.Controls.Add(this.nudUserLicense);
             this.Controls.Add(this.nudPcLicense);
             this.Controls.Add(this.cmbSoftwareOs);
@@ -483,6 +483,6 @@
         private System.Windows.Forms.NumericUpDown nudPcLicense;
         private System.Windows.Forms.NumericUpDown nudUserLicense;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip stsMessage;
     }
 }
