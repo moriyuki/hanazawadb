@@ -14,7 +14,7 @@ namespace Sudachipon
     public partial class Form1 : Form
     {
         // 定数定義
-
+        private ToolStripStatusLabel tssl;
         // 変数定義
         public DateTime StartDate;
         public int LimitNumberOfDate;
@@ -33,6 +33,10 @@ namespace Sudachipon
 
             // UserList表示
             this.SetUsersList();
+
+            this.tssl = new ToolStripStatusLabel();
+            this.stsMessage.Items.Add(tssl);
+            tssl.Text = "hello";
         }
 
         // 内部関数
@@ -579,12 +583,6 @@ namespace Sudachipon
 
             }
         }
-
-
     }
-
-
-
-
 }
 
