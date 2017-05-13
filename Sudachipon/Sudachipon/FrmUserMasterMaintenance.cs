@@ -298,7 +298,8 @@ namespace Sudachipon
                 else
                 {
                 this.lsbSoftwares.Items.Remove(soft);
-             }
+                tssl.Text = cmn.ST_MSG_USM_ソフト削除時;
+                }
 
             }
         }
