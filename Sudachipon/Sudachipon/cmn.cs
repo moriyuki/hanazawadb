@@ -22,5 +22,14 @@ namespace Sudachipon
             return true;
 
         }
+
+        // Form1:メイン画面
+        public const String ST_MSG_起動時 = "hogefuga";
+
+        // FrmPcMasterMaintenance：PCマスタ画面
+
+        // FrmSoftwareMasterMaintenance:ソフトウェアマスタ画面
+
+        // FrmUserMasterMaintenance:userマスタ画面
     }
 }
