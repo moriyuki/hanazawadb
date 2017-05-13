@@ -38,13 +38,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txbDb = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnCheck = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(122, 220);
+            this.btnApply.Location = new System.Drawing.Point(58, 220);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.Size = new System.Drawing.Size(75, 34);
             this.btnApply.TabIndex = 0;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
@@ -117,13 +118,23 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(220, 220);
+            this.btnCancel.Location = new System.Drawing.Point(282, 220);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 34);
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnCheck
+            // 
+            this.btnCheck.Location = new System.Drawing.Point(173, 220);
+            this.btnCheck.Name = "btnCheck";
+            this.btnCheck.Size = new System.Drawing.Size(75, 34);
+            this.btnCheck.TabIndex = 0;
+            this.btnCheck.Text = "Check";
+            this.btnCheck.UseVisualStyleBackColor = true;
+            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
             // DBSetting
             // 
@@ -139,6 +150,7 @@
             this.Controls.Add(this.txbUser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txbHost);
+            this.Controls.Add(this.btnCheck);
             this.Controls.Add(this.btnApply);
             this.Name = "DBSetting";
             this.Text = "DBSetting";
@@ -160,5 +172,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txbDb;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnCheck;
     }
 }

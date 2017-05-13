@@ -16,7 +16,7 @@ namespace Sudachipon
         const String UADR_USER = "SudachiponConnStringUser";
         const String UADR_PASSWD = "SudachiponConnStringPasswd";
         const String UADR_DB = "SudachiponConnStringDb";
-        const String CONNECTION_STRING_TEMPLATE = "Server={0};Port=5432;User Id={1};Password={2};Database={3}";
+        public const String CONNECTION_STRING_TEMPLATE = "Server={0};Port=5432;User Id={1};Password={2};Database={3}";
 
         // properties
         private static String _host;
@@ -133,5 +133,10 @@ namespace Sudachipon
             return String.Format(CONNECTION_STRING_TEMPLATE, Host, User, Password, Db);
         }
 
+        // 接続文字列を返す
+        public static String CreatePostgresConnectionStringForCheck(String host, String user, String password, String db)
+        {
+            return String.Format(CONNECTION_STRING_TEMPLATE, host, user, password, db);
+        }
     }
 }

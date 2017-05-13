@@ -30,6 +30,28 @@ namespace Sudachipon
             // 接続文字列生成。DbConnectionは生成しない。（再接続の手間を減らすため）
         }
 
+        public bool DbConnectionCheck(String host, String user, String password, String db)
+        {
+            try
+            {
+                string tmp = DBConnectionSetting.CreatePostgresConnectionStringForCheck(host, user, password, db);
+                using (var conn = new NpgsqlConnection(CONN_STRING))
+                {
+                    conn.Open();
+                    var command = new NpgsqlCommand("SELECT 'A' ;", conn);
+                    var dataReader = command.ExecuteReader();
+                    conn.Close();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return false;
+            }
+
+        }
+
         // SELECT Execute
         NpgsqlDataReader exeuteSql(String sql)
         {
