@@ -17,6 +17,7 @@ namespace Sudachipon
     {
         DbAccessor dba = DbAccessor.GetInstance();
         DbAccessor.UserMaster selectedUser;
+        private ToolStripStatusLabel tssl;
 
         public FrmUserMasterMaintenance()
         {
@@ -30,6 +31,10 @@ namespace Sudachipon
             updateUserList();
             // ListBoxSoftMaster更新
             UpdateSoftwareMaster();
+
+            this.tssl = new ToolStripStatusLabel();
+            this.stsMessage.Items.Add(tssl);
+            tssl.Text = cmn.ST_MSG_USM_起動時;
         }
 
         // ListBoxUsers更新
@@ -45,7 +50,7 @@ namespace Sudachipon
                 {
                     this.lbxUsers.Items.Add(user);
                 }
-
+                
             }
 
             // 非選択時は詳細項目空欄
@@ -74,6 +79,7 @@ namespace Sudachipon
                 {
                     this.lbxUsers.Items.Add(user);
                 }
+                
             }
         }
 
@@ -101,6 +107,7 @@ namespace Sudachipon
                 this.txbUserName.Text = String.Empty;
                 this.cmbUserType.Text = String.Empty;
                 this.chbpUsersActive.Checked = false;
+                this.lsbSoftwares.Text = String.Empty;
                 this.txbUserComment.Text = String.Empty;
             }
             else
@@ -136,6 +143,7 @@ namespace Sudachipon
             um.id = um.GetNextId();
             um.name = "New Person";
             dba.UserMasters.Add(um);
+            tssl.Text = cmn.ST_MSG_USM_追加時;
 
             // ListBoxの更新
             this.updateUserList();
@@ -167,7 +175,7 @@ namespace Sudachipon
             this.cmbUserType.Text = String.Empty;
             this.chbpUsersActive.Checked = false;
             this.txbUserComment.Text = String.Empty;
-
+            tssl.Text = cmn.ST_MSG_USM_削除時;
         }
 
         //アップデートボタンクリック
@@ -183,7 +191,7 @@ namespace Sudachipon
             DbAccessor.UserMaster um =this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
 
             um.name = this.txbUserName.Text;
-            if (this.cmbUserType.Text == "1") 
+            if (this.cmbUserType.Text == "利用者") 
             {
                 um.type = 1;
             }
@@ -198,6 +206,8 @@ namespace Sudachipon
 
             this.dba.UpdateUserMaster(um);
             this.updateUserList();
+            //tssl.Text =  cmn.ST_MSG_USM_更新時.Insert(4,"-" + um.name);
+            tssl.Text = cmn.ST_MSG_USM_更新時;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -215,6 +225,8 @@ namespace Sudachipon
 
         private void lsbSoftwareMaster_MouseDown(object sender, MouseEventArgs e)
         {
+            tssl.ForeColor = Color.Black;
+            tssl.Text = cmn.ST_MSG_USM_ドラッグ時;
             if (this.lbxUsers.SelectedIndex < 0)
             {
                 // Userマスターの選択が無ければ終了
@@ -233,7 +245,6 @@ namespace Sudachipon
 
         private void lsbSoftwares_DragEnter(object sender, DragEventArgs e)
         {
-
             if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
             {
                 ListBox target = (ListBox)sender;
@@ -242,8 +253,11 @@ namespace Sudachipon
                 {
                     if (item.id == itemSoftware.id)
                     {
-                        return;
+                        tssl.ForeColor = Color.Red;
+                        tssl.Text = cmn.ST_MSG_USM_ドラッグ制約時;
+                        return;                    
                     }
+                    
                 }
                 e.Effect = DragDropEffects.Move;
             }
@@ -255,7 +269,9 @@ namespace Sudachipon
 
         private void lsbSoftwares_DragDrop(object sender, DragEventArgs e)
         {
-           
+            tssl.ForeColor = Color.Black;
+            tssl.Text = cmn.ST_MSG_USM_ドロップ時;
+
             if (e.Data.GetDataPresent(typeof(DbAccessor.SoftwareMaster)))
             {
                 ListBox target = (ListBox)sender;
@@ -289,15 +305,17 @@ namespace Sudachipon
                 else
                 {
                 this.lsbSoftwares.Items.Remove(soft);
-             }
+                    tssl.ForeColor = Color.Black;
+                    tssl.Text = cmn.ST_MSG_USM_ソフト削除時;
+                }
 
             }
         }
 
-        private void txbUserName_TextChanged(object sender, EventArgs e)
+        private void lsbSoftwareMaster_Leave(object sender, EventArgs e)
         {
-
+            tssl.ForeColor = Color.Black;
+            tssl.Text = String.Empty;
         }
-
     }
 }

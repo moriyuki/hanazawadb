@@ -63,7 +63,7 @@
             this.dgvPcDateManager.Name = "dgvPcDateManager";
             this.dgvPcDateManager.RowHeadersVisible = false;
             this.dgvPcDateManager.RowTemplate.Height = 27;
-            this.dgvPcDateManager.Size = new System.Drawing.Size(1343, 441);
+            this.dgvPcDateManager.Size = new System.Drawing.Size(1343, 315);
             this.dgvPcDateManager.TabIndex = 2;
             this.dgvPcDateManager.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragDrop);
             this.dgvPcDateManager.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvPcDateManager_DragEnter);
@@ -170,11 +170,12 @@
             // stsMessage
             // 
             this.stsMessage.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.stsMessage.Location = new System.Drawing.Point(0, 467);
+            this.stsMessage.Location = new System.Drawing.Point(0, 369);
             this.stsMessage.Name = "stsMessage";
-            this.stsMessage.Size = new System.Drawing.Size(1637, 22);
+            this.stsMessage.Size = new System.Drawing.Size(1637, 28);
             this.stsMessage.TabIndex = 6;
             this.stsMessage.Text = "statusStrip1";
+            this.stsMessage.DoubleClick += new System.EventHandler(this.stsMessage_DoubleClick);
             // 
             // lbxUsers
             // 
@@ -184,7 +185,7 @@
             this.lbxUsers.ItemHeight = 18;
             this.lbxUsers.Location = new System.Drawing.Point(1415, 106);
             this.lbxUsers.Name = "lbxUsers";
-            this.lbxUsers.Size = new System.Drawing.Size(171, 364);
+            this.lbxUsers.Size = new System.Drawing.Size(171, 256);
             this.lbxUsers.TabIndex = 0;
             this.lbxUsers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbxUsers_MouseDown);
             // 
@@ -192,7 +193,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1637, 489);
+            this.ClientSize = new System.Drawing.Size(1637, 397);
             this.Controls.Add(this.stsMessage);
             this.Controls.Add(this.chkRepeatRegst);
             this.Controls.Add(this.lblUsersCaption);

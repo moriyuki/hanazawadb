@@ -134,11 +134,16 @@ namespace Sudachipon
 
         }
 
+            // 処理成功時はOKを返す。
+            this.DialogResult = DialogResult.OK;
+
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            // キャンセルボタン押下時はキャンセルを返す。
+            this.DialogResult = DialogResult.Cancel;
             Close();
         }
     }

@@ -47,6 +47,7 @@
             this.lblUserMasterCaption = new System.Windows.Forms.Label();
             this.lbxUsers = new Sudachipon.SortedListBox();
             this.cmbUserType = new System.Windows.Forms.ComboBox();
+            this.stsMessage = new System.Windows.Forms.StatusStrip();
             this.SuspendLayout();
             // 
             // label2
@@ -123,6 +124,7 @@
             this.lsbSoftwareMaster.Name = "lsbSoftwareMaster";
             this.lsbSoftwareMaster.Size = new System.Drawing.Size(139, 160);
             this.lsbSoftwareMaster.TabIndex = 75;
+            this.lsbSoftwareMaster.Leave += new System.EventHandler(this.lsbSoftwareMaster_Leave);
             this.lsbSoftwareMaster.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lsbSoftwareMaster_MouseDown);
             // 
             // lsbSoftwares
@@ -255,11 +257,20 @@
             this.cmbUserType.Size = new System.Drawing.Size(139, 20);
             this.cmbUserType.TabIndex = 84;
             // 
+            // stsMessage
+            // 
+            this.stsMessage.Location = new System.Drawing.Point(0, 427);
+            this.stsMessage.Name = "stsMessage";
+            this.stsMessage.Size = new System.Drawing.Size(498, 22);
+            this.stsMessage.TabIndex = 85;
+            this.stsMessage.Text = "statusStrip1";
+            // 
             // FrmUserMasterMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(498, 449);
+            this.Controls.Add(this.stsMessage);
             this.Controls.Add(this.cmbUserType);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -307,5 +318,6 @@
         private System.Windows.Forms.Label lblUserMasterCaption;
         private SortedListBox lbxUsers;
         private System.Windows.Forms.ComboBox cmbUserType;
+        private System.Windows.Forms.StatusStrip stsMessage;
     }
 }
