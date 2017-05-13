@@ -14,17 +14,25 @@ namespace Sudachipon
     public partial class Form1 : Form
     {
         // 定数定義
-        private ToolStripStatusLabel tssl;
+
         // 変数定義
         public DateTime StartDate;
         public int LimitNumberOfDate;
+        private ToolStripStatusLabel tssl;
 
         // 初期化
         public Form1()
         {
             InitializeComponent();
 
-            //Default Setting
+            // DB接続チェック
+            this.tssl = new ToolStripStatusLabel();
+            this.stsMessage.Items.Add(tssl);
+
+            tssl.Text = cmn.ST_MSG_FRM_接続成功;
+            tssl.ForeColor = Color.Black;
+
+            // Default Setting
             this.LimitNumberOfDate = 31;
             this.StartDate = DateTime.Now.Date;
 
@@ -33,10 +41,6 @@ namespace Sudachipon
 
             // UserList表示
             this.SetUsersList();
-
-            this.tssl = new ToolStripStatusLabel();
-            this.stsMessage.Items.Add(tssl);
-            tssl.Text = "hello";
         }
 
         // 内部関数
@@ -79,7 +83,8 @@ namespace Sudachipon
                 dgvcolDate[i].Name = "dgvcolDate" + i.ToString();
                 dgvcolDate[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 // paint weekend
-                if (((DateTime)dgvcolDate[i].Tag).DayOfWeek == DayOfWeek.Saturday || ((DateTime)dgvcolDate[i].Tag).DayOfWeek == DayOfWeek.Sunday) {
+                if (((DateTime)dgvcolDate[i].Tag).DayOfWeek == DayOfWeek.Saturday || ((DateTime)dgvcolDate[i].Tag).DayOfWeek == DayOfWeek.Sunday)
+                {
                     dgvcolDate[i].HeaderCell.Style.BackColor = Color.Gray;
                     dgvcolDate[i].DefaultCellStyle.BackColor = Color.LightGray;
                 }
@@ -87,7 +92,7 @@ namespace Sudachipon
 
             // test
             this.dgvPcDateManager.Columns.AddRange(dgvcolDate);
-            
+
 
 
             DataGridViewTextBoxColumn dgvcolDisable = new DataGridViewTextBoxColumn();
@@ -149,7 +154,7 @@ namespace Sudachipon
         }
 
         // SetRows from PcUserDateDate
-        private void SetRowsFromPcUserDateData(DataGridViewRow[] rows, int activepc,DateTime startdate, int limitnum)
+        private void SetRowsFromPcUserDateData(DataGridViewRow[] rows, int activepc, DateTime startdate, int limitnum)
         {
             DbAccessor dba = DbAccessor.GetInstance();
 
@@ -187,7 +192,7 @@ namespace Sudachipon
             {
                 if (pc.Id == pud.PcId)
                 {
-                    for (int i=0; i < limitnum; i++)
+                    for (int i = 0; i < limitnum; i++)
                     {
                         if (startdate.AddDays(i) == pud.Date)
                         {
@@ -319,44 +324,61 @@ namespace Sudachipon
                 Point clientPoint = this.dgvPcDateManager.PointToClient(new Point(e.X, e.Y));
                 DataGridView.HitTestInfo hit = this.dgvPcDateManager.HitTest(clientPoint.X, clientPoint.Y);
 
-                if (this.chkRepeatRegst.Checked == false) { 
-
-                // Console.WriteLine("" + hit.RowIndex + " " + hit.ColumnIndex);
-                if (this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value != null)
+                if (this.chkRepeatRegst.Checked == false)
                 {
-                    if (MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+
+                    // Console.WriteLine("" + hit.RowIndex + " " + hit.ColumnIndex);
+                    if (this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value != null)
                     {
-                        // DB update
+                        if (MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                        {
+                            // DB update
+                            DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
+                            DateTime currentdate = this.StartDate.AddDays(hit.ColumnIndex - 1);
+                            DbAccessor dba = DbAccessor.GetInstance();
+                            DbAccessor.UserMaster oldUser = (DbAccessor.UserMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value;
+                            dba.UpdatePcUserDateData(currentdate, pc.Id, oldUser.id, itemUser.id);
+
+                            this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+
+                            // statusbarに表示
+                            tssl.Text = cmn.ST_MSG_FRM_登録成功;
+                            tssl.ForeColor = Color.Black;
+
+                            // todo : エラー時の処理を追加
+                        }
+                    }
+                    else
+                    {
+                        this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+
+                        // DB insert
                         DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
                         DateTime currentdate = this.StartDate.AddDays(hit.ColumnIndex - 1);
                         DbAccessor dba = DbAccessor.GetInstance();
-                        DbAccessor.UserMaster oldUser = (DbAccessor.UserMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value;
-                        dba.UpdatePcUserDateData(currentdate, pc.Id, oldUser.id, itemUser.id);
+                        dba.InsertPcUserDateData(currentdate, pc.Id, itemUser.id);
 
-                        this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
+                        // statusbarに表示
+                        tssl.Text = cmn.ST_MSG_FRM_登録成功;
+                        tssl.ForeColor = Color.Black;
 
+                        // todo : エラー時の処理を追加
                     }
-                }
-                else
-                {
-                    this.dgvPcDateManager.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value = itemUser;
 
-                    // DB insert
-                    DbAccessor.PcMaster pc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
-                    DateTime currentdate = this.StartDate.AddDays(hit.ColumnIndex - 1);
-                    DbAccessor dba = DbAccessor.GetInstance();
-                    dba.InsertPcUserDateData(currentdate, pc.Id, itemUser.id);
                 }
-
-                } else { 
-                //Test Test
-                FrmRepeatRegst fm = new FrmRepeatRegst();
-                fm.PC = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
+                else {
+                    //Test Test
+                    FrmRepeatRegst fm = new FrmRepeatRegst();
+                    fm.PC = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
                     fm.NewUser = itemUser;
                     fm.StartDate = this.StartDate.AddDays(hit.ColumnIndex - 1);
-                    fm.ShowDialog();
+                    DialogResult dr = fm.ShowDialog();
+                    if (dr == DialogResult.OK)
+                    {
+                        tssl.Text = cmn.ST_MSG_FRM_登録成功;
+                        tssl.ForeColor = Color.Black;
+                    }
                     SetDgvPcDateManagerContents();
-                    // DB 更新
                 }
             }
         }
@@ -395,12 +417,18 @@ namespace Sudachipon
                                 // 削除
                                 this.dgvPcDateManager.SelectedCells[cou].Value = null;
 
+                                // statusbarに表示
+                                tssl.Text = cmn.ST_MSG_FRM_削除成功;
+                                tssl.ForeColor = Color.Black;
+
+                                // todo : エラー時の処理を追加
                             }
 
                         }
 
                     }
-                } else
+                }
+                else
                 {
                     for (int cou = 0; cou < this.dgvPcDateManager.SelectedCells.Count; cou++)
                     {
@@ -412,12 +440,18 @@ namespace Sudachipon
                         FrmRepeatRegst fm = new FrmRepeatRegst(true);
                         fm.PC = pc;
                         fm.StartDate = currentdate;
-                        fm.ShowDialog();
+                        DialogResult dr = fm.ShowDialog();
+
+                        if (dr == DialogResult.OK)
+                        {
+                            tssl.Text = cmn.ST_MSG_FRM_削除成功;
+                            tssl.ForeColor = Color.Black;
+                        }
                     }
                     SetDgvPcDateManagerContents();
                 }
             }
-    }
+        }
 
         private void msiImport_Click(object sender, EventArgs e)
         {
@@ -481,13 +515,14 @@ namespace Sudachipon
 
             sbcsvstr.Append(DoubleQuote);
 
-            for(int i=0;i<str.Length;i++)
+            for (int i = 0; i < str.Length; i++)
             {
-                if(str[i] == DoubleQuote)
+                if (str[i] == DoubleQuote)
                 {
                     sbcsvstr.Append(DoubleQuote);
                     sbcsvstr.Append(DoubleQuote);
-                } else
+                }
+                else
                 {
                     sbcsvstr.Append(str[i]);
                 }
@@ -528,7 +563,7 @@ namespace Sudachipon
 
             /// 当月1か月間のデータのみ出力対象にする
             DateTime tmpDate = startDate;
-            while(tmpDate <= endDate)
+            while (tmpDate <= endDate)
             {
                 sb.Append(tmpDate.ToShortDateString());
 
@@ -559,7 +594,7 @@ namespace Sudachipon
                 tmpDate = tmpDate.AddDays(1);
                 sb.Append("\r\n");
             }
-           
+
             this.csvSaveFileDialog.Title = "CSVファイルの保存先を指定してください。";
             DateTime dt = DateTime.Now;
             this.csvSaveFileDialog.FileName = "hanazawacsv_" + dt.ToString("yyyyMMdd_HHmm");
@@ -582,6 +617,12 @@ namespace Sudachipon
                 }
 
             }
+        }
+
+        // ステータスバーダブルクリック時は情報ををクリア
+        private void stsMessage_DoubleClick(object sender, EventArgs e)
+        {
+            this.tssl.Text = string.Empty;
         }
     }
 }

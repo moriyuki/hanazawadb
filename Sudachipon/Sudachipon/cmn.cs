@@ -23,13 +23,18 @@ namespace Sudachipon
 
         }
 
-        // Form1:メイン画面
-        public const String ST_MSG_起動時 = "hogefuga";
+        // Form1:メイン画面:FRM
+        public const String ST_MSG_FRM_接続成功 = "DBに接続し、データを読み込みました。";
+        public const String ST_MSG_FRM_接続失敗 = "DBへの接続に失敗しました。";
+        public const String ST_MSG_FRM_登録成功 = "指定日・指定PCにユーザーを登録しました。";
+        public const String ST_MSG_FRM_登録失敗 = "ユーザーの登録に失敗しました。";
+        public const String ST_MSG_FRM_削除成功 = "指定日・指定PCからユーザーを削除しました。";
+        public const String ST_MSG_FRM_削除失敗 = "ユーザーの削除に失敗しました。";
 
-        // FrmPcMasterMaintenance：PCマスタ画面
+        // FrmPcMasterMaintenance：PCマスタ画面:PCM
 
-        // FrmSoftwareMasterMaintenance:ソフトウェアマスタ画面
+        // FrmSoftwareMasterMaintenance:ソフトウェアマスタ画面:SFM
 
-        // FrmUserMasterMaintenance:userマスタ画面
+        // FrmUserMasterMaintenance:userマスタ画面:USM
     }
 }
