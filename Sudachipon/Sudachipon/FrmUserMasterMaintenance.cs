@@ -190,7 +190,7 @@ namespace Sudachipon
             DbAccessor.UserMaster um =this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
 
             um.name = this.txbUserName.Text;
-            if (this.cmbUserType.Text == "1") 
+            if (this.cmbUserType.Text == "利用者") 
             {
                 um.type = 1;
             }
@@ -205,6 +205,7 @@ namespace Sudachipon
 
             this.dba.UpdateUserMaster(um);
             this.updateUserList();
+            //tssl.Text =  cmn.ST_MSG_USM_更新時.Insert(4,"-" + um.name);
             tssl.Text = cmn.ST_MSG_USM_更新時;
         }
 
