@@ -223,6 +223,7 @@ namespace Sudachipon
 
         private void lsbSoftwareMaster_MouseDown(object sender, MouseEventArgs e)
         {
+            tssl.ForeColor = Color.Black;
             tssl.Text = cmn.ST_MSG_USM_ドラッグ時;
             if (this.lbxUsers.SelectedIndex < 0)
             {
@@ -250,8 +251,11 @@ namespace Sudachipon
                 {
                     if (item.id == itemSoftware.id)
                     {
-                        return;
+                        tssl.ForeColor = Color.Red;
+                        tssl.Text = cmn.ST_MSG_USM_ドラッグ制約時;
+                        return;                    
                     }
+                    
                 }
                 e.Effect = DragDropEffects.Move;
             }
