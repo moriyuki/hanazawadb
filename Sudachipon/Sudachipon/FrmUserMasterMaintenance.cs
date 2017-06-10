@@ -290,6 +290,15 @@ namespace Sudachipon
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
                 target.Items.Add(itemSoftware);
                 // 内部データにAdd
+                // DB 更新 -> 内部データ更新
+                DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
+                // Create UserSoftDataInstance;
+                DbAccessor.UserSoftData usd = new DbAccessor.UserSoftData();
+                usd.userId = um.id;
+                usd.softId = itemSoftware.id;
+
+                this.dba.UserSoftDatas.Add(usd);
+
             }
         }
 
