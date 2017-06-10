@@ -44,14 +44,14 @@ namespace Sudachipon
         private void btnCheck_Click(object sender, EventArgs e)
         {
             DbAccessor dba = DbAccessor.GetInstance();
-            if (dba.DbConnectionCheck())
-            {
-                MessageBox.Show("false");
-            }
-            else
-            {
-                MessageBox.Show("false");
-            }
+            //if (dba.DbConnectionCheck())
+            //{
+            //    MessageBox.Show("false");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("false");
+            //}
            
         }
 

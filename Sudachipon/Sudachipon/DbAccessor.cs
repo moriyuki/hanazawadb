@@ -202,7 +202,7 @@ namespace Sudachipon
             }
         }
 
-        public void SelectPcSoftData()
+        public void SelectPcSoftData(List<PcSoftData> strage)
         {
             String sql = "select * from dt_pc_soft;";
 
@@ -215,7 +215,7 @@ namespace Sudachipon
 
                 var dataReader = command.ExecuteReader();
 
-                this.PcSoftDatas.Clear();
+                strage.Clear();
 
                 while (dataReader.Read())
                 {
@@ -226,7 +226,7 @@ namespace Sudachipon
                     psd.softId = int.Parse(String.Format("{0}", dataReader["ps_soft_id"]));
                     psd.comment = String.Format("{0}", dataReader["ps_comment"]);
 
-                    this.PcSoftDatas.Add(psd);
+                    strage.Add(psd);
                     // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
                 }
             }
@@ -520,6 +520,74 @@ namespace Sudachipon
                     System.Windows.Forms.MessageBox.Show("UserMasterは更新されませんでした");
                 }
             }
+        }
+
+        public void MargePcSoftData(PcMaster pcm)
+        {
+            // 最新のPcSoftData（DbData）を取得します
+            List<PcSoftData> dbData = new List<PcSoftData>();
+            SelectPcSoftData(dbData);
+            // 内部データ（LocalData）とDbDataを比較します。
+            for (int i = 0; i < this.PcSoftDatas.Count; i++)
+            {
+                // pcidによる縛り
+                if (this.PcSoftDatas[i].pcId != pcm.Id)
+                {
+                    continue;
+                }
+
+                int existedSoftId = this.PcSoftDatas[i].softId;
+
+                for (int j=0; j < dbData.Count; j++)
+                {
+                    // pcidによる縛り
+                    if (dbData[j].pcId != pcm.Id)
+                    {
+                        continue;
+                    }
+
+                    if (dbData[j].softId == this.PcSoftDatas[i].softId)
+                    {
+                        existedSoftId = -1;
+                        continue ;
+                    }
+                }
+                // LocalDataにあるが、DBDataにない場合　－＞　Insert
+                if (existedSoftId != -1) {
+                    // INSERT 
+                    InsertPcSoftData(pcm, existedSoftId);
+                }
+            }
+
+            for (int i = 0; i < dbData.Count; i++)
+            {
+                // pcidによる縛り
+                if (dbData[i].pcId != pcm.Id)
+                {
+                    continue;
+                }
+                int existedSoftId = dbData[i].softId;
+                for (int j = 0; j < this.PcSoftDatas.Count; j++)
+                {
+                    // pcidによる縛り
+                    if (PcSoftDatas[j].pcId != pcm.Id)
+                    {
+                        continue;
+                    }
+                    if (dbData[i].softId == this.PcSoftDatas[j].softId)
+                    {
+                        existedSoftId = -1;
+                        break;
+                    }
+                }
+                // insert or delete
+                // DBDataにあるがLocalDataにない場合　→　Delete
+                if (existedSoftId != -1)
+                {
+                    //DELETE
+                    DeletePcSoftData(pcm, existedSoftId);
+                }
+            } 
         }
 
         //internal void InsertPcSoftData(PcMaster pcm, int softid)

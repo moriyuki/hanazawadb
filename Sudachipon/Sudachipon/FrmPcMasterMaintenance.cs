@@ -21,7 +21,7 @@ namespace Sudachipon
             InitializeComponent();
 
             dba.SelectPcMaster();
-            dba.SelectPcSoftData();
+            dba.SelectPcSoftData(dba.PcSoftDatas);
 
             this.btnDel.Enabled = false;
 
@@ -236,9 +236,13 @@ namespace Sudachipon
             pcm.Active = this.chbpPcIsActive.Checked;
             pcm.Comment = this.txbComment.Text;
 
+            // todo: transaction 処理がほしい
             // PCMaster UPDATE
-            dba.UpdatePcMaster(pcm);
-            
+            this.dba.UpdatePcMaster(pcm);
+
+            // PC Soft Data UPDATE
+            this.dba.MargePcSoftData(pcm);
+
             // 表示更新
             this.dba.SelectPcMaster();
             this.UpdatePcList();
@@ -306,9 +310,15 @@ namespace Sudachipon
                 ListBox target = (ListBox)sender;
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
                 target.Items.Add(itemSoftware);
-                // DB 更新
+                // DB 更新 -> 内部データ更新
                 DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
-                this.dba.InsertPcSoftData(pcm,itemSoftware.id);
+                // Create PcSoftDataInstance;
+                DbAccessor.PcSoftData psd = new DbAccessor.PcSoftData();
+                psd.pcId = pcm.Id;
+                psd.softId = itemSoftware.id;
+  
+                this.dba.PcSoftDatas.Add(psd);
+                // this.dba.InsertPcSoftData(pcm,itemSoftware.id);
             }
         }
 
@@ -333,7 +343,15 @@ namespace Sudachipon
                 {
                     this.lbxSoft.Items.Remove(soft);
                     DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
-                    this.dba.DeletePcSoftData(pcm, soft.id);
+                    // todo listから除外する
+                    for (int i = 0; i < dba.PcSoftDatas.Count -1; i++)
+                    {
+                        if (dba.PcSoftDatas[i].pcId == pcm.Id && dba.PcSoftDatas[i].softId == soft.id )
+                        {
+                            dba.PcSoftDatas.Remove(dba.PcSoftDatas[i]);
+                        }
+                    }
+                    // this.dba.DeletePcSoftData(pcm, soft.id);
                 }
             }
         }
