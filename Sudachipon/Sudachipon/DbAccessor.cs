@@ -277,6 +277,44 @@ namespace Sudachipon
 
         }
 
+        public void SelectUserSoftData(List<UserSoftData> strage)
+        {
+            StringBuilder selectsql = new StringBuilder();
+            selectsql.Append("select * from dt_user_soft ;");
+
+            String sql = selectsql.ToString();
+
+            try
+            {
+                using (var conn = new NpgsqlConnection(CONN_STRING))
+                {
+                    conn.Open();
+
+                    var command = new NpgsqlCommand(sql, conn);
+                    // System.Windows.Forms.MessageBox.Show("record number",String.Format("{0}", (int)command.ExecuteScalar()));
+                    var dataReader = command.ExecuteReader();
+
+                    strage.Clear();
+                    while (dataReader.Read())
+                    {
+                        UserSoftData usd = new UserSoftData();
+                        //usd.createData();
+
+                        usd.userId = int.Parse(String.Format("{0}", dataReader["usf_us_id"]));
+                        usd.softId = int.Parse(String.Format("{0}", dataReader["usf_sf_id"]));
+                        usd.comment = String.Format("{0}", dataReader["usf_comment"]);
+
+                        strage.Add(usd);
+                        // System.Windows.Forms.MessageBox.Show(String.Format("{0}", dataReader[0]));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+        }
+
         public void SelectUserSoftData(int softid)
         {
             StringBuilder selectsql = new StringBuilder();
@@ -588,6 +626,75 @@ namespace Sudachipon
                     DeletePcSoftData(pcm, existedSoftId);
                 }
             } 
+        }
+
+        public void MargeUserSoftData(UserMaster usm)
+        {
+            // 最新のPcSoftData（DbData）を取得します
+            List<UserSoftData> dbData = new List<UserSoftData>();
+            SelectUserSoftData(dbData);
+            // 内部データ（LocalData）とDbDataを比較します。
+            for (int i = 0; i < this.UserSoftDatas.Count; i++)
+            {
+                // useridによる縛り
+                if (this.UserSoftDatas[i].userId != usm.id)
+                {
+                    continue;
+                }
+
+                int existedSoftId = this.UserSoftDatas[i].softId;
+
+                for (int j = 0; j < dbData.Count; j++)
+                {
+                    // useridによる縛り
+                    if (dbData[j].userId != usm.id)
+                    {
+                        continue;
+                    }
+
+                    if (dbData[j].softId == this.UserSoftDatas[i].softId)
+                    {
+                        existedSoftId = -1;
+                        continue;
+                    }
+                }
+                // LocalDataにあるが、DBDataにない場合　－＞　Insert
+                if (existedSoftId != -1)
+                {
+                    // INSERT 
+                    InsertUserSoftData(usm, existedSoftId);
+                }
+            }
+
+            for (int i = 0; i < dbData.Count; i++)
+            {
+                // useridによる縛り
+                if (dbData[i].userId != usm.id)
+                {
+                    continue;
+                }
+                int existedSoftId = dbData[i].softId;
+                for (int j = 0; j < this.PcSoftDatas.Count; j++)
+                {
+                    // useridによる縛り
+                    if (UserSoftDatas[j].userId != usm.id)
+                    {
+                        continue;
+                    }
+                    if (dbData[i].softId == this.PcSoftDatas[j].softId)
+                    {
+                        existedSoftId = -1;
+                        break;
+                    }
+                }
+                // insert or delete
+                // DBDataにあるがLocalDataにない場合　→　Delete
+                if (existedSoftId != -1)
+                {
+                    //DELETE
+                    DeleteUserSoftData(usm, existedSoftId);
+                }
+            }
         }
 
         //internal void InsertPcSoftData(PcMaster pcm, int softid)
