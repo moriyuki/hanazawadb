@@ -204,6 +204,13 @@ namespace Sudachipon
             um.active = this.chbpUsersActive.Checked;
             um.comment = this.txbUserComment.Text;
 
+            // todo: transaction 処理追加
+            // PCMaster UPDATE
+            this.dba.UpdateUserMaster(um);
+            // User Soft Data UPDATE
+            this.dba.MargeUserSoftData(um);
+
+            // 表示更新
             this.dba.UpdateUserMaster(um);
             this.updateUserList();
             //tssl.Text =  cmn.ST_MSG_USM_更新時.Insert(4,"-" + um.name);
