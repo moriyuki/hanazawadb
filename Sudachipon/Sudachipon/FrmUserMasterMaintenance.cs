@@ -23,6 +23,10 @@ namespace Sudachipon
         {
             InitializeComponent();
 
+            // DBから値を取得
+            this.dba.SelectUserMaster();
+            this.dba.SelectUserSoftData(dba.UserSoftDatas);
+
             //コンボボックスに値を追加
             this.cmbUserType.Items.Add("利用者");
             this.cmbUserType.Items.Add("管理者");
@@ -205,6 +209,8 @@ namespace Sudachipon
             um.comment = this.txbUserComment.Text;
 
             this.dba.UpdateUserMaster(um);
+            // todo margeを読みだしてください。
+
             this.updateUserList();
             //tssl.Text =  cmn.ST_MSG_USM_更新時.Insert(4,"-" + um.name);
             tssl.Text = cmn.ST_MSG_USM_更新時;
@@ -277,6 +283,7 @@ namespace Sudachipon
                 ListBox target = (ListBox)sender;
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
                 target.Items.Add(itemSoftware);
+                // 内部データにAdd
             }
         }
 
@@ -307,6 +314,7 @@ namespace Sudachipon
                 this.lsbSoftwares.Items.Remove(soft);
                     tssl.ForeColor = Color.Black;
                     tssl.Text = cmn.ST_MSG_USM_ソフト削除時;
+                    // 内部データからRemove
                 }
 
             }
