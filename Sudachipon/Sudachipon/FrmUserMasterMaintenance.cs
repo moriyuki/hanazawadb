@@ -216,7 +216,6 @@ namespace Sudachipon
 
             // 表示更新
             this.dba.UpdateUserMaster(um);
-            // todo margeを読みだしてください。
 
             this.updateUserList();
             //tssl.Text =  cmn.ST_MSG_USM_更新時.Insert(4,"-" + um.name);
@@ -319,6 +318,14 @@ namespace Sudachipon
                 else
                 {
                 this.lsbSoftwares.Items.Remove(soft);
+                    DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
+                    for (int i = 0; i < dba.UserSoftDatas.Count - 1; i++)
+                    {
+                        if (dba.UserSoftDatas[i].userId == um.id && dba.UserSoftDatas[i].softId == soft.id)
+                        {
+                            dba.UserSoftDatas.Remove(dba.UserSoftDatas[i]);
+                        }
+                    }
                     tssl.ForeColor = Color.Black;
                     tssl.Text = cmn.ST_MSG_USM_ソフト削除時;
                     // 内部データからRemove
