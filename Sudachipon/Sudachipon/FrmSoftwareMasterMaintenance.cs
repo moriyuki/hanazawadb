@@ -22,6 +22,11 @@ namespace Sudachipon
         {
             InitializeComponent();
 
+            //
+            dba.SelectSoftwareMaster();
+            dba.SelectPcSoftData(dba.PcSoftDatas);
+            dba.SelectUserSoftData(dba.UserSoftDatas);
+
             updateSoftList();
 
             // ListBoxPcMaster更新
@@ -163,6 +168,7 @@ namespace Sudachipon
             UpdateUserMaster();
             // ListBoxPcs更新
             UpdatePcSoftData();
+            // pc-soft項目
             // ListBoxUsers更新
             UpdateUserSoftData();
 
@@ -188,7 +194,7 @@ namespace Sudachipon
             sfm.id = sfm.GetNextId();
             dba.SoftwareMasters.Add(sfm);
 
-            this.dba.UpdateSoftwareMaster(sfm);
+//            this.dba.UpdateSoftwareMaster(sfm);
 
             // ListBoxの更新
             this.updateSoftList(false);
@@ -285,6 +291,12 @@ namespace Sudachipon
             sfm.comment = this.txbSoftwareComment.Text;
 
             this.dba.UpdateSoftwareMaster(sfm);
+
+            // PC Soft Data UPDATE
+            this.dba.MargePcSoftData(sfm);
+            // User Soft Data UPDATE
+            this.dba.MargeUserSoftData(sfm);
+
 
             updateSoftList(false);
 
@@ -392,9 +404,17 @@ namespace Sudachipon
                 DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)e.Data.GetData(typeof(DbAccessor.PcMaster));
                 target.Items.Add(itemPc);
 
+                DbAccessor.SoftwareMaster soft = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                // Create PcSoftDataInstance;
+                DbAccessor.PcSoftData psd = new DbAccessor.PcSoftData();
+                psd.pcId = itemPc.Id;
+                psd.softId = soft.id;
+
+                this.dba.PcSoftDatas.Add(psd);
+
                 //DB insert
-                DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
-                this.dba.InsertPcSoftData(itemPc, sfm.id);
+                //DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                //this.dba.InsertPcSoftData(itemPc, sfm.id);
 
                 tssl.Text = cmn.ST_MSG_SFM_PCMasterからのドロップ時_正常;
                 tssl.ForeColor = Color.Black;
@@ -446,9 +466,18 @@ namespace Sudachipon
                 DbAccessor.UserMaster itemUser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
                 target.Items.Add(itemUser);
 
+                DbAccessor.SoftwareMaster soft = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                // Create UserSoftDataInstance;
+                DbAccessor.UserSoftData usd = new DbAccessor.UserSoftData();
+                usd.userId = itemUser.id;
+                usd.softId = soft.id;
+
+                this.dba.UserSoftDatas.Add(usd);
+
+
                 //DB insert
-                DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
-                this.dba.InsertUserSoftData(itemUser, sfm.id);
+                //DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                //this.dba.InsertUserSoftData(itemUser, sfm.id);
 
                 tssl.Text = cmn.ST_MSG_SFM_UserMasterからのドロップ時_正常;
                 tssl.ForeColor = Color.Black;
@@ -475,9 +504,21 @@ namespace Sudachipon
                 {
                     // 削除
                     lsbPcs.Items.Remove(pc);
+
+                    DbAccessor.SoftwareMaster soft = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                    // todo listから除外する
+                    for (int i = 0; i < dba.PcSoftDatas.Count - 1; i++)
+                    {
+                        if (dba.PcSoftDatas[i].pcId == pc.Id && dba.PcSoftDatas[i].softId == soft.id)
+                        {
+                            dba.PcSoftDatas.Remove(dba.PcSoftDatas[i]);
+                        }
+                    }
+
+
                     //DB delete
-                    DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
-                    this.dba.DeletePcSoftData(pc, sfm.id);
+                    //DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                    //this.dba.DeletePcSoftData(pc, sfm.id);
 
                     tssl.Text = cmn.ST_MSG_SFM_PCsからの削除時_正常;
                     tssl.ForeColor = Color.Black;
@@ -506,9 +547,21 @@ namespace Sudachipon
                 {
                     // 削除
                     lsbUsers.Items.Remove(us);
+
+                    DbAccessor.SoftwareMaster soft = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                    // todo listから除外する
+                    for (int i = 0; i < dba.UserSoftDatas.Count - 1; i++)
+                    {
+                        if (dba.UserSoftDatas[i].userId == us.id && dba.UserSoftDatas[i].softId == soft.id)
+                        {
+                            dba.UserSoftDatas.Remove(dba.UserSoftDatas[i]);
+                        }
+                    }
+
+
                     //DB delete
-                    DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
-                    this.dba.DeleteUserSoftData(us, sfm.id);
+                    //DbAccessor.SoftwareMaster sfm = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
+                    //this.dba.DeleteUserSoftData(us, sfm.id);
 
                     tssl.Text = cmn.ST_MSG_SFM_Usersからの削除時_正常;
                     tssl.ForeColor = Color.Black;

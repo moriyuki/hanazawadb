@@ -681,7 +681,7 @@ namespace Sudachipon
                     {
                         continue;
                     }
-                    if (dbData[i].softId == this.PcSoftDatas[j].softId)
+                    if (dbData[i].softId == this.UserSoftDatas[j].softId)
                     {
                         existedSoftId = -1;
                         break;
@@ -697,6 +697,145 @@ namespace Sudachipon
             }
         }
 
+        public void MargePcSoftData(SoftwareMaster swm)
+        {
+            // 最新のPcSoftData（DbData）を取得します
+            List<PcSoftData> dbData = new List<PcSoftData>();
+            SelectPcSoftData(dbData);
+            // 内部データ（LocalData）とDbDataを比較します。
+            for (int i = 0; i < this.PcSoftDatas.Count; i++)
+            {
+                // softidによる縛り
+                if (this.PcSoftDatas[i].softId != swm.id)
+                {
+                    continue;
+                }
+
+                int existedPcId = this.PcSoftDatas[i].pcId;
+
+                for (int j = 0; j < dbData.Count; j++)
+                {
+                    // softidによる縛り
+                    if (dbData[j].softId != swm.id)
+                    {
+                        continue;
+                    }
+
+                    if (dbData[j].pcId == this.PcSoftDatas[i].pcId)
+                    {
+                        existedPcId = -1;
+                        continue;
+                    }
+                }
+                // LocalDataにあるが、DBDataにない場合　－＞　Insert
+                if (existedPcId != -1)
+                {
+                    // INSERT 
+                    InsertPcSoftData(swm, existedPcId);
+                }
+            }
+
+            for (int i = 0; i < dbData.Count; i++)
+            {
+                // softidによる縛り
+                if (dbData[i].softId != swm.id)
+                {
+                    continue;
+                }
+                int existedPcId = dbData[i].pcId;
+                for (int j = 0; j < this.PcSoftDatas.Count; j++)
+                {
+                    // softidによる縛り
+                    if (PcSoftDatas[j].softId != swm.id)
+                    {
+                        continue;
+                    }
+                    if (dbData[i].pcId == this.PcSoftDatas[j].pcId)
+                    {
+                        existedPcId = -1;
+                        break;
+                    }
+                }
+                // insert or delete
+                // DBDataにあるがLocalDataにない場合　→　Delete
+                if (existedPcId != -1)
+                {
+                    //DELETE
+                    DeletePcSoftData(swm, existedPcId);
+                }
+            }
+        }
+
+        public void MargeUserSoftData(SoftwareMaster swm)
+        {
+            // 最新のPcSoftData（DbData）を取得します
+            List<UserSoftData> dbData = new List<UserSoftData>();
+            SelectUserSoftData(dbData);
+            // 内部データ（LocalData）とDbDataを比較します。
+            for (int i = 0; i < this.UserSoftDatas.Count; i++)
+            {
+                // softidによる縛り
+                if (this.UserSoftDatas[i].softId != swm.id)
+                {
+                    continue;
+                }
+
+                int existedUserId = this.UserSoftDatas[i].userId;
+
+                for (int j = 0; j < dbData.Count; j++)
+                {
+                    // softidによる縛り
+                    if (dbData[j].softId != swm.id)
+                    {
+                        continue;
+                    }
+
+                    if (dbData[j].userId == this.UserSoftDatas[i].userId)
+                    {
+                        existedUserId = -1;
+                        continue;
+                    }
+                }
+                // LocalDataにあるが、DBDataにない場合　－＞　Insert
+                if (existedUserId != -1)
+                {
+                    // INSERT 
+                    InsertUserSoftData(swm, existedUserId);
+                }
+            }
+
+            for (int i = 0; i < dbData.Count; i++)
+            {
+                // softidによる縛り
+                if (dbData[i].softId != swm.id)
+                {
+                    continue;
+                }
+                int existedUserId = dbData[i].userId;
+                for (int j = 0; j < this.PcSoftDatas.Count; j++)
+                {
+                    // softidによる縛り
+                    if (UserSoftDatas[j].softId != swm.id)
+                    {
+                        continue;
+                    }
+                    if (dbData[i].userId == this.UserSoftDatas[j].userId)
+                    {
+                        existedUserId = -1;
+                        break;
+                    }
+                }
+                // insert or delete
+                // DBDataにあるがLocalDataにない場合　→　Delete
+                if (existedUserId != -1)
+                {
+                    //DELETE
+                    DeleteUserSoftData(swm, existedUserId);
+                }
+            }
+
+        }
+
         //internal void InsertPcSoftData(PcMaster pcm, int softid)
         public void InsertPcSoftData(PcMaster pcm, int softid)
         {
@@ -706,6 +845,31 @@ namespace Sudachipon
             sbinsertsql.Append("insert into dt_pc_soft (ps_pc_id, ps_soft_id) values(");
             sbinsertsql.Append(pcm.Id + ",");
             sbinsertsql.Append(softid + ");");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
+
+        }
+
+        public void InsertPcSoftData(SoftwareMaster swm, int pcid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into dt_pc_soft (ps_pc_id, ps_soft_id) values(");
+            sbinsertsql.Append(pcid + ",");
+            sbinsertsql.Append(swm.id + ");");
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
@@ -747,7 +911,30 @@ namespace Sudachipon
             }
         }
 
-        
+        public void DeletePcSoftData(SoftwareMaster swm, int pcid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbdeletesql = new StringBuilder();
+            sbdeletesql.Append("delete from dt_pc_soft where ");
+            sbdeletesql.Append("ps_pc_id =" + pcid + " ");
+            sbdeletesql.Append("and ps_soft_id =" + swm.id + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var deleteCommand = new NpgsqlCommand(sbdeletesql.ToString(), conn);
+                var result = deleteCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Pc-Soft DBは更新されませんでした");
+                }
+            }
+        }
+
         public void InsertUserSoftData(UserMaster um, int softid)
         {
             // throw new NotImplementedException();
@@ -772,7 +959,32 @@ namespace Sudachipon
             }
 
         }
-        
+
+        public void InsertUserSoftData(SoftwareMaster swm, int userid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbinsertsql = new StringBuilder();
+            sbinsertsql.Append("insert into dt_user_soft (usf_us_id, usf_sf_id) values(");
+            sbinsertsql.Append(userid + ",");
+            sbinsertsql.Append(swm.id + ");");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var insertCommand = new NpgsqlCommand(sbinsertsql.ToString(), conn);
+                var result = insertCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("User-Soft DBは更新されませんでした");
+                }
+            }
+
+        }
+
         public void DeleteUserSoftData(UserMaster um, int softid)
         {
             // throw new NotImplementedException();
@@ -781,6 +993,30 @@ namespace Sudachipon
             sbdeletesql.Append("delete from dt_user_soft where ");
             sbdeletesql.Append("usf_us_id =" + um.id + " ");
             sbdeletesql.Append("and usf_sf_id =" + softid + ";");
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var deleteCommand = new NpgsqlCommand(sbdeletesql.ToString(), conn);
+                var result = deleteCommand.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("User-Soft DBは更新されませんでした");
+                }
+            }
+        }
+
+        public void DeleteUserSoftData(SoftwareMaster swm, int userid)
+        {
+            // throw new NotImplementedException();
+
+            StringBuilder sbdeletesql = new StringBuilder();
+            sbdeletesql.Append("delete from dt_user_soft where ");
+            sbdeletesql.Append("usf_us_id =" + userid + " ");
+            sbdeletesql.Append("and usf_sf_id =" + swm.id + ";");
 
             using (var conn = new NpgsqlConnection(CONN_STRING))
             {
