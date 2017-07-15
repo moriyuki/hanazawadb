@@ -507,7 +507,7 @@ namespace Sudachipon
 
                     DbAccessor.SoftwareMaster soft = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
                     // todo listから除外する
-                    for (int i = 0; i < dba.PcSoftDatas.Count - 1; i++)
+                    for (int i = 0; i < dba.PcSoftDatas.Count; i++)
                     {
                         if (dba.PcSoftDatas[i].pcId == pc.Id && dba.PcSoftDatas[i].softId == soft.id)
                         {
@@ -550,7 +550,7 @@ namespace Sudachipon
 
                     DbAccessor.SoftwareMaster soft = this.lbxSoftwares.SelectedItem as DbAccessor.SoftwareMaster;
                     // todo listから除外する
-                    for (int i = 0; i < dba.UserSoftDatas.Count - 1; i++)
+                    for (int i = 0; i < dba.UserSoftDatas.Count; i++)
                     {
                         if (dba.UserSoftDatas[i].userId == us.id && dba.UserSoftDatas[i].softId == soft.id)
                         {
