@@ -133,6 +133,26 @@ namespace Sudachipon
                 //this.cmbUserType.Text = selectedUser.type.ToString();
                 this.chbpUsersActive.Checked = selectedUser.active;
                 this.txbUserComment.Text = selectedUser.comment;
+
+                // user-soft項目
+                this.lsbSoftwares.Items.Clear();
+                foreach (DbAccessor.UserSoftData data in dba.UserSoftDatas)
+                {
+                    if (data.userId == selectedUser.id)
+                    {
+                        foreach (DbAccessor.SoftwareMaster soft in dba.SoftwareMasters)
+                        {
+                            if (data.softId == soft.id)
+                            {
+                                this.lsbSoftwares.Items.Add(soft);
+                            }
+                        }
+                    }
+                }
+                if (selectedUser.active)
+                {
+                    this.btnDel.Enabled = true;
+                }
             }
         }
 
@@ -288,14 +308,55 @@ namespace Sudachipon
             {
                 ListBox target = (ListBox)sender;
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
-                target.Items.Add(itemSoftware);
+                
                 // 内部データにAdd
                 // DB 更新 -> 内部データ更新
                 DbAccessor.UserMaster um = this.lbxUsers.SelectedItem as DbAccessor.UserMaster;
                 // Create UserSoftDataInstance;
                 DbAccessor.UserSoftData usd = new DbAccessor.UserSoftData();
                 usd.userId = um.id;
-                usd.softId = itemSoftware.id;
+                usd.softId = itemSoftware.id;                // Softwareのライセンス上限を超えていないかチェック。超えている場合はメッセージを表示し終了
+
+                // ライセンス上限値確認
+                int licenseCount = 0;
+                for (int i = 0; i < this.dba.SoftwareMasters.Count; i++)
+                {
+                    if (this.dba.SoftwareMasters[i].id == itemSoftware.id)
+                    {
+                        licenseCount = this.dba.SoftwareMasters[i].userLicense;
+                        break;
+                    }
+                }
+
+                // 現在のライセンス数確認
+                int licensedUserCount = 0;
+                for (int i = 0; i < this.dba.UserSoftDatas.Count; i++)
+                {
+                    if (this.dba.UserSoftDatas[i].softId == itemSoftware.id)
+                    {
+                        licensedUserCount += 1;
+                    }
+                }
+
+                // ライセンス数チェック
+                if (licenseCount < 0)
+                {
+                    // no problem
+                }
+                else if (licenseCount <= licensedUserCount)
+                {
+                    // show error message
+                    MessageBox.Show("ライセンス数の上限値を超えるため、追加できません", "注意", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    // do nothing
+                }
+
+
+                // Listの更新
+                target.Items.Add(itemSoftware);
 
                 this.dba.UserSoftDatas.Add(usd);
 
