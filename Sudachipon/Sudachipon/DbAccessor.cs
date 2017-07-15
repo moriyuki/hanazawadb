@@ -812,7 +812,7 @@ namespace Sudachipon
                     continue;
                 }
                 int existedUserId = dbData[i].userId;
-                for (int j = 0; j < this.PcSoftDatas.Count; j++)
+                for (int j = 0; j < this.UserSoftDatas.Count; j++)
                 {
                     // softidによる縛り
                     if (UserSoftDatas[j].softId != swm.id)
