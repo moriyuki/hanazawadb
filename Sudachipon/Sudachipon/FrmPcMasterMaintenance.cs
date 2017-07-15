@@ -309,16 +309,56 @@ namespace Sudachipon
             {
                 ListBox target = (ListBox)sender;
                 DbAccessor.SoftwareMaster itemSoftware = (DbAccessor.SoftwareMaster)e.Data.GetData(typeof(DbAccessor.SoftwareMaster));
-                target.Items.Add(itemSoftware);
                 // DB 更新 -> 内部データ更新
                 DbAccessor.PcMaster pcm = this.lbxPcs.SelectedItem as DbAccessor.PcMaster;
                 // Create PcSoftDataInstance;
                 DbAccessor.PcSoftData psd = new DbAccessor.PcSoftData();
                 psd.pcId = pcm.Id;
                 psd.softId = itemSoftware.id;
-  
+
+                // Softwareのライセンス上限を超えていないかチェック。超えている場合はメッセージを表示し終了
+                // ライセンス上限値確認
+                int licenseCount = 0;
+                for (int i = 0; i < this.dba.SoftwareMasters.Count; i++)
+                {
+                    if (this.dba.SoftwareMasters[i].id == itemSoftware.id)
+                    {
+                        licenseCount = this.dba.SoftwareMasters[i].pcLicense;
+                        break;
+                    }
+                }
+
+                // 現在のライセンス数確認
+                int licensedPcCount = 0;
+                for (int i = 0; i < this.dba.PcSoftDatas.Count; i++)
+                {
+                    if (this.dba.PcSoftDatas[i].softId == itemSoftware.id)
+                    {
+                        licensedPcCount += 1;
+                    }
+                }
+
+                // ライセンス数チェック
+                if (licenseCount < 0)
+                {
+                    // no problem
+                }
+                else if (licenseCount <= licensedPcCount)
+                {
+                    // show error message
+                    MessageBox.Show("ライセンス数の上限値を超えるため、追加できません","注意",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    // do nothing
+                }
+
+                // 画面上のリストボックスに追加
+                target.Items.Add(itemSoftware);
+
+                // 内部データに追加
                 this.dba.PcSoftDatas.Add(psd);
-                // this.dba.InsertPcSoftData(pcm,itemSoftware.id);
             }
         }
 
