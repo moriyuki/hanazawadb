@@ -291,6 +291,8 @@ namespace Sudachipon
             {
                 DataGridView target = (DataGridView)sender;
                 DbAccessor.UserMaster itemuser = (DbAccessor.UserMaster)e.Data.GetData(typeof(DbAccessor.UserMaster));
+
+
                 // 空欄チェック
                 // 
 
@@ -303,6 +305,7 @@ namespace Sudachipon
                 //{
                 //    MessageBox.Show("値を上書きします。よろしいですか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 //}
+
 
                 e.Effect = DragDropEffects.Move;
             }
@@ -323,6 +326,17 @@ namespace Sudachipon
 
                 Point clientPoint = this.dgvPcDateManager.PointToClient(new Point(e.X, e.Y));
                 DataGridView.HitTestInfo hit = this.dgvPcDateManager.HitTest(clientPoint.X, clientPoint.Y);
+
+//                
+//              check
+//
+                if (hit.RowIndex <= 0 || hit.RowIndex > target.RowCount) return;
+                if (hit.ColumnIndex <= 1 || hit.ColumnIndex > target.ColumnCount) return;
+
+                DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
+                DbAccessor predba = DbAccessor.GetInstance();
+                if (!predba.CheckSelectPcSoftDataAndUserSoftData(itemPc, itemUser) || !predba.CheckPcSoftData(itemPc) || !predba.CheckUserSoftData(itemUser) ) return; 
+
 
                 if (this.chkRepeatRegst.Checked == false)
                 {

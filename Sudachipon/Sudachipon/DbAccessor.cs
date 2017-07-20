@@ -359,6 +359,71 @@ namespace Sudachipon
 
         }
 
+        public 
+        bool CheckPcSoftData(PcMaster pc)
+        {
+            bool ret = true;
+
+            for (int i = 0; i < this.PcSoftDatas.Count; i++)
+            {
+                if (this.PcSoftDatas[i].pcId == pc.Id)
+                {
+                    ret = false;
+                }
+            }
+                return ret;
+        }
+
+        public
+        bool CheckUserSoftData(UserMaster user)
+        {
+            bool ret = true;
+
+            for (int i = 0; i < this.UserSoftDatas.Count; i++)
+            {
+                if (this.UserSoftDatas[i].userId == user.id)
+                {
+                    ret = false;
+                }
+            }
+
+            return ret;
+        }
+
+        public 
+        bool CheckSelectPcSoftDataAndUserSoftData(PcMaster pc, UserMaster user)
+        {
+            bool ret = false;
+
+            String IdExistSql = "select count(*) as count from dt_pc_soft, dt_user_soft where dt_pc_soft.ps_pc_id = " + pc.Id + 
+                " and dt_user_soft.usf_us_id = " + user.id +
+                " and dt_pc_soft.ps_soft_id = dt_user_soft.usf_sf_id ;";
+
+            using (var conn = new NpgsqlConnection(CONN_STRING))
+            {
+                String sql = String.Empty;
+                conn.Open();
+
+                var existCheckCommand = new NpgsqlCommand(IdExistSql, conn);
+                var existCheckResultReader = existCheckCommand.ExecuteReader();
+
+                while (existCheckResultReader.Read())
+                {
+
+                    if (int.Parse(String.Format("{0}", existCheckResultReader["count"])) == 0)
+                    {
+                        ret = false;
+                    }
+                    else
+                    {
+                        ret = true;
+                    }
+                }
+                conn.Close();
+            }
+
+                return ret;
+        }
 
         public
         void UpdatePcMaster(PcMaster pcm)
