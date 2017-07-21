@@ -28,6 +28,7 @@ namespace Sudachipon
         public const String ST_MSG_FRM_接続失敗 = "DBへの接続に失敗しました。";
         public const String ST_MSG_FRM_登録成功 = "指定日・指定PCにユーザーを登録しました。";
         public const String ST_MSG_FRM_登録失敗 = "ユーザーの登録に失敗しました。";
+        public const String ST_MSG_FRM_登録失敗ソフトウェア未インストール = "ソフトウェアがインストールされていないので登録に失敗しました。";
         public const String ST_MSG_FRM_削除成功 = "指定日・指定PCからユーザーを削除しました。";
         public const String ST_MSG_FRM_削除失敗 = "ユーザーの削除に失敗しました。";
 
