@@ -363,30 +363,43 @@ namespace Sudachipon
         bool CheckPcSoftData(PcMaster pc)
         {
             bool ret = true;
-
+            this.SelectPcSoftData(this.PcSoftDatas);
             for (int i = 0; i < this.PcSoftDatas.Count; i++)
             {
                 if (this.PcSoftDatas[i].pcId == pc.Id)
                 {
                     ret = false;
+                    break;
                 }
             }
                 return ret;
         }
 
         public
-        bool CheckUserSoftData(UserMaster user)
+        bool CheckUserSoftData(PcMaster pc, UserMaster user)
         {
-            bool ret = true;
+            bool ret = false;
 
-            for (int i = 0; i < this.UserSoftDatas.Count; i++)
+            // PCに紐づくソフトを探す。
+            for (int i = 0; i < this.PcSoftDatas.Count; i++)
             {
-                if (this.UserSoftDatas[i].userId == user.id)
+                int userNums = 0;
+                this.SelectUserSoftData(this.UserSoftDatas);
+                for (int j = 0; j < this.UserSoftDatas.Count; j++)
                 {
-                    ret = false;
+                    //todo:ユーザリストが空のソフトがあれば　falseを返す。それ以外はtrueを返す。
+                    if(this.UserSoftDatas[j].softId == this.PcSoftDatas[i].softId)
+                    {
+                        userNums += 1;
+                    }
+                }
+                //ソフトに紐づくユーザが空なら登録を許可する（True）
+                if (userNums == 0)
+                {
+                    ret = true;
+                    break;
                 }
             }
-
             return ret;
         }
 
@@ -410,13 +423,19 @@ namespace Sudachipon
                 while (existCheckResultReader.Read())
                 {
 
-                    if (int.Parse(String.Format("{0}", existCheckResultReader["count"])) == 0)
+                    int tmp = 0;
+                    if (int.TryParse(String.Format("{0}", existCheckResultReader["count"]), out  tmp)
+                        && tmp == 0)
                     {
                         ret = false;
                     }
-                    else
+                    else if (tmp != 0)
                     {
                         ret = true;
+                    }
+                    else
+                    {
+                        ret = false;
                     }
                 }
                 conn.Close();

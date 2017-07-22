@@ -335,11 +335,12 @@ namespace Sudachipon
 
                 DbAccessor.PcMaster itemPc = (DbAccessor.PcMaster)this.dgvPcDateManager.Rows[hit.RowIndex].Cells[0].Value;
                 DbAccessor predba = DbAccessor.GetInstance();
-                if (!predba.CheckSelectPcSoftDataAndUserSoftData(itemPc, itemUser) || !predba.CheckPcSoftData(itemPc) || !predba.CheckUserSoftData(itemUser))
+//                if (!predba.CheckSelectPcSoftDataAndUserSoftData(itemPc, itemUser) || !predba.CheckPcSoftData(itemPc) || !predba.CheckUserSoftData(itemUser))
+                 if (!(predba.CheckSelectPcSoftDataAndUserSoftData(itemPc, itemUser) || predba.CheckPcSoftData(itemPc) || predba.CheckUserSoftData(itemPc,itemUser)))
                 {
-                    
-                    // statusbarに表示
-                    tssl.Text = cmn.ST_MSG_FRM_登録失敗ソフトウェア未インストール;
+
+                        // statusbarに表示
+                        tssl.Text = cmn.ST_MSG_FRM_登録失敗ソフトウェア未インストール;
                     tssl.ForeColor = Color.Red;
 
                     return;
